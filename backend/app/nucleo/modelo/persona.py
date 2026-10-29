@@ -1,12 +1,13 @@
 from decimal import Decimal
+from app.nucleo.modelo.enums import Especialidad, RolPersona
 
 class Persona:
     def __init__(
             self,
             nombre: str,
             apellidos: str,
-            rol: str,
-            especialidad: str | None = None,
+            rol: RolPersona,
+            especialidad: Especialidad | None = None,
             email: str | None = None,
             telefono: str | None = None,
             coste_hora: Decimal | None = None,

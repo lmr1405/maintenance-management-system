@@ -1,4 +1,5 @@
 from datetime import date
+from app.nucleo.modelo.enums import Criticidad, EstadoMaquina
 
 class Maquina:
     def __init__(
@@ -6,13 +7,13 @@ class Maquina:
             codigo: str,
             nombre: str,
             tipo: str,
-            estado: str,
+            estado: EstadoMaquina,
             fabricante: str | None = None,
             modelo: str | None = None,
             numero_serie: str | None = None,
             ubicacion: str | None = None,
             fecha_puesta_marcha: date | None = None,
-            criticidad: str | None = None,           
+            criticidad: Criticidad | None = None,           
             id_maquina: int | None = None
 
     ):
