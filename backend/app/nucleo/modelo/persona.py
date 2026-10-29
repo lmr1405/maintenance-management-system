@@ -19,6 +19,7 @@ class Persona:
         self.apellidos= apellidos
         self.rol = rol
         self.especialidad = especialidad
+        self.email = email
         self.telefono = telefono
         self.coste_hora = coste_hora
         self.activo = activo
