@@ -1,0 +1,42 @@
+
+name: Backend - Tests
+
+# Ejecutar las pruebas al subir cambios o crear un Pull Request
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Permisos mínimos necesarios
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+      # Descargar el código del repositorio
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      # Preparar Python
+      - name: Setup Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+
+      # Instalar las dependencias
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+
+      # Ejecutar las pruebas unitarias
+      - name: Run Pytest
+        run: python -m pytest -v
