@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 # Se carga las variables del archivo .env
 load_dotenv()
@@ -15,3 +16,5 @@ if not DATABASE_URL:
 # crea el motor de conexion a PostgreSQL
 engine = create_engine(DATABASE_URL)
 
+# Crea una fábrica de sesiones para trabajar con PostgreSQL
+SessionLocal = sessionmaker(bind=engine, autoflush=False, expire_on_commit=False)
