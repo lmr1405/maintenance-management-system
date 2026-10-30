@@ -19,7 +19,7 @@ class Averia:
             id_validada_por: int | None = None,
             causa_raiz: str | None = None,
             solucion_aplicada: str | None = None,
-            repuesto_sustituido: str | None = None,
+            repuestos_sustituidos: str | None = None,
             tipo_solucion: TipoSolucion | None = None,
             recomendacion_preventiva: str | None = None,
             fecha_resolucion: datetime | None = None,
@@ -46,7 +46,7 @@ class Averia:
         # Resolución de la avería
         self.causa_raiz = causa_raiz
         self.solucion_aplicada = solucion_aplicada
-        self.repuesto_sustituido = repuesto_sustituido
+        self.repuestos_sustituidos = repuestos_sustituidos
         self.tipo_solucion = tipo_solucion
         self.recomendacion_preventiva = recomendacion_preventiva
         self.fecha_resolucion = fecha_resolucion
