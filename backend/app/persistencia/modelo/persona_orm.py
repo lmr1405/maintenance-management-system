@@ -8,7 +8,7 @@ from app.nucleo.modelo.enums import RolPersona, Especialidad
 
 class PersonaORM(Base):
     """Representa la tabla de personas en PostgreSQL"""
-    ___tablename___ = "personas"
+    __tablename__ = "personas"
 
      # Identificación
     id_persona: Mapped[int] = mapped_column(primary_key=True)
