@@ -29,9 +29,9 @@ class AveriaORM(Base):
     titulo: Mapped[str] = mapped_column(String(150), nullable=False)
     sintoma: Mapped[str] = mapped_column(Text, nullable=False)
     tipo_fallo: Mapped[TipoFallo] = mapped_column(SQLEnum(TipoFallo, name="tipo_fallo"), nullable=False)
-    prioridad: Mapped[Prioridad] = mapped_column(SQLEnum(Prioridad, name="prioridad-averia"), nullable=False)
+    prioridad: Mapped[Prioridad] = mapped_column(SQLEnum(Prioridad, name="prioridad_averia"), nullable=False)
     maquina_parada: Mapped[bool] = mapped_column(Boolean, nullable=False)
-    estado: Mapped[EstadoAveria] = mapped_column(SQLEnum(EstadoAveria, name="estado-averia"), nullable=False)
+    estado: Mapped[EstadoAveria] = mapped_column(SQLEnum(EstadoAveria, name="estado_averia"), nullable=False)
 
     # Datos de resolucion
     causa_raiz: Mapped[str | None] = mapped_column(Text)
