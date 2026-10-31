@@ -290,16 +290,14 @@ function Averias() {
                                             </span>
                                         </td>
 
+                                        {/* Acceso a la gestión de la avería */}
                                         <td>
-                                            {averia.estado === "Abierta"
-                                                ? "Pendiente de asignación"
-                                                : averia.estado === "Asignada"
-                                                ? "Pendiente de inicio"
-                                                : averia.estado === "En curso"
-                                                ? "Pendiente de resolución"
-                                                : averia.estado === "Resuelta"
-                                                ? "Pendiente de cierre"
-                                                : "Finalizada"}
+                                            <Link
+                                                to={`/averias/${averia.id_averia}`}
+                                                className="boton-gestionar-averia"
+                                            >
+                                                Gestionar
+                                            </Link>
                                         </td>
 
                                     </tr>
