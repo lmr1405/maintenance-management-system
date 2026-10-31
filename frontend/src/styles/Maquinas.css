@@ -1,0 +1,81 @@
+/* Contenedor principal de máquinas */
+.pagina-maquinas {
+    width: 100%;
+    padding: 25px;
+    box-sizing: border-box;
+}
+
+/* Título de la página */
+.pagina-maquinas h2 {
+    font-size: 24px;
+    color: #245b3b;
+    margin: 0 0 20px;
+}
+
+/* Información de máquinas registradas */
+.pagina-maquinas p {
+    font-size: 14px;
+    color: #475569;
+    margin-bottom: 20px;
+}
+
+/* Tabla de máquinas */
+.tabla-maquinas {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border: 1px solid #dce8df;
+    font-size: 14px;
+}
+
+/* Encabezados */
+.tabla-maquinas thead {
+    background-color: #334155;
+    color: #ffffff;
+}
+
+.tabla-maquinas th {
+    padding: 14px 16px;
+    text-align: left;
+    font-weight: 600;
+}
+
+/* Celdas */
+.tabla-maquinas td {
+    padding: 13px 16px;
+    border-bottom: 1px solid #e5e7eb;
+    color: #334155;
+}
+
+/* Filas alternadas */
+.tabla-maquinas tbody tr:nth-child(even) {
+    background-color: #f5f9f6;
+}
+
+/* Efecto al pasar el ratón */
+.tabla-maquinas tbody tr:hover {
+    background-color: #e8f3eb;
+}
+
+/* Eliminar borde inferior de la última fila */
+.tabla-maquinas tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Adaptación a pantallas pequeñas */
+@media (max-width: 768px) {
+    .pagina-maquinas {
+        padding: 15px;
+        overflow-x: auto;
+    }
+
+    .tabla-maquinas {
+        min-width: 700px;
+    }
+
+    .tabla-maquinas th,
+    .tabla-maquinas td {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+}

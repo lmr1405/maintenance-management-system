@@ -1,3 +1,4 @@
+import "../styles/Maquinas.css"
 import { useEffect, useState } from "react";
 import { obtenerMaquinas } from "../api/maquinas";
 import type { MaquinaRespuesta } from "../types/maquina";
@@ -7,40 +8,69 @@ function Maquinas() {
     // Almacena las máquinas recibidas de FastAPI
     const [maquinas, setMaquinas] = useState<MaquinaRespuesta[]>([]);
 
-    // Almacena posibles errores de conexión
+    // Controla los errores y el estado de carga
     const [error, setError] = useState("");
+    const [cargando, setCargando] = useState(true);
 
     useEffect(() => {
 
-        /// Consultar las máquinas mediante la capa API
+        // Consultar las máquinas utilizando la capa API
         obtenerMaquinas()
             .then((datos) => {
                 setMaquinas(datos);
             })
             .catch((error) => {
                 setError(error.message);
+            })
+            .finally(() => {
+                setCargando(false);
             });
 
     }, []);
 
     return (
-        <div>
+        <div className="pagina-maquinas">
+
             <h2>Gestión de Máquinas</h2>
 
-            {error && <p>{error}</p>}
-
-            <p>Máquinas registradas: {maquinas.length}</p>
-
-            {maquinas.length === 0 ? (
-                <p>No hay máquinas registradas.</p>
+            {cargando ? (
+                <p>Cargando máquinas...</p>
+            ) : error ? (
+                <p>{error}</p>
             ) : (
-                <ul>
-                    {maquinas.map((maquina) => (
-                        <li key={maquina.id_maquina}>
-                            {maquina.codigo} - {maquina.nombre}
-                        </li>
-                    ))}
-                </ul>
+                <>
+                    <p>Máquinas registradas: {maquinas.length}</p>
+
+                    {maquinas.length === 0 ? (
+                        <p>No hay máquinas registradas.</p>
+                    ) : (
+                        <table className="tabla-maquinas">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Nombre</th>
+                                    <th>Tipo</th>
+                                    <th>Ubicación</th>
+                                    <th>Criticidad</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {maquinas.map((maquina) => (
+                                    <tr key={maquina.id_maquina}>
+                                        <td>{maquina.codigo}</td>
+                                        <td>{maquina.nombre}</td>
+                                        <td>{maquina.tipo}</td>
+                                        <td>{maquina.ubicacion ?? "-"}</td>
+                                        <td>{maquina.criticidad ?? "-"}</td>
+                                        <td>{maquina.estado}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    )}
+                </>
             )}
         </div>
     );
