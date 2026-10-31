@@ -1,0 +1,205 @@
+/* Contenedor principal de personas */
+.pagina-personas {
+    width: 100%;
+    padding: 25px;
+    box-sizing: border-box;
+}
+
+/* Título de la página */
+.pagina-personas h2 {
+    font-size: 24px;
+    color: #245b3b;
+    margin: 0 0 20px;
+}
+
+/* Contenedor de filtros */
+.personas-filtros {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+/* Cada campo de filtrado */
+.personas-campo {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Etiquetas de los filtros */
+.personas-campo label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #334155;
+}
+
+/* Campos de búsqueda y listas */
+.personas-campo input,
+.personas-campo select {
+    width: 100%;
+    padding: 12px;
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    font-size: 14px;
+    color: #334155;
+    box-sizing: border-box;
+}
+
+/* Resaltar el filtro seleccionado */
+.personas-campo input:focus,
+.personas-campo select:focus {
+    outline: none;
+    border-color: #367a50;
+}
+
+/* Tabla de personas */
+.tabla-personas {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border: 1px solid #dce8df;
+    font-size: 14px;
+}
+
+/* Encabezado de la tabla */
+.tabla-personas thead {
+    background-color: #334155;
+    color: #ffffff;
+}
+
+.tabla-personas th {
+    padding: 14px 16px;
+    text-align: left;
+    font-weight: 600;
+}
+
+/* Celdas */
+.tabla-personas td {
+    padding: 13px 16px;
+    border-bottom: 1px solid #e5e7eb;
+    color: #334155;
+}
+
+/* Filas alternadas */
+.tabla-personas tbody tr:nth-child(even) {
+    background-color: #f5f9f6;
+}
+
+/* Efecto al pasar el ratón */
+.tabla-personas tbody tr:hover {
+    background-color: #e8f3eb;
+}
+
+/* Eliminar borde inferior de la última fila */
+.tabla-personas tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Contenedor inferior: contador y acciones */
+.personas-pie {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-top: 25px;
+}
+
+/* Total de personas registradas */
+.personas-total {
+    margin: 0;
+    font-size: 14px;
+    color: #475569;
+}
+
+/* Contenedor del botón */
+.personas-acciones {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Botón para crear persona */
+.boton-crear-persona {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #367a50;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.boton-crear-persona:hover {
+    background-color: #285e3d;
+    color: #ffffff;
+}
+
+/* Mensajes de error */
+.personas-error {
+    color: #c62828;
+    font-size: 14px;
+}
+
+/* Botón para restablecer los filtros */
+.personas-limpiar-filtros button {
+    padding: 11px 20px;
+    background-color: #367a50;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Botón deshabilitado cuando no hay filtros */
+.personas-limpiar-filtros button:disabled {
+    background-color: #cbd5e1;
+    color: #64748b;
+    cursor: not-allowed;
+}
+
+/* Efecto al pasar el ratón */
+.personas-limpiar-filtros button:not(:disabled):hover {
+    background-color: #285e3d;
+}
+
+/* Adaptación a pantallas pequeñas */
+@media (max-width: 768px) {
+    .pagina-personas {
+        padding: 15px;
+    }
+
+    .personas-filtros {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+    .personas-campo {
+        flex: none;
+        width: 100%;
+    }
+
+    .tabla-personas {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .tabla-personas th,
+    .tabla-personas td {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    .personas-pie {
+        flex-wrap: wrap;
+    }
+}

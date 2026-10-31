@@ -1,0 +1,147 @@
+/* Contenedor principal */
+.pagina-crear-persona {
+    width: 100%;
+    padding: 25px;
+    box-sizing: border-box;
+}
+
+/* Título de la página */
+.pagina-crear-persona h2 {
+    margin: 0 0 25px;
+    font-size: 24px;
+    color: #245b3b;
+}
+
+/* Contenedor del formulario */
+.formulario-persona {
+    width: 100%;
+    max-width: 650px;
+    padding: 30px;
+    background-color: #f1f3f5;
+    border: 1px solid #dce1e5;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+/* Separación entre campos */
+.pagina-crear-persona .formulario-campo {
+    margin-bottom: 20px;
+}
+
+/* Etiquetas de los campos */
+.pagina-crear-persona .formulario-campo label {
+    display: block;
+    margin-bottom: 7px;
+    color: #334155;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Campos de entrada y listas desplegables */
+.pagina-crear-persona .formulario-campo input:not([type="checkbox"]),
+.pagina-crear-persona .formulario-campo select {
+    width: 100%;
+    padding: 12px;
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    font-size: 14px;
+    color: #334155;
+    box-sizing: border-box;
+}
+
+/* Resaltar el campo seleccionado */
+.pagina-crear-persona .formulario-campo input:focus,
+.pagina-crear-persona .formulario-campo select:focus {
+    outline: none;
+    border-color: #367a50;
+}
+
+/* Campo de persona activa */
+.pagina-crear-persona .formulario-campo label:has(input[type="checkbox"]) {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+/* Checkbox de estado */
+.pagina-crear-persona input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    accent-color: #367a50;
+    cursor: pointer;
+}
+
+/* Contenedor de botones */
+.pagina-crear-persona .formulario-acciones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+/* Estilo general de los botones */
+.pagina-crear-persona .formulario-acciones button {
+    min-width: 140px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+/* Botón cancelar */
+.pagina-crear-persona .formulario-acciones button:first-child {
+    background-color: #dce1e5;
+    color: #334155;
+}
+
+.pagina-crear-persona .formulario-acciones button:first-child:hover:not(:disabled) {
+    background-color: #cbd5db;
+}
+
+/* Botón guardar persona */
+.pagina-crear-persona .formulario-acciones button:last-child {
+    background-color: #367a50;
+    color: #ffffff;
+}
+
+.pagina-crear-persona .formulario-acciones button:last-child:hover:not(:disabled) {
+    background-color: #285e3d;
+}
+
+/* Botones deshabilitados mientras se guarda */
+.pagina-crear-persona .formulario-acciones button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Mensajes de error */
+.pagina-crear-persona .formulario-error {
+    color: #c62828;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+/* Adaptación a pantallas pequeñas */
+@media (max-width: 768px) {
+    .pagina-crear-persona {
+        padding: 15px;
+    }
+
+    .formulario-persona {
+        padding: 20px;
+    }
+
+    .pagina-crear-persona .formulario-acciones {
+        flex-direction: column;
+    }
+
+    .pagina-crear-persona .formulario-acciones button {
+        width: 100%;
+    }
+}
