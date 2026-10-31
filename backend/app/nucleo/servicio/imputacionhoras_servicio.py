@@ -48,12 +48,7 @@ class ImputacionHorasServicio:
             imputacion.id_tecnico is None):
             raise ValueError("Los identificadores no pueden ser nulos")
 
-        # Comprobar que el técnico esté asignado a la avería
-        if averia.id_tecnico_asignado != persona.id_persona:
-            raise ValueError(
-                "El técnico no está asignado a esta avería"
-            )
-
+        
         # validamos que los id coincidan
         if averia.id_averia != imputacion.id_averia:
             raise ValueError("La imputación no corresponde a la avería indicada")

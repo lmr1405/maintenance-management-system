@@ -33,6 +33,7 @@ function CrearImputacion() {
 
     // Datos del formulario
     const [idAveria, setIdAveria] = useState("");
+    const [idTecnico, setIdTecnico] = useState("");
     const [fecha, setFecha] = useState(obtenerFechaActual);
     const [horas, setHoras] = useState("");
     const [descripcion, setDescripcion] = useState("");
@@ -93,14 +94,16 @@ function CrearImputacion() {
     async function guardarImputacion(e: SubmitEvent<HTMLFormElement>) {
         e.preventDefault();
 
-        // Comprobar que la avería esté en curso y tenga un técnico activo asignado
+        // Comprobar la avería y el técnico seleccionados
         if (
             !averiaSeleccionada ||
             averiaSeleccionada.estado !== "En curso" ||
-            averiaSeleccionada.id_tecnico_asignado === null ||
-            !tecnicoAsignado
+            !idTecnico ||
+            !tecnicos.some(
+                (tecnico) => tecnico.id_persona === Number(idTecnico)
+            )
         ) {
-            setError("Selecciona una avería en curso con un técnico activo asignado");
+            setError("Selecciona una avería en curso y un técnico activo");
             return;
         }
 
@@ -112,7 +115,7 @@ function CrearImputacion() {
             // Construir los datos para FastAPI
             const datos: ImputacionHorasCrear = {
                 id_averia: Number(idAveria),
-                id_tecnico: averiaSeleccionada.id_tecnico_asignado,
+                id_tecnico: Number(idTecnico),
                 fecha,
                 horas,
                 descripcion_trabajo: descripcion.trim()
@@ -202,23 +205,27 @@ function CrearImputacion() {
                 </div>
 
 
-                {/* Mostrar el técnico asignado a la avería */}
+                {/* Seleccionar técnico que realiza el trabajo */}
                 <div className="formulario-campo">
-                    <label htmlFor="tecnicoAsignado">
-                        Técnico asignado
-                    </label>
+                    <label htmlFor="idTecnico">Técnico *</label>
 
-                    <input
-                        id="tecnicoAsignado"
-                        type="text"
-                        value={
-                            tecnicoAsignado
-                                ? `${tecnicoAsignado.nombre} ${tecnicoAsignado.apellidos}`
-                                : ""
-                        }
-                        placeholder="Selecciona una avería"
-                        readOnly
-                    />
+                    <select
+                        id="idTecnico"
+                        value={idTecnico}
+                        onChange={(e) => setIdTecnico(e.target.value)}
+                        required
+                    >
+                        <option value="">Seleccionar técnico</option>
+
+                        {tecnicos.map((tecnico) => (
+                            <option
+                                key={tecnico.id_persona}
+                                value={tecnico.id_persona}
+                            >
+                                {tecnico.nombre} {tecnico.apellidos}
+                            </option>
+                        ))}
+                    </select>
                 </div>
 
                     {/* Fecha del trabajo */}
@@ -289,7 +296,7 @@ function CrearImputacion() {
                             disabled={
                                 guardando ||
                                 !averiaSeleccionada ||
-                                !tecnicoAsignado
+                                !idTecnico
                             }
                         >
                             {guardando
