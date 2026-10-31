@@ -1,9 +1,12 @@
-from sqlalchemy import select
+from decimal import Decimal
+
+from sqlalchemy import select, func
 from sqlalchemy.orm import Session
 
 from app.nucleo.interfaces.iimputacionhoras_repositorio import IImputacionHorasRepositorio
 from app.nucleo.modelo.imputacionhoras import ImputacionHoras
 from app.persistencia.modelo.imputacionhoras_orm import ImputacionHorasORM
+from app.persistencia.modelo.averia_orm import AveriaORM
 
 
 class ImputacionHorasRepositorio(IImputacionHorasRepositorio):
@@ -72,6 +75,51 @@ class ImputacionHorasRepositorio(IImputacionHorasRepositorio):
         imputaciones_orm = self.session.scalars(consulta).all()
 
         return [self._a_entidad(i) for i in imputaciones_orm]
+
+
+        # Calcular el total de horas imputadas a una avería
+    def total_horas_por_averia(self, id_averia: int) -> Decimal:
+
+        consulta = select(
+            func.sum(ImputacionHorasORM.horas)
+        ).where(
+            ImputacionHorasORM.id_averia == id_averia
+        )
+
+        total = self.session.scalar(consulta)
+
+        return total if total is not None else Decimal("0")
+
+
+    # Calcular el total de horas de todas las averías de una máquina
+    def total_horas_por_maquina(self, id_maquina: int) -> Decimal:
+
+        consulta = (
+            select(func.sum(ImputacionHorasORM.horas))
+            .join(
+                AveriaORM,
+                ImputacionHorasORM.id_averia == AveriaORM.id_averia
+            )
+            .where(AveriaORM.id_maquina == id_maquina)
+        )
+
+        total = self.session.scalar(consulta)
+
+        return total if total is not None else Decimal("0")
+
+
+    # Calcular el total de horas imputadas por un técnico
+    def total_horas_por_tecnico(self, id_tecnico: int) -> Decimal:
+
+        consulta = select(
+            func.sum(ImputacionHorasORM.horas)
+        ).where(
+            ImputacionHorasORM.id_tecnico == id_tecnico
+        )
+
+        total = self.session.scalar(consulta)
+
+        return total if total is not None else Decimal("0")
 
 
     def _a_entidad(

@@ -74,3 +74,18 @@ class ImputacionHorasServicio:
 
         # guardar unicamente si todas las validaciones son correctas
         return self.repositorio.guardar(imputacion)
+
+
+    # Obtener el total de horas trabajadas en una avería
+    def total_horas_por_averia(self, id_averia: int) -> Decimal:
+        return self.repositorio.total_horas_por_averia(id_averia)
+
+
+    # Obtener el total de horas de todas las averías de una máquina
+    def total_horas_por_maquina(self, id_maquina: int) -> Decimal:
+        return self.repositorio.total_horas_por_maquina(id_maquina)
+
+
+    # Obtener el total de horas trabajadas por un técnico
+    def total_horas_por_tecnico(self, id_tecnico: int) -> Decimal:
+        return self.repositorio.total_horas_por_tecnico(id_tecnico)

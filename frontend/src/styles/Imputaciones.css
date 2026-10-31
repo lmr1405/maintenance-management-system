@@ -177,6 +177,16 @@
     font-size: 14px;
 }
 
+
+/* Separación de las tablas de totales */
+.imputaciones-resumen {
+    margin-top: 30px;
+}
+
+.imputaciones-resumen h3 {
+    margin-bottom: 15px;
+}
+
 /* Adaptación a pantallas pequeñas */
 @media (max-width: 768px) {
     .pagina-imputaciones {
