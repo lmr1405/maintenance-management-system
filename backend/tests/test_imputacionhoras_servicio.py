@@ -2,6 +2,7 @@ from decimal import Decimal
 from datetime import date, datetime
 
 import pytest
+from unittest.mock import Mock
 
 from app.nucleo.servicio.imputacionhoras_servicio import ImputacionHorasServicio
 from app.nucleo.modelo.persona import Persona
@@ -11,7 +12,8 @@ from app.nucleo.modelo.enums import RolPersona, TipoFallo, Prioridad, EstadoAver
 
 @pytest.fixture
 def servicio():
-    return ImputacionHorasServicio()
+    repositorio = Mock()
+    return ImputacionHorasServicio(repositorio)
 
 # comprobamos que recibe horas validas
 def test_horas_validas(servicio):

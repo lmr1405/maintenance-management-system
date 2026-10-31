@@ -2,6 +2,7 @@ from decimal import Decimal
 from datetime import datetime, date
 from app.nucleo.modelo.persona import Persona
 from app.nucleo.modelo.imputacionhoras import ImputacionHoras
+from app.nucleo.interfaces.iimputacionhoras_repositorio import IImputacionHorasRepositorio
 from app.nucleo.modelo.averia import Averia
 from app.nucleo.modelo.enums import RolPersona
 
@@ -10,6 +11,8 @@ class ImputacionHorasServicio:
     Gestiona las validaciones de las imputaciones de horas
     realizadas por los tecnicos de mantenimiento
     """
+    def __init__(self, repositorio: IImputacionHorasRepositorio):
+        self.repositorio = repositorio
 
 
     def validar_fecha(self,fecha: date, fecha_deteccion: datetime) -> None:
@@ -58,3 +61,6 @@ class ImputacionHorasServicio:
         self.validar_fecha(imputacion.fecha, averia.fecha_deteccion)
         self.validar_tecnico(persona)
         self.validar_relaciones(imputacion, persona, averia)
+
+        # guardar unicamente si todas las validaciones son correctas
+        return self.repositorio.guardar(imputacion)
