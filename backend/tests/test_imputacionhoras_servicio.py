@@ -63,24 +63,35 @@ def test_tecnico_valido(servicio):
     # act y assert
     servicio.validar_tecnico(persona2)
 
-# relaciones correctas
+# Relaciones correctas
 def test_relaciones_validas(servicio):
-    # arrange    
+    # Arrange
     persona = Persona("Luis", "Menendez", RolPersona.TECNICO, id_persona=5)
 
-    imputacion = ImputacionHoras(id_averia=10, id_tecnico=5, fecha=date(2026, 10, 5), 
-                                 horas= Decimal("0.25"), 
-                                 descripcion_trabajo="Revision de fuga de aceite")
-    
-    averia = Averia(numero="AV-01", id_maquina=5, id_reportada_por=2, 
-                    fecha_deteccion=datetime(2026, 10, 5, 5, 0), 
-                    titulo="La maquina suelta aceite", 
-                    sintoma="Se detecta liquido cerca de la maquina",
-                    tipo_fallo= TipoFallo.HIDRAULICO, 
-                    prioridad=Prioridad.ALTA, maquina_parada= True, estado=EstadoAveria.ABIERTA,
-                    id_averia=10)
+    imputacion = ImputacionHoras(
+        id_averia=10,
+        id_tecnico=5,
+        fecha=date(2026, 10, 5),
+        horas=Decimal("0.25"),
+        descripcion_trabajo="Revision de fuga de aceite"
+    )
 
-    # act y assert
+    averia = Averia(
+        numero="AV-01",
+        id_maquina=5,
+        id_reportada_por=2,
+        fecha_deteccion=datetime(2026, 10, 5, 5, 0),
+        titulo="La maquina suelta aceite",
+        sintoma="Se detecta liquido cerca de la maquina",
+        tipo_fallo=TipoFallo.HIDRAULICO,
+        prioridad=Prioridad.ALTA,
+        maquina_parada=True,
+        estado=EstadoAveria.EN_CURSO,
+        id_tecnico_asignado=5,
+        id_averia=10
+    )
+
+    # Act y Assert
     servicio.validar_relaciones(imputacion, persona, averia)
 
 
@@ -121,7 +132,8 @@ def test_registrar_imputacion_valida(servicio):
         sintoma="Se detecta líquido cerca de la máquina",
         tipo_fallo=TipoFallo.HIDRAULICO,
         prioridad=Prioridad.ALTA,
-        maquina_parada=True, estado=EstadoAveria.ABIERTA,
+        maquina_parada=True, estado=EstadoAveria.EN_CURSO,
+        id_tecnico_asignado=2,
         id_averia=10
     )
 
@@ -133,5 +145,8 @@ def test_registrar_imputacion_valida(servicio):
         descripcion_trabajo="Revisión de fuga de aceite"
     )
 
-    # Act y Assert
+    # Act
     servicio.registrar_imputacion(imputacion, persona, averia)
+
+    # Asssert
+    servicio.repositorio.guardar.assert_called_once_with(imputacion)

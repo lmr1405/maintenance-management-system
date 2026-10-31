@@ -4,7 +4,7 @@ from app.nucleo.modelo.persona import Persona
 from app.nucleo.modelo.imputacionhoras import ImputacionHoras
 from app.nucleo.interfaces.iimputacionhoras_repositorio import IImputacionHorasRepositorio
 from app.nucleo.modelo.averia import Averia
-from app.nucleo.modelo.enums import RolPersona
+from app.nucleo.modelo.enums import RolPersona, EstadoAveria
 
 class ImputacionHorasServicio:
     """
@@ -48,6 +48,12 @@ class ImputacionHorasServicio:
             imputacion.id_tecnico is None):
             raise ValueError("Los identificadores no pueden ser nulos")
 
+        # Comprobar que el técnico esté asignado a la avería
+        if averia.id_tecnico_asignado != persona.id_persona:
+            raise ValueError(
+                "El técnico no está asignado a esta avería"
+            )
+
         # validamos que los id coincidan
         if averia.id_averia != imputacion.id_averia:
             raise ValueError("La imputación no corresponde a la avería indicada")
@@ -55,12 +61,21 @@ class ImputacionHorasServicio:
         if persona.id_persona != imputacion.id_tecnico:
             raise ValueError("La imputación no corresponde al técnico indicado")
 
+    def validar_estado_averia(self, averia: Averia) -> None:
+        # Solo se permite registrar horas si la avería está en curso
+        if averia.estado != EstadoAveria.EN_CURSO:
+            raise ValueError(
+                "Solo se pueden imputar horas a averías en curso"
+            )
 
     def registrar_imputacion(self, imputacion: ImputacionHoras, persona: Persona, averia: Averia) -> None:
         self.validar_horas(imputacion.horas)
         self.validar_fecha(imputacion.fecha, averia.fecha_deteccion)
         self.validar_tecnico(persona)
         self.validar_relaciones(imputacion, persona, averia)
+
+        # Comprobar que la avería esté en curso
+        self.validar_estado_averia(averia)
 
         # guardar unicamente si todas las validaciones son correctas
         return self.repositorio.guardar(imputacion)
