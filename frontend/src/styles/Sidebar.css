@@ -23,3 +23,24 @@
 .sidebar nav li:hover {
     background-color: #334155;
 }
+
+/* Enlaces del menú lateral */
+.sidebar nav a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Mantener el color blanco en enlaces visitados */
+.sidebar nav a:visited {
+    color: white;
+}
+
+/* Opción del menú correspondiente a la página actual */
+.sidebar nav li:has(a.active) {
+    background-color: #475569;
+}
+
+/* Mantener el color al pasar el ratón */
+.sidebar nav li:has(a.active):hover {
+    background-color: #475569;
+}
