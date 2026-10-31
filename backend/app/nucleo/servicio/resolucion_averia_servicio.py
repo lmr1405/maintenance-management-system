@@ -36,23 +36,35 @@ class ResolucionAveriaServicio:
         return self.averias.actualizar(averia)
 
 
-    def resolver_averia(
-        self,
-        id_averia: int,
-        causa_raiz: str,
-        solucion_aplicada: str
-    ) -> Averia:
+    def resolver_averia(self, id_averia: int, id_tecnico: int, causa_raiz: str, solucion_aplicada: str) -> Averia:
         averia = self._obtener_averia(id_averia)
 
+        # Comprobar que la avería esté en curso
         if averia.estado != EstadoAveria.EN_CURSO:
             raise ValueError("La avería debe estar en curso")
 
+          # Comprobar que el técnico sea el asignado a la avería
+        if averia.id_tecnico_asignado != id_tecnico:
+            raise ValueError(
+            "Solo el técnico asignado puede resolver la avería"
+        )
+
+        # Comprobar que sea un técnico activo
+        tecnico = self.personas.obtener_por_id(id_tecnico)
+
+        if tecnico is None or not tecnico.activo or tecnico.rol != RolPersona.TECNICO:
+            raise ValueError(
+                "La resolución requiere un técnico activo"
+        )
+
+        # Comprobar los datos obligatorios de la resolución
         if not causa_raiz.strip():
             raise ValueError("La causa raíz es obligatoria")
 
         if not solucion_aplicada.strip():
             raise ValueError("La solución aplicada es obligatoria")
 
+        # Registrar los datos de resolución
         averia.causa_raiz = causa_raiz
         averia.solucion_aplicada = solucion_aplicada
         averia.fecha_resolucion = datetime.now(timezone.utc)

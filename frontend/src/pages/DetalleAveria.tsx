@@ -161,9 +161,16 @@ function DetalleAveria() {
 
         try {
 
+            // Comprobar que existe un técnico asignado
+            if (averia.id_tecnico_asignado === null) {
+                setError("La avería no tiene un técnico asignado");
+                return;
+            }
+
             // Solicitar a FastAPI la resolución de la avería
             const averiaActualizada = await resolverAveria(
                 averia.id_averia,
+                averia.id_tecnico_asignado,
                 causaRaiz.trim(),
                 solucionAplicada.trim()
             );

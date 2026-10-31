@@ -44,6 +44,7 @@ export interface AsignarTecnico {
 
 // Datos para resolver una avería
 export interface ResolverAveria {
+    id_tecnico: number;
     causa_raiz: string;
     solucion_aplicada: string;
 }

@@ -26,6 +26,7 @@ class AsignarTecnico(BaseModel):
 
 
 class ResolverAveria(BaseModel):
+    id_tecnico: int = Field(gt=0)
     causa_raiz: str = Field(min_length=1)
     solucion_aplicada: str = Field(min_length=1)
 
@@ -188,6 +189,7 @@ def resolver_averia(
     try:
         resultado = resolucion.resolver_averia(
             id_averia,
+            datos.id_tecnico,
             datos.causa_raiz,
             datos.solucion_aplicada
         )

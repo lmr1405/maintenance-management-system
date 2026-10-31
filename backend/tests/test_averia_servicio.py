@@ -230,11 +230,14 @@ def test_resolver_averia_valida(
     resolucion, repositorios, maquina, averia
 ):
     averias, maquinas, personas = repositorios
+
     averia.estado = EstadoAveria.EN_CURSO
+    averia.id_tecnico_asignado = 2
     maquina.estado = EstadoMaquina.EN_AVERIA
 
     resultado = resolucion.resolver_averia(
         10,
+        2,
         "Rodamiento deteriorado",
         "Sustitución del rodamiento"
     )
@@ -249,10 +252,14 @@ def test_no_resolver_sin_causa(
     resolucion, repositorios, averia
 ):
     averias, maquinas, personas = repositorios
+
     averia.estado = EstadoAveria.EN_CURSO
+    averia.id_tecnico_asignado = 2
 
     with pytest.raises(ValueError):
-        resolucion.resolver_averia(10, "", "Motor reparado")
+        resolucion.resolver_averia(
+            10, 2, "", "Motor reparado"
+        )
 
     averias.actualizar.assert_not_called()
 
@@ -261,10 +268,14 @@ def test_no_resolver_sin_solucion(
     resolucion, repositorios, averia
 ):
     averias, maquinas, personas = repositorios
+
     averia.estado = EstadoAveria.EN_CURSO
+    averia.id_tecnico_asignado = 2
 
     with pytest.raises(ValueError):
-        resolucion.resolver_averia(10, "Motor averiado", "")
+        resolucion.resolver_averia(
+            10, 2, "Motor averiado", ""
+        )
 
     averias.actualizar.assert_not_called()
 
@@ -273,6 +284,7 @@ def test_otra_averia_mantiene_maquina_parada(
     resolucion, repositorios, maquina, averia
 ):
     averias, maquinas, personas = repositorios
+    averia.id_tecnico_asignado = 2
     averia.estado = EstadoAveria.EN_CURSO
     maquina.estado = EstadoMaquina.EN_AVERIA
 
@@ -295,7 +307,7 @@ def test_otra_averia_mantiene_maquina_parada(
     averias.listar_por_maquina.return_value = [averia, otra_averia]
 
     resolucion.resolver_averia(
-        10,
+        10, 2,
         "Rodamiento deteriorado",
         "Rodamiento sustituido"
     )
@@ -338,5 +350,36 @@ def test_no_cerrar_averia_sin_resolver(
 
     with pytest.raises(ValueError):
         resolucion.cerrar_averia(10, 2)
+
+    averias.actualizar.assert_not_called()
+
+def test_no_resolver_tecnico_no_asignado(
+    resolucion, repositorios, averia
+):
+    averias, maquinas, personas = repositorios
+
+    averia.estado = EstadoAveria.EN_CURSO
+    averia.id_tecnico_asignado = 3
+
+    with pytest.raises(ValueError, match="Solo el técnico asignado"):
+        resolucion.resolver_averia(
+            10, 2, "Fallo mecánico", "Motor reparado"
+        )
+
+    averias.actualizar.assert_not_called()
+
+def test_no_resolver_con_operario(
+    resolucion, repositorios, averia, persona
+):
+    averias, maquinas, personas = repositorios
+
+    averia.estado = EstadoAveria.EN_CURSO
+    averia.id_tecnico_asignado = 2
+    persona.rol = RolPersona.OPERARIO
+
+    with pytest.raises(ValueError, match="técnico activo"):
+        resolucion.resolver_averia(
+            10, 2, "Fallo mecánico", "Motor reparado"
+        )
 
     averias.actualizar.assert_not_called()

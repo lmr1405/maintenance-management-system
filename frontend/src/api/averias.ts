@@ -79,6 +79,7 @@ export async function iniciarReparacion(idAveria: number): Promise<AveriaRespues
 // Resolver una avería (PATCH)
 export async function resolverAveria(
     idAveria: number,
+    idTecnico: number,
     causaRaiz: string,
     solucionAplicada: string
 ): Promise<AveriaRespuesta> {
@@ -89,6 +90,7 @@ export async function resolverAveria(
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
+            id_tecnico: idTecnico,
             causa_raiz: causaRaiz,
             solucion_aplicada: solucionAplicada
         })
