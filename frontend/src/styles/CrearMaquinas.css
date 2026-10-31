@@ -1,0 +1,135 @@
+/* Contenedor principal */
+.pagina-crear-maquina {
+    width: 100%;
+    padding: 25px;
+    box-sizing: border-box;
+}
+
+/* Título de la página */
+.pagina-crear-maquina h2 {
+    margin: 0 0 25px;
+    font-size: 24px;
+    color: #245b3b;
+}
+
+/* Contenedor del formulario */
+.formulario-maquina {
+    width: 100%;
+    max-width: 650px;
+    padding: 30px;
+    background-color: #f1f3f5;
+    border: 1px solid #dce1e5;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+/* Separación entre campos */
+.formulario-campo {
+    margin-bottom: 20px;
+}
+
+/* Etiquetas de los campos */
+.formulario-campo label {
+    display: block;
+    margin-bottom: 7px;
+    color: #334155;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Campos de entrada y listas desplegables */
+.formulario-campo input,
+.formulario-campo select {
+    width: 100%;
+    padding: 12px;
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    font-size: 14px;
+    color: #334155;
+    box-sizing: border-box;
+}
+
+/* Resaltar el campo seleccionado */
+.formulario-campo input:focus,
+.formulario-campo select:focus {
+    outline: none;
+    border-color: #367a50;
+}
+
+/* Estilo de los textos de ejemplo */
+.formulario-campo input::placeholder {
+    color: #94a3b8;
+}
+
+/* Contenedor de botones */
+.formulario-acciones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+/* Estilo general de los botones */
+.formulario-acciones button {
+    min-width: 140px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+/* Botón cancelar */
+.formulario-acciones button:first-child {
+    background-color: #dce1e5;
+    color: #334155;
+}
+
+.formulario-acciones button:first-child:hover:not(:disabled) {
+    background-color: #cbd5db;
+}
+
+/* Botón guardar máquina */
+.formulario-acciones button:last-child {
+    background-color: #367a50;
+    color: #ffffff;
+}
+
+.formulario-acciones button:last-child:hover:not(:disabled) {
+    background-color: #285e3d;
+}
+
+/* Botones deshabilitados mientras se guarda */
+.formulario-acciones button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Mensajes de error */
+.formulario-error {
+    color: #c62828;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+/* Adaptación a pantallas pequeñas */
+@media (max-width: 768px) {
+    .pagina-crear-maquina {
+        padding: 15px;
+    }
+
+    .formulario-maquina {
+        padding: 20px;
+    }
+
+    .formulario-acciones {
+        flex-direction: column;
+    }
+
+    .formulario-acciones button {
+        width: 100%;
+    }
+}

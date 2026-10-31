@@ -1,4 +1,5 @@
 import "../styles/Maquinas.css"
+import { Link } from "react-router";
 import { useEffect, useState } from "react";
 import { obtenerMaquinas } from "../api/maquinas";
 import type { MaquinaRespuesta } from "../types/maquina";
@@ -70,8 +71,14 @@ function Maquinas() {
                             </tbody>
                         </table>
                     )}
-                </>
+                </>                
             )}
+                {/* Acceso al formulario de creación */}
+                <div className="maquinas-acciones">
+                    <Link to="/maquinas/crear" className="boton-crear-maquina">
+                        Crear máquina
+                    </Link>
+                </div>
         </div>
     );
 }

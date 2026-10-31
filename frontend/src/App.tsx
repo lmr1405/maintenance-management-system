@@ -11,6 +11,7 @@ import Informes from "./pages/Informes";
 import Imputaciones from "./pages/Imputaciones";
 import Login from "./pages/Login";
 import RutaProtegida from "./components/RutaProtegida";
+import CrearMaquina from "./pages/CrearMaquinas";
 
 function LayoutProtegido() {
     return (
@@ -32,6 +33,7 @@ function App() {
                     <Route element={<LayoutProtegido />}>
                         <Route path="/" element={<Dashboard />} />
                         <Route path="/maquinas" element={<Maquinas />} />
+                        <Route path="/maquinas/crear" element={<CrearMaquina />} />
                         <Route path="/personas" element={<Personas />} />
                         <Route path="/averias" element={<Averias />} />
                         <Route path="/imputaciones" element={<Imputaciones />} />
