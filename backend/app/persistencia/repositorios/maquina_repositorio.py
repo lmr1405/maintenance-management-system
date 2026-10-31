@@ -10,7 +10,7 @@ class MaquinaRepositorio(IMaquinaRepositorio):
     """Implementa el repositorio de maquinas mediante SQLAlchemy"""
 
     def __init__(self, session: Session):
-        self.sesion = self.sesion
+        self.session = session
 
     
     def guardar(self, maquina: Maquina) -> Maquina:
@@ -29,9 +29,9 @@ class MaquinaRepositorio(IMaquinaRepositorio):
         )
 
         # registrar la maquina en la sesion
-        self.sesion.add(maquina_orm)
+        self.session.add(maquina_orm)
 
-        self.sesion.flush()
+        self.session.flush()
 
         # recuperar el identificador generado por PostgreSQL
         maquina.id_maquina = maquina_orm.id_maquina
@@ -77,7 +77,7 @@ class MaquinaRepositorio(IMaquinaRepositorio):
         # Ejecutar la consulta y obtener los registros
         maquinas_orm = self.session.scalars(consulta).all()
 
-        return [self._a_entidad(maquinas_orm) for maquina_orm in maquinas_orm]
+        return [self._a_entidad(maquina_orm) for maquina_orm in maquinas_orm]
 
    
    
