@@ -44,3 +44,27 @@
 .sidebar nav li:has(a.active):hover {
     background-color: #475569;
 }
+
+/* Botón de cerrar sesión */
+.sidebar button {
+    width: 100%;
+    padding: 13px 20px;
+    background-color: #276b41;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+/* Efecto al pasar el ratón */
+.sidebar button:hover {
+    background-color: #285e3d;
+}
+
+/* Efecto al pulsar */
+.sidebar button:active {
+    background-color: #204b31;
+}

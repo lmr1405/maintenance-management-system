@@ -1,0 +1,154 @@
+/* Fondo principal de la página */
+.pagina-login {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: #f3f7f5;
+    box-sizing: border-box;
+}
+
+/* Contenedor de las dos tarjetas */
+.login-contenedor {
+    display: flex;
+    align-items: stretch;
+    gap: 30px;
+    width: 100%;
+    max-width: 1000px;
+}
+
+/* Tarjeta izquierda: información */
+.login-informacion {
+    flex: 1;
+    padding: 35px;
+    background-color: #e3e9e370;
+    border: 1px solid #dce8df;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.login-informacion h1 {
+    font-size: 28px;
+    color: #245b3b;
+    margin: 0 0 15px;
+}
+
+.login-informacion h2 {
+    font-size: 17px;
+    color: #0c0c0c;
+    font-weight: 500;
+    margin: 0 0 25px;
+}
+
+.login-informacion p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #092142;
+    margin: 0 0 18px;
+}
+
+.login-informacion p:last-child {
+    margin-bottom: 0;
+}
+
+/* Tarjeta derecha: inicio de sesión */
+.login {
+    flex: 0 0 340px;
+    padding: 30px;
+    background-color: #ebe9e8bd;
+    border: 1px solid #dce1e5;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.login h2 {
+    margin: 0 0 10px;
+    font-size: 22px;
+    color: #1e293b;
+    text-align: center;
+}
+
+.login-descripcion {
+    font-size: 14px;
+    color: #8999b1;
+    text-align: center;
+    margin: 0 0 25px;
+}
+
+/* Campos del formulario */
+.login-campo {
+    margin-bottom: 18px;
+}
+
+.login-campo label {
+    display: block;
+    margin-bottom: 6px;
+    color: #334155;
+    font-size: 14px;
+}
+
+.login-campo input {
+    width: 100%;
+    padding: 11px;
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.login-campo input:focus {
+    outline: none;
+    border-color: #367a50;
+}
+
+/* Botón de inicio de sesión */
+.login button {
+    width: 100%;
+    padding: 12px;
+    background-color: #367a50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.login button:hover {
+    background-color: #285e3d;
+}
+
+.login button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Mensaje de error */
+.login-error {
+    color: #c62828;
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+/* Adaptación a dispositivos móviles */
+@media (max-width: 768px) {
+    .login-contenedor {
+        flex-direction: column;
+        max-width: 450px;
+        gap: 20px;
+    }
+
+    .login-informacion {
+        padding: 25px;
+    }
+
+    .login-informacion h1 {
+        font-size: 24px;
+    }
+
+    .login {
+        flex: none;
+        width: 100%;
+    }
+}

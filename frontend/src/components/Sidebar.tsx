@@ -1,7 +1,25 @@
-import { NavLink } from 'react-router'
-import '../styles/Sidebar.css'
+import { NavLink, useNavigate } from "react-router";
+import { supabase } from "../api/supabase";
+import "../styles/Sidebar.css";
 
 function Sidebar() {
+
+    const navigate = useNavigate();
+
+    // Cerrar la sesión del usuario
+    async function cerrarSesion() {
+        const { error } = await supabase.auth.signOut();
+
+        if (error) {
+            console.error("Error al cerrar sesión:", error.message);
+            return;
+        }
+
+        // Redirigir al login
+        navigate("/login", { replace: true });
+    }
+
+
     return (
         <aside className="sidebar">
             <h2>Mantenimiento</h2>
@@ -38,6 +56,14 @@ function Sidebar() {
                             Informes
                         </NavLink>
                     </li>
+
+                    <li>
+                        <button type="button" onClick={cerrarSesion}>
+                            Cerrar sesión
+                        </button>
+                    </li>
+
+
                 </ul>
             </nav>
         </aside>
