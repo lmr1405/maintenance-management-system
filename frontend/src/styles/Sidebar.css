@@ -2,6 +2,7 @@
 .sidebar h2 {
     font-size: 20px;
     margin: 0 0 30px;
+    color: #ffffff;
 }
 
 /* Lista de navegación */
@@ -28,6 +29,7 @@
 .sidebar nav a {
     color: white;
     text-decoration: none;
+    display: block;
 }
 
 /* Mantener el color blanco en enlaces visitados */
@@ -67,4 +69,89 @@
 /* Efecto al pulsar */
 .sidebar button:active {
     background-color: #204b31;
+}
+
+/* Adaptación a tablets */
+@media (max-width: 1024px) {
+
+    .sidebar h2 {
+        font-size: 18px;
+        margin-bottom: 25px;
+    }
+
+    .sidebar nav li {
+        padding: 10px 12px;
+    }
+
+    .sidebar button {
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+}
+
+/* Adaptación a móviles */
+@media (max-width: 768px) {
+
+    /* Título del menú */
+    .sidebar h2 {
+        font-size: 18px;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    /* Distribuir las opciones horizontalmente */
+    .sidebar nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    /* Opciones del menú */
+    .sidebar nav li {
+        padding: 10px 14px;
+        margin-bottom: 0;
+        text-align: center;
+    }
+
+    /* Enlaces del menú */
+    .sidebar nav a {
+        font-size: 14px;
+        white-space: nowrap;
+    }
+
+    /* Botón cerrar sesión */
+    .sidebar button {
+        display: block;
+        width: auto;
+        min-width: 140px;
+        margin: 20px auto 0;
+        padding: 11px 20px;
+        font-size: 14px;
+    }
+}
+
+/* Adaptación a móviles pequeños */
+@media (max-width: 480px) {
+
+    .sidebar h2 {
+        font-size: 16px;
+    }
+
+    .sidebar nav ul {
+        gap: 5px;
+    }
+
+    .sidebar nav li {
+        padding: 8px 10px;
+    }
+
+    .sidebar nav a {
+        font-size: 13px;
+    }
+
+    .sidebar button {
+        width: 100%;
+        margin-top: 15px;
+    }
 }

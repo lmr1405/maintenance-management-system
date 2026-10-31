@@ -34,3 +34,107 @@
     padding: 24px;
     background-color: #f3f4f6;
 }
+
+
+/* Contenedor principal */
+.main-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Menú lateral */
+.sidebar {
+    width: 240px;
+    background-color: #1e293b;
+    color: white;
+    padding: 20px;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+/* Zona principal */
+.main-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Cabecera */
+.header {
+    background-color: #ffffff;
+    padding: 20px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* Contenido de las páginas */
+.page-content {
+    flex: 1;
+    min-width: 0;
+    padding: 24px;
+    background-color: #f3f4f6;
+    box-sizing: border-box;
+}
+
+/* Adaptación a tablets */
+@media (max-width: 1024px) {
+
+    /* Reducir ancho del menú lateral */
+    .sidebar {
+        width: 200px;
+        padding: 15px;
+    }
+
+    /* Reducir separación del contenido */
+    .page-content {
+        padding: 20px;
+    }
+}
+
+/* Adaptación a móviles */
+@media (max-width: 768px) {
+
+    /* Colocar menú y contenido en vertical */
+    .main-layout {
+        flex-direction: column;
+    }
+
+    /* Menú superior ocupando todo el ancho */
+    .sidebar {
+        width: 100%;
+        padding: 15px;
+        flex-shrink: 0;
+    }
+
+    /* Contenido principal */
+    .main-content {
+        width: 100%;
+        min-width: 0;
+    }
+
+    /* Cabecera adaptada */
+    .header {
+        padding: 15px;
+    }
+
+    /* Reducir márgenes del contenido */
+    .page-content {
+        padding: 15px;
+    }
+}
+
+/* Adaptación a móviles pequeños */
+@media (max-width: 480px) {
+
+    .sidebar {
+        padding: 12px;
+    }
+
+    .header {
+        padding: 12px;
+    }
+
+    .page-content {
+        padding: 10px;
+    }
+}
