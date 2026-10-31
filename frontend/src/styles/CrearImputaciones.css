@@ -132,6 +132,13 @@
     margin-bottom: 15px;
 }
 
+/* Campo informativo del título de la avería */
+.pagina-crear-imputacion .formulario-campo input[readonly] {
+    background-color: #e9ecef;
+    color: #475569;
+    cursor: default;
+}
+
 /* Adaptación a pantallas pequeñas */
 @media (max-width: 768px) {
     .pagina-crear-imputacion {

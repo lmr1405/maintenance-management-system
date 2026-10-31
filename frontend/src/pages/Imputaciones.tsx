@@ -165,7 +165,7 @@ function Imputaciones() {
                                         key={averia.id_averia}
                                         value={averia.id_averia}
                                     >
-                                        Avería #{averia.id_averia}
+                                        Avería #{averia.numero}
                                     </option>
                                 ))}
                             </select>
@@ -225,8 +225,11 @@ function Imputaciones() {
                                 {imputacionesFiltradas.map((imputacion) => (
                                     <tr key={imputacion.id_imputacion}>
 
+                                        {/* Mostrar el número de avería */}
                                         <td>
-                                            Avería #{imputacion.id_averia}
+                                            {averias.find(
+                                                (averia) => averia.id_averia === imputacion.id_averia
+                                            )?.numero ?? imputacion.id_averia}
                                         </td>
 
                                         <td>

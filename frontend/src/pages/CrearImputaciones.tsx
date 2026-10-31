@@ -43,6 +43,11 @@ function CrearImputacion() {
     const [guardando, setGuardando] = useState(false);
     const [error, setError] = useState("");
 
+    // Obtener la avería seleccionada para mostrar su información
+    const averiaSeleccionada = averias.find(
+        (averia) => averia.id_averia === Number(idAveria)
+    );
+
     useEffect(() => {
 
         // Consultar averías y personas registradas
@@ -127,28 +132,45 @@ function CrearImputacion() {
                     onSubmit={guardarImputacion}
                 >
 
-                    {/* Seleccionar avería */}
-                    <div className="formulario-campo">
-                        <label htmlFor="idAveria">Avería *</label>
+                    
+                {/* Seleccionar avería */}
+                <div className="formulario-campo">
+                    <label htmlFor="idAveria">Avería *</label>
 
-                        <select
-                            id="idAveria"
-                            value={idAveria}
-                            onChange={(e) => setIdAveria(e.target.value)}
-                            required
-                        >
-                            <option value="">Seleccionar avería</option>
+                    <select
+                        id="idAveria"
+                        value={idAveria}
+                        onChange={(e) => setIdAveria(e.target.value)}
+                        required
+                    >
+                        <option value="">Seleccionar avería</option>
 
-                            {averias.map((averia) => (
-                                <option
-                                    key={averia.id_averia}
-                                    value={averia.id_averia}
-                                >
-                                    Avería #{averia.id_averia}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
+                        {averias.map((averia) => (
+                            <option
+                                key={averia.id_averia}
+                                value={averia.id_averia}
+                            >
+                                {averia.numero}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+                {/* Título de la avería seleccionada */}
+                <div className="formulario-campo">
+                    <label htmlFor="tituloAveria">
+                        Título de la avería
+                    </label>
+
+                    <input
+                        id="tituloAveria"
+                        type="text"
+                        value={averiaSeleccionada?.titulo ?? ""}
+                        placeholder="Selecciona una avería"
+                        readOnly
+                    />
+                </div>
+
 
                     {/* Seleccionar técnico */}
                     <div className="formulario-campo">

@@ -86,10 +86,12 @@ function CrearAveria() {
                     )
                 );
 
-                // Mostrar únicamente personas activas
+                // Mostrar únicamente operarios activos
                 setPersonas(
                     datosPersonas.filter(
-                        (persona) => persona.activo
+                        (persona) =>
+                            persona.rol === "Operario" &&
+                            persona.activo
                     )
                 );
             })
