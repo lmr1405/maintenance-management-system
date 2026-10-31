@@ -1,4 +1,3 @@
-
 from app.nucleo.interfaces.ipersona_repositorio import IPersonaRepositorio
 from app.nucleo.modelo.persona import Persona
 
