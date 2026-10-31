@@ -1,12 +1,11 @@
+import MainLayout from './layouts/MainLayout'
 import './App.css'
 
 function App() {
   return (
-    <main>
-      <h1>Gestión de Mantenimiento</h1>
+    <MainLayout>
       <p>Sistema de gestión de averías e incidencias</p>
-    </main>
+    </MainLayout>
   )
 }
-
 export default App
