@@ -1,0 +1,188 @@
+/* Contenedor principal */
+.pagina-nueva-averia {
+    width: 100%;
+    padding: 25px;
+    box-sizing: border-box;
+}
+
+/* Título de la página */
+.pagina-nueva-averia h2 {
+    margin: 0 0 20px;
+    font-size: 24px;
+    color: #245b3b;
+}
+
+/* Información de campos obligatorios */
+.pagina-nueva-averia > p {
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #475569;
+}
+
+/* Contenedor del formulario */
+.formulario-averia {
+    width: 100%;
+    max-width: 650px;
+    padding: 30px;
+    background-color: #f1f3f5;
+    border: 1px solid #dce1e5;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+/* Separación entre campos */
+.pagina-nueva-averia .formulario-campo {
+    margin-bottom: 20px;
+}
+
+/* Etiquetas de los campos */
+.pagina-nueva-averia .formulario-campo label {
+    display: block;
+    margin-bottom: 7px;
+    color: #334155;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Campos de entrada, listas y áreas de texto */
+.pagina-nueva-averia .formulario-campo input:not([type="checkbox"]),
+.pagina-nueva-averia .formulario-campo select,
+.pagina-nueva-averia .formulario-campo textarea {
+    width: 100%;
+    padding: 12px;
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    font-size: 14px;
+    color: #334155;
+    box-sizing: border-box;
+}
+
+/* Resaltar el campo seleccionado */
+.pagina-nueva-averia .formulario-campo input:focus,
+.pagina-nueva-averia .formulario-campo select:focus,
+.pagina-nueva-averia .formulario-campo textarea:focus {
+    outline: none;
+    border-color: #367a50;
+}
+
+/* Textos de ejemplo */
+.pagina-nueva-averia .formulario-campo input::placeholder,
+.pagina-nueva-averia .formulario-campo textarea::placeholder {
+    color: #94a3b8;
+}
+
+/* Campo de descripción del síntoma */
+.pagina-nueva-averia .formulario-campo textarea {
+    resize: vertical;
+    min-height: 110px;
+    font-family: inherit;
+}
+
+/* Contenedor del checkbox de máquina parada */
+.pagina-nueva-averia .formulario-campo label:has(input[type="checkbox"]) {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+/* Checkbox de máquina parada */
+.pagina-nueva-averia input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    accent-color: #367a50;
+    cursor: pointer;
+}
+
+/* Contenedor de botones */
+.pagina-nueva-averia .formulario-acciones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+/* Estilo general de los botones */
+.pagina-nueva-averia .formulario-acciones button {
+    min-width: 140px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+/* Botón cancelar */
+.pagina-nueva-averia .formulario-acciones button:first-child {
+    background-color: #dce1e5;
+    color: #334155;
+}
+
+.pagina-nueva-averia .formulario-acciones button:first-child:hover:not(:disabled) {
+    background-color: #cbd5db;
+}
+
+/* Botón registrar avería */
+.pagina-nueva-averia .formulario-acciones button:last-child {
+    background-color: #367a50;
+    color: #ffffff;
+}
+
+.pagina-nueva-averia .formulario-acciones button:last-child:hover:not(:disabled) {
+    background-color: #285e3d;
+}
+
+/* Botones deshabilitados durante el registro */
+.pagina-nueva-averia .formulario-acciones button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Mensajes de error */
+.pagina-nueva-averia .formulario-error {
+    color: #c62828;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+/* Botón para volver cuando falla la carga */
+.pagina-nueva-averia > button {
+    padding: 12px 24px;
+    background-color: #dce1e5;
+    color: #334155;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.pagina-nueva-averia > button:hover {
+    background-color: #cbd5db;
+}
+
+/* Adaptación a pantallas pequeñas */
+@media (max-width: 768px) {
+
+    .pagina-nueva-averia {
+        padding: 15px;
+    }
+
+    .formulario-averia {
+        padding: 20px;
+    }
+
+    /* Botones uno debajo del otro */
+    .pagina-nueva-averia .formulario-acciones {
+        flex-direction: column;
+    }
+
+    .pagina-nueva-averia .formulario-acciones button {
+        width: 100%;
+    }
+}
