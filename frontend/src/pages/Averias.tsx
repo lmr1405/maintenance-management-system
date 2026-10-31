@@ -48,7 +48,7 @@ function Averias() {
                         <ul>
                             {averias.map((averia) => (
                                 <li key={averia.id_averia}>
-                                    Avería Nº {averia.numero_averia}
+                                    Avería Nº {averia.numero}
                                 </li>
                             ))}
                         </ul>
