@@ -33,7 +33,6 @@ function CrearImputacion() {
 
     // Datos del formulario
     const [idAveria, setIdAveria] = useState("");
-    const [idTecnico, setIdTecnico] = useState("");
     const [fecha, setFecha] = useState(obtenerFechaActual);
     const [horas, setHoras] = useState("");
     const [descripcion, setDescripcion] = useState("");
@@ -48,6 +47,12 @@ function CrearImputacion() {
         (averia) => averia.id_averia === Number(idAveria)
     );
 
+    // Obtener el técnico asignado a esa avería
+    const tecnicoAsignado = tecnicos.find(
+        (tecnico) =>
+            tecnico.id_persona === averiaSeleccionada?.id_tecnico_asignado
+    );
+
     useEffect(() => {
 
         // Consultar averías y personas registradas
@@ -57,7 +62,14 @@ function CrearImputacion() {
         ])
             .then(([datosAverias, datosPersonas]) => {
 
-                setAverias(datosAverias);
+                // Mostrar únicamente averías en curso con técnico asignado
+                setAverias(
+                    datosAverias.filter(
+                        (averia) =>
+                            averia.estado === "En curso" &&
+                            averia.id_tecnico_asignado !== null
+                    )
+                );
 
                 // Mostrar únicamente técnicos activos
                 const personasTecnicas = datosPersonas.filter(
@@ -81,6 +93,17 @@ function CrearImputacion() {
     async function guardarImputacion(e: SubmitEvent<HTMLFormElement>) {
         e.preventDefault();
 
+        // Comprobar que la avería esté en curso y tenga un técnico activo asignado
+        if (
+            !averiaSeleccionada ||
+            averiaSeleccionada.estado !== "En curso" ||
+            averiaSeleccionada.id_tecnico_asignado === null ||
+            !tecnicoAsignado
+        ) {
+            setError("Selecciona una avería en curso con un técnico activo asignado");
+            return;
+        }
+
         setError("");
         setGuardando(true);
 
@@ -89,7 +112,7 @@ function CrearImputacion() {
             // Construir los datos para FastAPI
             const datos: ImputacionHorasCrear = {
                 id_averia: Number(idAveria),
-                id_tecnico: Number(idTecnico),
+                id_tecnico: averiaSeleccionada.id_tecnico_asignado,
                 fecha,
                 horas,
                 descripcion_trabajo: descripcion.trim()
@@ -156,6 +179,13 @@ function CrearImputacion() {
                     </select>
                 </div>
 
+                {/* Informar cuando no existen averías disponibles */}
+                {averias.length === 0 && (
+                    <p className="formulario-error">
+                        No hay averías en curso disponibles para imputar horas.
+                    </p>
+                )}
+
                 {/* Título de la avería seleccionada */}
                 <div className="formulario-campo">
                     <label htmlFor="tituloAveria">
@@ -172,28 +202,24 @@ function CrearImputacion() {
                 </div>
 
 
-                    {/* Seleccionar técnico */}
-                    <div className="formulario-campo">
-                        <label htmlFor="idTecnico">Técnico *</label>
+                {/* Mostrar el técnico asignado a la avería */}
+                <div className="formulario-campo">
+                    <label htmlFor="tecnicoAsignado">
+                        Técnico asignado
+                    </label>
 
-                        <select
-                            id="idTecnico"
-                            value={idTecnico}
-                            onChange={(e) => setIdTecnico(e.target.value)}
-                            required
-                        >
-                            <option value="">Seleccionar técnico</option>
-
-                            {tecnicos.map((tecnico) => (
-                                <option
-                                    key={tecnico.id_persona}
-                                    value={tecnico.id_persona}
-                                >
-                                    {tecnico.nombre} {tecnico.apellidos}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
+                    <input
+                        id="tecnicoAsignado"
+                        type="text"
+                        value={
+                            tecnicoAsignado
+                                ? `${tecnicoAsignado.nombre} ${tecnicoAsignado.apellidos}`
+                                : ""
+                        }
+                        placeholder="Selecciona una avería"
+                        readOnly
+                    />
+                </div>
 
                     {/* Fecha del trabajo */}
                     <div className="formulario-campo">
@@ -262,8 +288,8 @@ function CrearImputacion() {
                             type="submit"
                             disabled={
                                 guardando ||
-                                averias.length === 0 ||
-                                tecnicos.length === 0
+                                !averiaSeleccionada ||
+                                !tecnicoAsignado
                             }
                         >
                             {guardando
