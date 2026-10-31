@@ -100,7 +100,7 @@ function CrearMaquina() {
 
                 {/* Código de identificación */}
                 <div className="formulario-campo">
-                    <label htmlFor="codigo">Código</label>
+                    <label htmlFor="codigo">Código*</label>
                     <input
                         id="codigo"
                         type="text"
@@ -113,7 +113,7 @@ function CrearMaquina() {
 
                 {/* Nombre de la máquina */}
                 <div className="formulario-campo">
-                    <label htmlFor="nombre">Nombre</label>
+                    <label htmlFor="nombre">Nombre*</label>
                     <input
                         id="nombre"
                         type="text"
@@ -126,7 +126,7 @@ function CrearMaquina() {
 
                 {/* Tipo de máquina */}
                 <div className="formulario-campo">
-                    <label htmlFor="tipo">Tipo</label>
+                    <label htmlFor="tipo">Tipo*</label>
                     <input
                         id="tipo"
                         type="text"
