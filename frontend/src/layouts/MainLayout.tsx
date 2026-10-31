@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import '../styles/MainLayout.css'
+import Sidebar from "../components/Sidebar";
 
 // Propiedades que recibe el componente
 interface MainLayoutProps 
@@ -13,9 +14,7 @@ function MainLayout( { children }: MainLayoutProps)
         <div className="main-layout">
             
             {/* Menu lateral */}
-            <aside className="sidebar">
-                <h2>Mantenimiento</h2>
-            </aside>
+            <Sidebar />
 
 
             {/* Zona principal de la aplicacion */}
