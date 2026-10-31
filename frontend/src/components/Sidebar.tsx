@@ -9,7 +9,7 @@ function Sidebar() {
             <nav>
                 <ul>
                     <li>
-                        <NavLink to="/" end className={({ isActive }) => isActive ? "active" : ""}>Inicio</NavLink>
+                        <NavLink to="/" end className={({ isActive }) => isActive ? "active" : ""}>Dashboard</NavLink>
                     </li>
 
                     <li>
