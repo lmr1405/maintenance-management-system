@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Routes, Route, Outlet } from "react-router";
 import MainLayout from "./layouts/MainLayout";
 import "./App.css";
@@ -13,6 +12,7 @@ import Login from "./pages/Login";
 import RutaProtegida from "./components/RutaProtegida";
 import CrearMaquina from "./pages/CrearMaquinas";
 import CrearPersona from "./pages/CrearPersonas";
+import CrearImputacion from "./pages/CrearImputaciones";
 
 function LayoutProtegido() {
     return (
@@ -39,6 +39,7 @@ function App() {
                         <Route path="/personas/crear" element={<CrearPersona />} />
                         <Route path="/averias" element={<Averias />} />
                         <Route path="/imputaciones" element={<Imputaciones />} />
+                        <Route path="/imputaciones/crear" element={<CrearImputacion />} />
                         <Route path="/informes" element={<Informes />} />
                     </Route>
                 </Route>
