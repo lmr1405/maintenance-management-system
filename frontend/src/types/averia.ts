@@ -47,6 +47,11 @@ export interface ResolverAveria {
     id_tecnico: number;
     causa_raiz: string;
     solucion_aplicada: string;
+
+    // Información adicional de la reparación
+    repuestos_sustituidos?: string | null;
+    tipo_solucion?: TipoSolucion | null;
+    recomendacion_preventiva?: string | null;
 }
 
 

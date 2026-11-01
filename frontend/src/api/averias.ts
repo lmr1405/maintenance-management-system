@@ -1,5 +1,6 @@
 import { API_URL } from "./cliente";
 import type { AveriaCrear, AveriaRespuesta } from "../types/averia";
+import type { TipoSolucion } from "../types/enums";
 
 // Obtener todas las averías (GET)
 export async function obtenerAverias(): Promise<AveriaRespuesta[]> {
@@ -81,7 +82,10 @@ export async function resolverAveria(
     idAveria: number,
     idTecnico: number,
     causaRaiz: string,
-    solucionAplicada: string
+    solucionAplicada: string,
+    repuestosSustituidos: string | null = null,
+    tipoSolucion: TipoSolucion | null = null,
+    recomendacionPreventiva: string | null = null
 ): Promise<AveriaRespuesta> {
 
     const respuesta = await fetch(`${API_URL}/averias/${idAveria}/resolver`, {
@@ -92,7 +96,10 @@ export async function resolverAveria(
         body: JSON.stringify({
             id_tecnico: idTecnico,
             causa_raiz: causaRaiz,
-            solucion_aplicada: solucionAplicada
+            solucion_aplicada: solucionAplicada,
+            repuestos_sustituidos: repuestosSustituidos,
+            tipo_solucion: tipoSolucion,
+            recomendacion_preventiva: recomendacionPreventiva
         })
     });
 
