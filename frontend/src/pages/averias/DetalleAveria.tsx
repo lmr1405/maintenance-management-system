@@ -70,8 +70,7 @@ function DetalleAveria() {
                 // Mostrar únicamente responsables activos
                 const personasResponsables = datosPersonas.filter(
                     (persona) =>
-                        persona.rol === "Responsable" &&
-                        persona.activo
+                        persona.rol === "Responsable" 
                 );
 
                 setResponsables(personasResponsables);
@@ -474,6 +473,38 @@ function DetalleAveria() {
                                 </p>
                             )}
 
+                            {/* Información del cierre */}
+                            {averia.estado === "Cerrada" && (
+                                <>
+                                    {averia.id_validada_por !== null && (
+                                        <p>
+                                            <strong>Validada por:</strong>{" "}
+                                            {(() => {
+                                                const responsable = responsables.find(
+                                                    (persona) =>
+                                                        persona.id_persona === averia.id_validada_por
+                                                );
+
+                                                if (!responsable) {
+                                                    return "Responsable no disponible";
+                                                }
+
+                                                return `${responsable.nombre} ${responsable.apellidos}${
+                                                    !responsable.activo ? " (Responsable dado de baja)" : ""
+                                                }`;
+                                            })()}
+                                        </p>
+                                    )}
+
+                                    {averia.fecha_cierre && (
+                                        <p>
+                                            <strong>Fecha de cierre:</strong>{" "}
+                                            {new Date(averia.fecha_cierre).toLocaleString("es-ES")}
+                                        </p>
+                                    )}
+                                </>
+                            )}
+
                         </div>
                     )}
 
@@ -498,7 +529,7 @@ function DetalleAveria() {
                                         Seleccionar responsable
                                     </option>
 
-                                    {responsables.map((responsable) => (
+                                    {responsables.filter((responsable) => responsable.activo).map((responsable) => (
                                         <option
                                             key={responsable.id_persona}
                                             value={responsable.id_persona}
