@@ -33,9 +33,13 @@ jobs:
           cache: pip
           cache-dependency-path: backend/requirements.txt
 
-      # Instalar las dependencias
+            # Instalar las dependencias del backend
       - name: Install dependencies
         run: python -m pip install -r requirements.txt
+
+      # Instalar pytest para ejecutar las pruebas automatizadas
+      - name: Install pytest
+        run: python -m pip install pytest
 
       # Ejecutar las pruebas unitarias
       - name: Run Pytest
