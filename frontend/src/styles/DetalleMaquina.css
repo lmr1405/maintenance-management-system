@@ -1,0 +1,135 @@
+/* Página de detalle de máquina */
+.detalle-maquina {
+    background: #ffffff;
+    border: 1px solid #e2e8e4;
+    border-radius: 10px;
+    padding: 24px;
+    margin-top: 20px;
+    margin-bottom: 24px;
+}
+
+/* Título de la máquina */
+.detalle-maquina h3 {
+    color: #245c43;
+    font-size: 20px;
+    margin: 0 0 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #e2e8e4;
+}
+
+/* Información de la máquina */
+.detalle-maquina p {
+    padding: 10px 0;
+    margin: 0;
+    font-size: 14px;
+    color: #374151;
+    border-bottom: 1px solid #f1f3f2;
+}
+
+.detalle-maquina p:last-child {
+    border-bottom: none;
+}
+
+.detalle-maquina strong {
+    color: #1f2937;
+    font-weight: 600;
+    margin-right: 8px;
+}
+
+/* Contenedor de acciones */
+.maquinas-acciones {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 28px;
+}
+
+/* Botones y enlaces */
+.maquinas-acciones button,
+.maquinas-acciones a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+/* Volver */
+.maquinas-acciones button {
+    background: #e5e7eb;
+    color: #374151;
+    border: 1px solid #d1d5db;
+}
+
+.maquinas-acciones button:hover {
+    background: #d1d5db;
+}
+
+/* Editar máquina */
+.maquinas-acciones a {
+    background: #32845d;
+    color: white;
+    border: 1px solid #32845d;
+}
+
+.maquinas-acciones a:hover {
+    background: #276b4b;
+}
+
+/* Dar de baja */
+.maquinas-acciones a:last-child:not(:first-child) {
+    background: #ffffff;
+    color: #b42318;
+    border: 1px solid #e5b4ae;
+}
+
+.maquinas-acciones a:last-child:not(:first-child):hover {
+    background: #fef2f2;
+}
+
+/* Historial de averías */
+.historial-maquina {
+    background: #ffffff;
+    border: 1px solid #e2e8e4;
+    border-radius: 10px;
+    padding: 24px;
+}
+
+.historial-maquina h3 {
+    color: #245c43;
+    font-size: 18px;
+    margin: 0 0 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e2e8e4;
+}
+
+.historial-maquina p {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+/* Adaptación a móviles */
+@media (max-width: 600px) {
+    .detalle-maquina,
+    .historial-maquina {
+        padding: 16px;
+    }
+
+    .maquinas-acciones {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .maquinas-acciones button,
+    .maquinas-acciones a {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}

@@ -1,9 +1,38 @@
 import { API_URL } from "./cliente";
 import type { MaquinaCrear, MaquinaRespuesta } from "../types/maquina";
 
-// Obtener todas las máquinas (GET)
-export async function obtenerMaquinas(): Promise<MaquinaRespuesta[]> {
-    const respuesta = await fetch(`${API_URL}/maquinas`);
+// Filtros disponibles para consultar máquinas
+export interface FiltrosMaquinas {
+    estado?: string;
+    ubicacion?: string;
+    tipo?: string;
+}
+
+// Obtener máquinas aplicando filtros opcionales (GET)
+export async function obtenerMaquinas(
+    filtros: FiltrosMaquinas = {}
+): Promise<MaquinaRespuesta[]> {
+
+    // Construir los parámetros de consulta
+    const parametros = new URLSearchParams();
+
+    if (filtros.estado) {
+        parametros.append("estado", filtros.estado);
+    }
+
+    if (filtros.ubicacion) {
+        parametros.append("ubicacion", filtros.ubicacion);
+    }
+
+    if (filtros.tipo) {
+        parametros.append("tipo", filtros.tipo);
+    }
+
+    // Construir la URL con los filtros
+    const consulta = parametros.toString();
+    const url = `${API_URL}/maquinas${consulta ? `?${consulta}` : ""}`;
+
+    const respuesta = await fetch(url);
 
     if (!respuesta.ok) {
         throw new Error("Error al obtener las máquinas");
