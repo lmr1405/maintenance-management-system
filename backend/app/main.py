@@ -13,6 +13,9 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",
         "http://127.0.0.1:5173"
+
+        # Frontend publicado en Vercel
+        "https://maintenance-management-web.vercel.app"
     ],
     allow_credentials=True,
     allow_methods=["*"],
