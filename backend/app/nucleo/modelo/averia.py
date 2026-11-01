@@ -51,3 +51,20 @@ class Averia:
         self.recomendacion_preventiva = recomendacion_preventiva
         self.fecha_resolucion = fecha_resolucion
         self.fecha_cierre = fecha_cierre
+
+    @property
+    def tiempo_parada_horas(self) -> float | None:
+        """Calcula el tiempo de parada de la máquina en horas."""
+
+        # Solo calcular si la máquina estuvo parada
+        if not self.maquina_parada:
+            return None
+
+        # Solo calcular cuando la avería esté resuelta
+        if self.fecha_resolucion is None:
+            return None
+
+        # Calcular la diferencia entre ambas fechas
+        diferencia = self.fecha_resolucion - self.fecha_deteccion
+
+        return round(diferencia.total_seconds() / 3600, 2)
