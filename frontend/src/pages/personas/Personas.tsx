@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
-import { obtenerPersonas } from "../api/personas";
-import type { PersonaRespuesta } from "../types/persona";
-import type { RolPersona, Especialidad } from "../types/enums";
-import "../styles/Personas.css";
+import { obtenerPersonas } from "../../api/personas";
+import type { PersonaRespuesta } from "../../types/persona";
+import type { RolPersona, Especialidad } from "../../types/enums";
+import "../../styles/Personas.css";
 
 // Opciones para los filtros
 const ROLES: RolPersona[] = [

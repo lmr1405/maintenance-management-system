@@ -2,16 +2,16 @@ import { useEffect, useState } from "react";
 import type { SubmitEvent } from "react";
 import { useNavigate } from "react-router";
 
-import { crearAveria } from "../api/averias";
-import { obtenerMaquinas } from "../api/maquinas";
-import { obtenerPersonas } from "../api/personas";
+import { crearAveria } from "../../api/averias";
+import { obtenerMaquinas } from "../../api/maquinas";
+import { obtenerPersonas } from "../../api/personas";
 
-import type { AveriaCrear } from "../types/averia";
-import type { MaquinaRespuesta } from "../types/maquina";
-import type { PersonaRespuesta } from "../types/persona";
-import type { TipoFallo, Prioridad } from "../types/enums";
+import type { AveriaCrear } from "../../types/averia";
+import type { MaquinaRespuesta } from "../../types/maquina";
+import type { PersonaRespuesta } from "../../types/persona";
+import type { TipoFallo, Prioridad } from "../../types/enums";
 
-import "../styles/CrearAveria.css";
+import "../../styles/CrearAveria.css";
 
 // Opciones de los enumerados
 const TIPOS_FALLO: TipoFallo[] = [

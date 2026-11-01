@@ -1,8 +1,8 @@
-import "../styles/Maquinas.css"
+import "../../styles/Maquinas.css"
 import { Link } from "react-router";
 import { useEffect, useState } from "react";
-import { obtenerMaquinas } from "../api/maquinas";
-import type { MaquinaRespuesta } from "../types/maquina";
+import { obtenerMaquinas } from "../../api/maquinas";
+import type { MaquinaRespuesta } from "../../types/maquina";
 
 function Maquinas() {
 

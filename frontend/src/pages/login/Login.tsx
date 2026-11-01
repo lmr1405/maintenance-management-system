@@ -1,8 +1,8 @@
-import "../styles/Login.css";
+import "../../styles/Login.css";
 import { useState } from "react";
 import type { SubmitEvent } from "react";
 import { useNavigate } from "react-router";
-import { supabase } from "../api/supabase";
+import { supabase } from "../../api/supabase";
 
 function Login() {
 

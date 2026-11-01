@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 
-import { obtenerAverias } from "../api/averias";
-import { obtenerMaquinas } from "../api/maquinas";
-import { obtenerPersonas } from "../api/personas";
+import { obtenerAverias } from "../../api/averias";
+import { obtenerMaquinas } from "../../api/maquinas";
+import { obtenerPersonas } from "../../api/personas";
 
-import type { AveriaRespuesta } from "../types/averia";
-import type { MaquinaRespuesta } from "../types/maquina";
-import type { PersonaRespuesta } from "../types/persona";
-import type { EstadoAveria } from "../types/enums";
+import type { AveriaRespuesta } from "../../types/averia";
+import type { MaquinaRespuesta } from "../../types/maquina";
+import type { PersonaRespuesta } from "../../types/persona";
+import type { EstadoAveria } from "../../types/enums";
 
-import "../styles/Averias.css";
+import "../../styles/Averias.css";
 
 // Estados del ciclo de vida de una avería
 const ESTADOS: EstadoAveria[] = [

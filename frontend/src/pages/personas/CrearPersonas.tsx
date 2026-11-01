@@ -1,10 +1,10 @@
 import { useState } from "react";
 import type { SubmitEvent } from "react";
 import { useNavigate } from "react-router";
-import { crearPersona } from "../api/personas";
-import type { PersonaCrear } from "../types/persona";
-import type { RolPersona, Especialidad } from "../types/enums";
-import "../styles/CrearPersonas.css";
+import { crearPersona } from "../../api/personas";
+import type { PersonaCrear } from "../../types/persona";
+import type { RolPersona, Especialidad } from "../../types/enums";
+import "../../styles/CrearPersonas.css";
 
 // Opciones de los enumerados
 const ROLES: RolPersona[] = [

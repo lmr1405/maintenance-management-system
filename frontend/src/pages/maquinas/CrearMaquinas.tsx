@@ -1,10 +1,10 @@
 import { useState } from "react";
 import type { SubmitEvent } from "react";
 import { useNavigate } from "react-router";
-import { crearMaquina } from "../api/maquinas";
-import type { MaquinaCrear } from "../types/maquina";
-import type { Criticidad } from "../types/enums";
-import "../styles/CrearMaquinas.css";
+import { crearMaquina } from "../../api/maquinas";
+import type { MaquinaCrear } from "../../types/maquina";
+import type { Criticidad } from "../../types/enums";
+import "../../styles/CrearMaquinas.css";
 
 // Obtener la fecha local actual
 function obtenerFechaActual(): string {

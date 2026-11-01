@@ -3,17 +3,17 @@ import { Link } from "react-router";
 
 import {
     obtenerImputaciones, obtenerTotalHorasPorAveria, obtenerTotalHorasPorMaquina, obtenerTotalHorasPorTecnico
-} from "../api/imputaciones";
-import { obtenerAverias } from "../api/averias";
-import { obtenerPersonas } from "../api/personas";
+} from "../../api/imputaciones";
+import { obtenerAverias } from "../../api/averias";
+import { obtenerPersonas } from "../../api/personas";
 
-import type { ImputacionHorasRespuesta } from "../types/imputacion";
-import type { AveriaRespuesta } from "../types/averia";
-import type { PersonaRespuesta } from "../types/persona";
-import { obtenerMaquinas } from "../api/maquinas";
-import type { MaquinaRespuesta } from "../types/maquina";
+import type { ImputacionHorasRespuesta } from "../../types/imputacion";
+import type { AveriaRespuesta } from "../../types/averia";
+import type { PersonaRespuesta } from "../../types/persona";
+import { obtenerMaquinas } from "../../api/maquinas";
+import type { MaquinaRespuesta } from "../../types/maquina";
 
-import "../styles/Imputaciones.css";
+import "../../styles/Imputaciones.css";
 
 function Imputaciones() {
 

@@ -2,19 +2,19 @@ import { BrowserRouter, Routes, Route, Outlet } from "react-router";
 import MainLayout from "./layouts/MainLayout";
 import "./App.css";
 
-import Dashboard from "./pages/Dashboard";
-import Maquinas from "./pages/Maquinas";
-import Personas from "./pages/Personas";
-import Averias from "./pages/Averias";
-import Informes from "./pages/Informes";
-import Imputaciones from "./pages/Imputaciones";
-import Login from "./pages/Login";
+import Dashboard from "./pages/dashboard/Dashboard";
+import Maquinas from "./pages/maquinas/Maquinas";
+import Personas from "./pages/personas/Personas";
+import Averias from "./pages/averias/Averias";
+import Informes from "./pages/informes/Informes";
+import Imputaciones from "./pages/imputaciones/Imputaciones";
+import Login from "./pages/login/Login";
 import RutaProtegida from "./components/RutaProtegida";
-import CrearMaquina from "./pages/CrearMaquinas";
-import CrearPersona from "./pages/CrearPersonas";
-import CrearImputacion from "./pages/CrearImputaciones";
-import CrearAveria from "./pages/CrearAveria";
-import DetalleAveria from "./pages/DetalleAveria";
+import CrearMaquina from "./pages/maquinas/CrearMaquinas";
+import CrearPersona from "./pages/personas/CrearPersonas";
+import CrearImputacion from "./pages/imputaciones/CrearImputaciones";
+import CrearAveria from "./pages/averias/CrearAveria";
+import DetalleAveria from "./pages/averias/DetalleAveria";
 
 function LayoutProtegido() {
     return (

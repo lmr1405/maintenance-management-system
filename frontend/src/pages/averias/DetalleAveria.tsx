@@ -1,12 +1,12 @@
-import "../styles/DetalleAveria.css"
+import "../../styles/DetalleAveria.css"
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 
-import { obtenerAveria, asignarTecnico, iniciarReparacion, resolverAveria, cerrarAveria } from "../api/averias";
-import { obtenerPersonas } from "../api/personas";
+import { obtenerAveria, asignarTecnico, iniciarReparacion, resolverAveria, cerrarAveria } from "../../api/averias";
+import { obtenerPersonas } from "../../api/personas";
 
-import type { AveriaRespuesta } from "../types/averia";
-import type { PersonaRespuesta } from "../types/persona";
+import type { AveriaRespuesta } from "../../types/averia";
+import type { PersonaRespuesta } from "../../types/persona";
 
 // Página para consultar y gestionar una avería
 function DetalleAveria() {

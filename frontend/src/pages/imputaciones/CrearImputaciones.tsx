@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 import type { SubmitEvent } from "react";
 import { useNavigate } from "react-router";
 
-import { crearImputacion } from "../api/imputaciones";
-import { obtenerAverias } from "../api/averias";
-import { obtenerPersonas } from "../api/personas";
+import { crearImputacion } from "../../api/imputaciones";
+import { obtenerAverias } from "../../api/averias";
+import { obtenerPersonas } from "../../api/personas";
 
-import type { ImputacionHorasCrear } from "../types/imputacion";
-import type { AveriaRespuesta } from "../types/averia";
-import type { PersonaRespuesta } from "../types/persona";
+import type { ImputacionHorasCrear } from "../../types/imputacion";
+import type { AveriaRespuesta } from "../../types/averia";
+import type { PersonaRespuesta } from "../../types/persona";
 
-import "../styles/CrearImputaciones.css";
+import "../../styles/CrearImputaciones.css";
 
 // Obtener la fecha local actual
 function obtenerFechaActual(): string {
