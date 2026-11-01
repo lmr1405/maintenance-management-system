@@ -9,6 +9,9 @@ import type { AveriaRespuesta } from "../../types/averia";
 import type { PersonaRespuesta } from "../../types/persona";
 import type { TipoSolucion } from "../../types/enums";
 
+// importamos la venta de aceptar
+import ModalConfirmacion from "../../components/ModalConfirmacion";
+
 // Página para consultar y gestionar una avería
 function DetalleAveria() {
 
@@ -26,6 +29,13 @@ function DetalleAveria() {
     const [cargando, setCargando] = useState(true);
     const [guardando, setGuardando] = useState(false);
     const [error, setError] = useState("");
+
+    // Control de la ventana de confirmación
+    const [mostrarModal, setMostrarModal] = useState(false);
+
+    // Mensajes de confirmación según la operación
+    const [tituloModal, setTituloModal] = useState("");
+    const [mensajeModal, setMensajeModal] = useState("");
 
     // Datos necesarios para resolver la avería
     const [causaRaiz, setCausaRaiz] = useState("");
@@ -97,14 +107,15 @@ function DetalleAveria() {
         try {
 
             // Solicitar la asignación a FastAPI
-            const averiaActualizada = await asignarTecnico(
+            await asignarTecnico(
                 averia.id_averia,
                 Number(idTecnico)
             );
 
-            // Actualizar los datos mostrados
-            setAveria(averiaActualizada);
-            setIdTecnico("");
+            // Mostrar confirmación después de asignar correctamente
+            setTituloModal("Técnico asignado correctamente");
+            setMensajeModal("La avería ha cambiado al estado Asignada.");
+            setMostrarModal(true);
 
         } catch (error) {
             setError(
@@ -129,13 +140,14 @@ function DetalleAveria() {
 
         try {
 
-            // Cambiar el estado de la avería a "En curso"
-            const averiaActualizada = await iniciarReparacion(
-                averia.id_averia
-            );
+                await iniciarReparacion(
+                    averia.id_averia
+                );
 
-            // Actualizar la información mostrada
-            setAveria(averiaActualizada);
+                // Mostrar confirmación
+                setTituloModal("Reparación iniciada correctamente");
+                setMensajeModal("La avería ha cambiado al estado En curso.");
+                setMostrarModal(true);
 
         } catch (error) {
             setError(
@@ -172,7 +184,7 @@ function DetalleAveria() {
             }
 
             // Solicitar a FastAPI la resolución de la avería
-            const averiaActualizada = await resolverAveria(
+            await resolverAveria(
                 averia.id_averia,
                 averia.id_tecnico_asignado,
                 causaRaiz.trim(),
@@ -182,8 +194,10 @@ function DetalleAveria() {
                 recomendacionPreventiva.trim() || null
             );
 
-            // Actualizar el estado mostrado
-            setAveria(averiaActualizada);
+            // Mostrar confirmación de resolución
+            setTituloModal("Avería resuelta correctamente");
+            setMensajeModal("La avería ha cambiado al estado Resuelta.");
+            setMostrarModal(true);
 
         } catch (error) {
             setError(
@@ -566,6 +580,15 @@ function DetalleAveria() {
             >
                 Volver a averías
             </button>
+
+            {/* Confirmación de asignación del técnico */}
+            {mostrarModal && (
+            <ModalConfirmacion
+                titulo={tituloModal}
+                mensaje={mensajeModal}
+                onAceptar={() => navigate("/averias", { replace: true })}
+            />
+        )}
 
         </div>
     );

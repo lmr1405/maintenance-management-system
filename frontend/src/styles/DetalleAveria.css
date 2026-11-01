@@ -147,6 +147,17 @@
     margin-top: 20px;
 }
 
+/* Evitar cajas anidadas en los formularios de resolución y cierre */
+.formulario-resolucion .formulario-campo,
+.formulario-cierre .formulario-campo {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
 /* Adaptación a pantallas pequeñas */
 @media (max-width: 768px) {
 
