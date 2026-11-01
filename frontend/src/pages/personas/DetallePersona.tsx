@@ -109,12 +109,6 @@ function DetallePersona() {
                     Editar persona
                 </Link>
 
-                {persona.activo && (
-                    <Link to={`/personas/${persona.id_persona}/baja`}>
-                        Dar de baja
-                    </Link>
-                )}
-
             </div>
 
         </div>
