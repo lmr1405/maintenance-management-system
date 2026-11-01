@@ -33,6 +33,9 @@ export interface AveriaRespuesta extends AveriaCrear {
 
     fecha_resolucion: string | null;
     fecha_cierre: string | null;
+
+    // Tiempo de parada calculado por el backend (horas)
+    tiempo_parada_horas: number | null;
 }
 
 
