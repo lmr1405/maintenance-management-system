@@ -1,0 +1,23 @@
+# Dependencias de Node.js
+node_modules/
+
+# Archivos generados por Vite
+dist/
+
+# Variables de entorno
+.env
+.env.*
+!.env.example
+
+# Archivos de Git y VS Code
+.git/
+.vscode/
+
+# Archivos de registro
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
