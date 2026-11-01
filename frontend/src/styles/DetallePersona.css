@@ -1,0 +1,106 @@
+
+/* Contenedor principal */
+.detalle-persona {
+    background-color: #ffffff;
+    border: 1px solid #dce8df;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+/* Nombre y apellidos */
+.detalle-persona h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #245b3b;
+    margin: 0 0 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* Información de la persona */
+.detalle-persona p {
+    font-size: 14px;
+    color: #475569;
+    margin: 0 0 12px;
+    line-height: 1.6;
+}
+
+/* Etiquetas */
+.detalle-persona strong {
+    color: #334155;
+    font-weight: 600;
+}
+
+/* Contenedor de acciones */
+.personas-acciones {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+/* Estilo general de los botones */
+.personas-acciones button,
+.personas-acciones a {
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+/* Botón Volver */
+.personas-acciones button {
+    background-color: #64748b;
+    color: #ffffff;
+}
+
+.personas-acciones button:hover {
+    background-color: #475569;
+}
+
+/* Botón Editar */
+.personas-acciones a {
+    background-color: #367a50;
+    color: #ffffff;
+}
+
+.personas-acciones a:hover {
+    background-color: #285e3d;
+}
+
+/* Botón Dar de baja */
+.personas-acciones .boton-baja-persona {
+    background-color: #dc3545;
+    color: #ffffff;
+}
+
+.personas-acciones .boton-baja-persona:hover {
+    background-color: #b02a37;
+}
+
+/* Adaptación a móviles */
+@media (max-width: 768px) {
+    .detalle-persona {
+        padding: 15px;
+    }
+
+    .personas-acciones {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .personas-acciones button,
+    .personas-acciones a {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}

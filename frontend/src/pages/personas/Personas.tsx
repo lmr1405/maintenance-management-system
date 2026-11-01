@@ -192,6 +192,7 @@ function Personas() {
                                     <th>Teléfono</th>
                                     <th>Coste/hora</th>
                                     <th>Estado</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
 
@@ -208,7 +209,17 @@ function Personas() {
                                         <td>
                                             {persona.activo
                                                 ? "Activo"
-                                                : "Inactivo"}
+                                                : "De baja"}
+                                        </td>
+
+                                        {/* Acciones disponibles para cada persona */}
+                                        <td>
+                                           <Link
+                                                    to={`/personas/${persona.id_persona}`}
+                                                className="boton-gestionar-persona"
+                                            >
+                                                Gestionar
+                                            </Link>                                                                         
                                         </td>
                                     </tr>
                                 ))}

@@ -170,6 +170,29 @@
     background-color: #285e3d;
 }
 
+
+/* Botón para editar una persona */
+.boton-gestionar-persona {
+    display: inline-block;
+    padding: 8px 14px;
+    background-color: #367a50;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+/* Efecto al pasar el ratón */
+.boton-gestionar-persona:hover {
+    background-color: #285e3d;
+    color: #ffffff;
+}
+
+
 /* Adaptación a pantallas pequeñas */
 @media (max-width: 768px) {
     .pagina-personas {
