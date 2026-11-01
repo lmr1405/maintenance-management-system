@@ -6,6 +6,10 @@
 
 Las credenciales de demostración se facilitarán a las personas autorizadas para evaluar el proyecto.
 
+## Vista previa
+
+![Dashboard de la aplicación](./docs/dashboard.png)
+
 ## 1. Descripción del proyecto
 
 **Maintenance Management System** es una aplicación web para la gestión del mantenimiento correctivo de máquinas en entornos industriales.
