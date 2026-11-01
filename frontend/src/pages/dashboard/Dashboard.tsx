@@ -3,6 +3,7 @@ import useDashboard from "../../hooks/useDashboard";
 import KpiOperativos from "../../components/dashboard/KpiOperativos";
 import AveriasPrioritarias from "../../components/dashboard/AveriasPrioritarias";
 import AveriasPendientes from "../../components/dashboard/AveriasPendientes";
+import AveriasPorPrioridad from "../../components/dashboard/AveriasPorPrioridad";
 
 import "../../styles/DashboardOperativo.css";
 
@@ -17,6 +18,7 @@ function Dashboard() {
         averiasSinAsignar,
         averiasEnCurso,
         averiasPorValidar,
+        averiasPorPrioridad,
         cargando,
         error
     } = useDashboard();
@@ -63,6 +65,11 @@ function Dashboard() {
                     <AveriasPendientes
                         averias={averias}
                         maquinas={maquinas}
+                    />
+
+                    {/* Distribución de averías activas por prioridad */}
+                    <AveriasPorPrioridad
+                        averiasPorPrioridad={averiasPorPrioridad}
                     />
                 </>
             )}
