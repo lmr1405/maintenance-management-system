@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 
-import {
-    obtenerImputaciones,
-    obtenerTotalHorasPorAveria
-} from "../../api/imputaciones";
+import { obtenerImputaciones } from "../../api/imputaciones";
 
 import { obtenerAverias } from "../../api/averias";
 import { obtenerPersonas } from "../../api/personas";
@@ -23,9 +20,6 @@ function Imputaciones() {
 
     const [averias, setAverias] = useState<AveriaRespuesta[]>([]);
     const [personas, setPersonas] = useState<PersonaRespuesta[]>([]);
-
-    // Totales de horas obtenidos de FastAPI
-    const [totalesAverias, setTotalesAverias] = useState<Record<number, number>>({});
 
     // Control de carga y errores
     const [cargando, setCargando] = useState(true);
@@ -50,22 +44,11 @@ function Imputaciones() {
             obtenerAverias(),
             obtenerPersonas()
         ])
-            .then(async ([datosImputaciones, datosAverias, datosPersonas]) => {
+            .then(([datosImputaciones, datosAverias, datosPersonas]) => {
 
                 setImputaciones(datosImputaciones);
                 setAverias(datosAverias);
                 setPersonas(datosPersonas);
-
-                // Consultar las horas totales de cada avería
-                const resultadosAverias = await Promise.all(
-                    datosAverias.map(async (averia) => {
-                        const resultado = await obtenerTotalHorasPorAveria(averia.id_averia);
-
-                        return [averia.id_averia, resultado.total_horas] as const;
-                    })
-                );
-
-                setTotalesAverias(Object.fromEntries(resultadosAverias));
 
             })
             .catch((error) => {
@@ -94,7 +77,8 @@ function Imputaciones() {
             : `Técnico #${id}`;
     }
 
-    // Aplicar los tres filtros de búsqueda
+
+// Aplicar filtros únicamente a las imputaciones registradas
     const imputacionesFiltradas = imputaciones.filter((imputacion) => {
 
         const coincideTecnico =
@@ -105,7 +89,6 @@ function Imputaciones() {
             filtroAveria === "" ||
             imputacion.id_averia === Number(filtroAveria);
 
-        // Comparar únicamente la parte de fecha
         const coincideFecha =
             filtroFecha === "" ||
             imputacion.fecha.slice(0, 10) === filtroFecha;
@@ -242,7 +225,7 @@ function Imputaciones() {
                     {imputaciones.length === 0 ? (
                         <p>No hay imputaciones registradas.</p>
                     ) : imputacionesFiltradas.length === 0 ? (
-                        <p>No se encontraron imputaciones con esos filtros.</p>
+                        <p>No se encontraron registros con esos filtros.</p>
                     ) : (
                         <table className="tabla-imputaciones">
 
@@ -252,43 +235,40 @@ function Imputaciones() {
                                     <th>Técnico</th>
                                     <th>Fecha</th>
                                     <th>Horas</th>
-                                    <th>Total horas avería</th>
                                     <th>Descripción del trabajo</th>
                                 </tr>
-                            </thead>
-
+                            </thead>                            
+                            
+                            {/* Mostrar el historial de imputaciones registradas, incluyendo
+                                la avería, el técnico, la fecha, las horas trabajadas
+                                y la descripción de cada intervención */}
                             <tbody>
                                 {imputacionesFiltradas.map((imputacion) => (
                                     <tr key={imputacion.id_imputacion}>
 
-                                        {/* Mostrar el número de avería */}
+                                        {/* Número de avería */}
                                         <td>
                                             {averias.find(
                                                 (averia) => averia.id_averia === imputacion.id_averia
                                             )?.numero ?? imputacion.id_averia}
                                         </td>
 
+                                        {/* Técnico que realizó el trabajo */}
                                         <td>
-                                            {obtenerNombreTecnico(
-                                                imputacion.id_tecnico
-                                            )}
+                                            {obtenerNombreTecnico(imputacion.id_tecnico)}
                                         </td>
 
+                                        {/* Fecha de la intervención */}
                                         <td>
                                             {imputacion.fecha.slice(0, 10)}
                                         </td>
 
+                                        {/* Horas registradas */}
                                         <td>
-                                            {imputacion.horas}
+                                            {imputacion.horas} h
                                         </td>
 
-                                        {/* Total de horas acumuladas en la avería */}
-                                        <td>
-                                            {(totalesAverias[imputacion.id_averia] ?? 0) > 0
-                                                ? `${totalesAverias[imputacion.id_averia]} h`
-                                                : "No existen horas imputadas"}
-                                        </td>
-
+                                        {/* Descripción del trabajo */}
                                         <td>
                                             {imputacion.descripcion_trabajo}
                                         </td>
@@ -297,7 +277,9 @@ function Imputaciones() {
                                 ))}
                             </tbody>
 
-                                                </table>
+
+
+                        </table>
                     )}
 
 
@@ -328,6 +310,7 @@ function Imputaciones() {
                             }}
                         >
                             <option value="">Seleccionar consulta</option>
+                            <option value="averias">Por avería</option>
                             <option value="maquinas">Por máquina</option>
                             <option value="tecnicos">Por técnico</option>
                         </select>

@@ -22,6 +22,7 @@ import EditarMaquina from "./pages/maquinas/EditarMaquina";
 import BajaMaquina from "./pages/maquinas/BajaMaquina";
 import DetallePersona from "./pages/personas/DetallePersona";
 import EditarPersona from "./pages/personas/EditarPersona";
+import TotalHorasAverias from "./pages/imputaciones/TotalHorasAverias";
 
 function LayoutProtegido() {
     return (
@@ -56,6 +57,7 @@ function App() {
                         <Route path="/averias/:id" element={<DetalleAveria />} />
                         <Route path="/imputaciones" element={<Imputaciones />} />
                         <Route path="/imputaciones/crear" element={<CrearImputacion />} />
+                        <Route path="/imputaciones/averias" element={<TotalHorasAverias />} />
                         <Route path="/imputaciones/maquinas" element={<TotalHorasMaquinas />} />
                         <Route path="/imputaciones/tecnicos" element={<TotalHorasTecnicos />} />
                         <Route path="/informes" element={<Informes />} />
