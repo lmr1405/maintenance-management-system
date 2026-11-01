@@ -44,4 +44,7 @@ class AveriaRespuesta(AveriaCrear):
     fecha_resolucion: datetime | None = None
     fecha_cierre: datetime | None = None
 
+    # Tiempo de parada calculado por el núcleo (horas)
+    tiempo_parada_horas: float | None = None
+
     model_config = ConfigDict(from_attributes=True)

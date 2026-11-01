@@ -381,3 +381,33 @@ def test_no_resolver_con_operario(
         )
 
     averias.actualizar.assert_not_called()
+
+# Comprobar el cálculo del tiempo de parada
+def test_tiempo_parada_averia_resuelta(averia):
+    averia.maquina_parada = True
+    averia.fecha_deteccion = datetime(
+        2026, 11, 1, 8, 0, tzinfo=timezone.utc
+    )
+    averia.fecha_resolucion = datetime(
+        2026, 11, 1, 11, 30, tzinfo=timezone.utc
+    )
+
+    assert averia.tiempo_parada_horas == 3.5
+
+
+# No calcular si la máquina no estuvo parada
+def test_tiempo_parada_maquina_operativa(averia):
+    averia.maquina_parada = False
+    averia.fecha_resolucion = datetime(
+        2026, 11, 1, 11, 30, tzinfo=timezone.utc
+    )
+
+    assert averia.tiempo_parada_horas is None
+
+
+# No calcular si todavía no se ha resuelto
+def test_tiempo_parada_averia_pendiente(averia):
+    averia.maquina_parada = True
+    averia.fecha_resolucion = None
+
+    assert averia.tiempo_parada_horas is None
