@@ -82,8 +82,25 @@ class ResolucionAveriaServicio:
         averia.tipo_solucion = tipo_solucion
         averia.recomendacion_preventiva = recomendacion_preventiva
 
-        # Fecha automática y cambio de estado
-        averia.fecha_resolucion = datetime.now(timezone.utc)
+        # Obtener la fecha y hora actual
+        fecha_resolucion = datetime.now(timezone.utc)
+
+        # Normalizar la fecha de detección a UTC
+        fecha_deteccion = averia.fecha_deteccion
+
+        if fecha_deteccion.tzinfo is None:
+            fecha_deteccion = fecha_deteccion.replace(tzinfo=timezone.utc)
+        else:
+            fecha_deteccion = fecha_deteccion.astimezone(timezone.utc)
+
+        # Comprobar la coherencia de fechas
+        if fecha_resolucion < fecha_deteccion:
+            raise ValueError(
+                "La fecha de resolución no puede ser anterior a la detección"
+            )
+
+        # Registrar fecha y cambiar el estado
+        averia.fecha_resolucion = fecha_resolucion
         averia.estado = EstadoAveria.RESUELTA
 
         resultado = self.averias.actualizar(averia)
