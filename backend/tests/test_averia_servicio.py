@@ -48,7 +48,6 @@ def persona():
 @pytest.fixture
 def averia():
     return Averia(
-        numero="AV-001",
         id_maquina=1,
         id_reportada_por=2,
         fecha_deteccion=datetime(
@@ -289,7 +288,6 @@ def test_otra_averia_mantiene_maquina_parada(
     maquina.estado = EstadoMaquina.EN_AVERIA
 
     otra_averia = Averia(
-        numero="AV-002",
         id_maquina=1,
         id_reportada_por=2,
         fecha_deteccion=datetime(

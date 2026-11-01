@@ -1,5 +1,6 @@
-from sqlalchemy import select
+from sqlalchemy import select, text
 from sqlalchemy.orm import Session
+from datetime import datetime, timezone
 
 from app.nucleo.interfaces.iaveria_repositorio import IAveriaRepositorio
 from app.nucleo.modelo.averia import Averia
@@ -16,8 +17,22 @@ class AveriaRepositorio(IAveriaRepositorio):
 
     def guardar(self, averia: Averia) -> Averia:
 
+        # Reservar un identificador único de PostgreSQL
+        id_averia = self.session.execute(
+            text("SELECT nextval(pg_get_serial_sequence('averias', 'id_averia'))")
+        ).scalar_one()
+
+        # Generar el número de avería automáticamente
+        anio = datetime.now(timezone.utc).year
+        numero = f"AV-{anio}-{id_averia:04d}"
+
+        # Actualizar la entidad del núcleo
+        averia.id_averia = id_averia
+        averia.numero = numero
+
         averia_orm = AveriaORM(
-            numero=averia.numero,
+            id_averia=id_averia,
+            numero=numero,
             id_maquina=averia.id_maquina,
             id_reportada_por=averia.id_reportada_por,
             id_tecnico_asignado=averia.id_tecnico_asignado,
@@ -38,12 +53,11 @@ class AveriaRepositorio(IAveriaRepositorio):
             fecha_cierre=averia.fecha_cierre
         )
 
+        # Guardar la avería con su número generado automáticamente
         self.session.add(averia_orm)
         self.session.flush()
 
-        averia.id_averia = averia_orm.id_averia
-
-        return averia
+        return averia                   
 
 
 

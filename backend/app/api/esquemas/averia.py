@@ -13,7 +13,6 @@ from app.nucleo.modelo.enums import (
 class AveriaCrear(BaseModel):
     """Datos necesarios para registrar una avería."""
 
-    numero: str = Field(min_length=1, max_length=20)
     id_maquina: int = Field(gt=0)
     id_reportada_por: int = Field(gt=0)
 
@@ -30,7 +29,7 @@ class AveriaRespuesta(AveriaCrear):
     """Datos completos de una avería."""
 
     id_averia: int
-
+    numero: str
     estado: EstadoAveria
 
     id_tecnico_asignado: int | None = None

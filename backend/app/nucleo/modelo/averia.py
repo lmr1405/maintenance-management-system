@@ -4,7 +4,6 @@ from app.nucleo.modelo.enums import Prioridad, EstadoAveria, TipoSolucion, TipoF
 class Averia:
     def __init__(
             self,
-            numero: str,
             id_maquina: int,
             id_reportada_por: int,
             fecha_deteccion: datetime,
@@ -14,7 +13,8 @@ class Averia:
             prioridad: Prioridad,
             maquina_parada: bool,
             estado: EstadoAveria,
-            id_averia: int | None = None,
+            id_averia: int | None = None,            
+            numero: str | None = None,
             id_tecnico_asignado: int | None = None,
             id_validada_por: int | None = None,
             causa_raiz: str | None = None,
