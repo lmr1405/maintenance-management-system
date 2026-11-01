@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { obtenerMaquinas } from "../api/maquinas";
 import { obtenerAverias } from "../api/averias";
 import { obtenerPersonas } from "../api/personas";
+import { obtenerImputaciones } from "../api/imputaciones";
 
 import type { MaquinaRespuesta } from "../types/maquina";
 import type { AveriaRespuesta } from "../types/averia";
@@ -14,6 +15,11 @@ function useDashboard() {
     const [maquinas, setMaquinas] = useState<MaquinaRespuesta[]>([]);
     const [averias, setAverias] = useState<AveriaRespuesta[]>([]);
     const [personas, setPersonas] = useState<PersonaRespuesta[]>([]);
+
+    // Horas registradas por los técnicos
+    const [imputaciones, setImputaciones] = useState<
+        Awaited<ReturnType<typeof obtenerImputaciones>>
+    >([]);
 
     // Control de carga y errores
     const [cargando, setCargando] = useState(true);
@@ -34,17 +40,20 @@ function useDashboard() {
                 const [
                     datosMaquinas,
                     datosAverias,
-                    datosPersonas
+                    datosPersonas,
+                    datosImputaciones
                 ] = await Promise.all([
                     obtenerMaquinas(),
                     obtenerAverias(),
-                    obtenerPersonas()
+                    obtenerPersonas(),
+                    obtenerImputaciones()
                 ]);
 
                 if (activo) {
                     setMaquinas(datosMaquinas);
                     setAverias(datosAverias);
                     setPersonas(datosPersonas);
+                    setImputaciones(datosImputaciones);
                 }
 
             } catch {
@@ -162,6 +171,57 @@ function useDashboard() {
         tecnico => !tecnicosOcupados.has(tecnico.id_persona)
     ).length;
 
+    // Relacionar las averías con sus máquinas
+    const maquinaPorAveria = new Map(
+        averias.map(averia => [
+            averia.id_averia,
+            averia.id_maquina
+        ])
+    );
+
+    // Horas acumuladas por máquina
+    const horasPorMaquina = maquinas.map(maquina => {
+
+        const horas = imputaciones.reduce((total, imputacion) => {
+
+            const idMaquina = maquinaPorAveria.get(
+                imputacion.id_averia
+            );
+
+            if (idMaquina !== maquina.id_maquina) {
+                return total;
+            }
+
+            return total + Number(imputacion.horas);
+        }, 0);
+
+        return {
+            id: maquina.id_maquina,
+            nombre: maquina.nombre,
+            horas
+        };
+    });
+
+    // Horas acumuladas por técnico
+    const horasPorTecnico = personas
+        .filter(persona => persona.rol === "Técnico de mantenimiento")
+        .map(tecnico => {
+
+            const horas = imputaciones
+                .filter(imputacion =>
+                    imputacion.id_tecnico === tecnico.id_persona
+                )
+                .reduce((total, imputacion) =>
+                    total + Number(imputacion.horas), 0
+                );
+
+            return {
+                id: tecnico.id_persona,
+                nombre: `${tecnico.nombre} ${tecnico.apellidos}`,
+                horas
+            };
+        });
+
     // Devolver datos e indicadores
     return {
         maquinas,
@@ -179,6 +239,8 @@ function useDashboard() {
         averiasEnCurso,
         averiasPorValidar,
         averiasPorPrioridad,
+        horasPorMaquina,
+        horasPorTecnico,
 
         cargando,
         error

@@ -4,6 +4,7 @@ import KpiOperativos from "../../components/dashboard/KpiOperativos";
 import AveriasPrioritarias from "../../components/dashboard/AveriasPrioritarias";
 import AveriasPendientes from "../../components/dashboard/AveriasPendientes";
 import AveriasPorPrioridad from "../../components/dashboard/AveriasPorPrioridad";
+import GraficosHoras from "../../components/dashboard/GraficoHoras";
 
 import "../../styles/DashboardOperativo.css";
 
@@ -20,6 +21,8 @@ function Dashboard() {
         averiasPorValidar,
         averiasPorPrioridad,
         cargando,
+        horasPorMaquina,
+        horasPorTecnico,
         error
     } = useDashboard();
 
@@ -67,10 +70,19 @@ function Dashboard() {
                         maquinas={maquinas}
                     />
 
-                    {/* Distribución de averías activas por prioridad */}
-                    <AveriasPorPrioridad
-                        averiasPorPrioridad={averiasPorPrioridad}
-                    />
+                    {/* Indicadores gráficos de mantenimiento */}
+                    <section className="dashboard-graficos-operativos">
+
+                        <AveriasPorPrioridad
+                            averiasPorPrioridad={averiasPorPrioridad}
+                        />
+
+                        <GraficosHoras
+                            horasPorMaquina={horasPorMaquina}
+                            horasPorTecnico={horasPorTecnico}
+                        />
+
+                    </section>
                 </>
             )}
 

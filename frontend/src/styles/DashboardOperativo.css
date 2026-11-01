@@ -77,9 +77,32 @@
     background: #1d4ed8;
 }
 
+/* Tres gráficos en una misma fila */
+.dashboard-graficos-operativos {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+/* Los elementos de GraficosHoras participan en la cuadrícula principal */
+.dashboard-graficos-operativos .dashboard-horas {
+    display: contents;
+}
+
+/* Evitar que los gráficos desborden sus columnas */
+.dashboard-graficos-operativos > *,
+.dashboard-graficos-operativos .dashboard-panel {
+    min-width: 0;
+}
+
+
 /* Tablets */
 @media (max-width: 1100px) {
     .dashboard-operativo .dashboard-kpis {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .dashboard-graficos-operativos {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
@@ -87,6 +110,10 @@
 /* Móviles */
 @media (max-width: 650px) {
     .dashboard-operativo .dashboard-kpis {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-graficos-operativos {
         grid-template-columns: 1fr;
     }
 
