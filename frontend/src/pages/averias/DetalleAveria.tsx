@@ -466,6 +466,14 @@ function DetalleAveria() {
                                 </p>
                             )}
 
+                            {/* Tiempo de parada calculado por el backend */}
+                            {averia.tiempo_parada_horas !== null && (
+                                <p>
+                                    <strong>Tiempo de parada:</strong>{" "}
+                                    {averia.tiempo_parada_horas.toLocaleString("es-ES")} horas
+                                </p>
+                            )}
+
                         </div>
                     )}
 
