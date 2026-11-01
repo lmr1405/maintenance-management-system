@@ -5,7 +5,7 @@ import GraficoAveriasPastel from "../../components/dashboard/GraficoAveriasPaste
 import GraficoAveriasBarras from "../../components/dashboard/GraficoAveriasBarras";
 import GraficoEstadoMaquinas from "../../components/dashboard/GraficoEstadoMaquinas";
 
-import "../../styles/Dashboard.css";
+import "../../styles/Informe.css";
 
 function Informes() {
 
