@@ -5,7 +5,7 @@ from app.nucleo.interfaces.imaquina_repositorio import IMaquinaRepositorio
 from app.nucleo.interfaces.ipersona_repositorio import IPersonaRepositorio
 
 from app.nucleo.modelo.averia import Averia
-from app.nucleo.modelo.enums import EstadoAveria, EstadoMaquina, RolPersona
+from app.nucleo.modelo.enums import EstadoAveria, EstadoMaquina, RolPersona, TipoSolucion
 
 
 class ResolucionAveriaServicio:
@@ -36,7 +36,16 @@ class ResolucionAveriaServicio:
         return self.averias.actualizar(averia)
 
 
-    def resolver_averia(self, id_averia: int, id_tecnico: int, causa_raiz: str, solucion_aplicada: str) -> Averia:
+    def resolver_averia(
+        self,
+        id_averia: int,
+        id_tecnico: int,
+        causa_raiz: str,
+        solucion_aplicada: str,
+        repuestos_sustituidos: str | None = None,
+        tipo_solucion: TipoSolucion | None = None,
+        recomendacion_preventiva: str | None = None
+    ) -> Averia:
         averia = self._obtener_averia(id_averia)
 
         # Comprobar que la avería esté en curso
@@ -67,6 +76,13 @@ class ResolucionAveriaServicio:
         # Registrar los datos de resolución
         averia.causa_raiz = causa_raiz
         averia.solucion_aplicada = solucion_aplicada
+
+        # Información adicional de la reparación
+        averia.repuestos_sustituidos = repuestos_sustituidos
+        averia.tipo_solucion = tipo_solucion
+        averia.recomendacion_preventiva = recomendacion_preventiva
+
+        # Fecha automática y cambio de estado
         averia.fecha_resolucion = datetime.now(timezone.utc)
         averia.estado = EstadoAveria.RESUELTA
 

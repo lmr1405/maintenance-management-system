@@ -7,7 +7,7 @@ from app.api.dependencias import obtener_sesion
 from app.api.esquemas.averia import AveriaCrear, AveriaRespuesta
 
 from app.nucleo.modelo.averia import Averia
-from app.nucleo.modelo.enums import EstadoAveria
+from app.nucleo.modelo.enums import EstadoAveria, TipoSolucion
 
 from app.nucleo.servicio.deteccion_averia_servicio import DeteccionAveriaServicio
 from app.nucleo.servicio.resolucion_averia_servicio import ResolucionAveriaServicio
@@ -27,8 +27,15 @@ class AsignarTecnico(BaseModel):
 
 class ResolverAveria(BaseModel):
     id_tecnico: int = Field(gt=0)
+
+    # Datos obligatorios para resolver
     causa_raiz: str = Field(min_length=1)
     solucion_aplicada: str = Field(min_length=1)
+
+    # Información adicional de la reparación
+    repuestos_sustituidos: str | None = None
+    tipo_solucion: TipoSolucion | None = None
+    recomendacion_preventiva: str | None = None
 
 
 class CerrarAveria(BaseModel):
@@ -191,7 +198,10 @@ def resolver_averia(
             id_averia,
             datos.id_tecnico,
             datos.causa_raiz,
-            datos.solucion_aplicada
+            datos.solucion_aplicada,
+            datos.repuestos_sustituidos,
+            datos.tipo_solucion,
+            datos.recomendacion_preventiva
         )
         session.commit()
         return resultado
