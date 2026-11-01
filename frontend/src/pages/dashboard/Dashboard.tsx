@@ -1,3 +1,19 @@
+/**
+ * Página Dashboard.
+ * Muestra el panel operativo de mantenimiento con los indicadores,
+ * intervenciones prioritarias y gráficos de seguimiento.
+ *
+ * Funcionamiento:
+ * - useDashboard: obtiene los datos e indicadores calculados.
+ * - KpiOperativos: muestra máquinas paradas y estado de las averías activas.
+ * - AveriasPrioritarias: muestra las intervenciones ordenadas por prioridad.
+ * - AveriasPendientes: muestra las averías sin técnico asignado.
+ * - IndicadoresMantenimiento: muestra el tiempo medio de reparación
+ *   y el intervalo medio entre averías.
+ * - AveriasPorPrioridad: representa las averías activas por prioridad.
+ * - GraficosHoras: muestra las horas de mantenimiento por máquina y técnico.
+ * - Controla los estados de carga y los posibles errores.
+ */
 import useDashboard from "../../hooks/useDashboard";
 
 import KpiOperativos from "../../components/dashboard/KpiOperativos";

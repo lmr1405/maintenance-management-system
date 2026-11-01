@@ -1,3 +1,15 @@
+/**
+ * Página Averias.
+ * Muestra el listado de averías registradas y permite
+ * consultar, buscar y filtrar las incidencias de mantenimiento.
+ *
+ * Funcionamiento:
+ * - Obtiene las averías, máquinas y personas desde FastAPI.
+ * - Permite filtrar por estado, máquina y técnico asignado.
+ * - Permite buscar por número, título, síntoma, causa o solución.
+ * - Muestra las averías en una tabla con su estado y prioridad.
+ * - Permite registrar nuevas averías y gestionar las existentes.
+ */
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 

@@ -1,3 +1,16 @@
+/**
+ * Página TotalHorasAverias.
+ * Muestra las horas de trabajo acumuladas en cada avería
+ * y los técnicos que han participado en su reparación.
+ *
+ * Funcionamiento:
+ * - Obtiene las averías, imputaciones y personas desde FastAPI.
+ * - Consulta el total de horas registradas en cada avería.
+ * - obtenerIntervenciones: obtiene las imputaciones de una avería.
+ * - obtenerTecnicos: identifica los técnicos participantes sin repetirlos.
+ * - Muestra una tabla con la avería, técnicos, intervenciones y horas.
+ * - Permite regresar al historial de imputaciones.
+ */
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 

@@ -1,3 +1,16 @@
+/**
+ * Página CrearAveria.
+ * Muestra el formulario para registrar nuevas averías
+ * detectadas en las máquinas del sistema de mantenimiento.
+ *
+ * Funcionamiento:
+ * - Obtiene las máquinas disponibles y los operarios activos.
+ * - Permite introducir los datos de detección de una avería.
+ * - Establece la fecha y hora actual por defecto.
+ * - Valida los campos obligatorios del formulario.
+ * - Envía los datos a FastAPI para registrar la avería.
+ * - Redirige al listado de averías después del registro.
+ */
 import { useEffect, useState } from "react";
 import type { SubmitEvent } from "react";
 import { useNavigate } from "react-router";

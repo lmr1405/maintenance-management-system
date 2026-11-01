@@ -1,3 +1,16 @@
+/**
+ * Página CrearImputacion.
+ * Muestra el formulario para registrar las horas de trabajo
+ * dedicadas por los técnicos a las reparaciones de averías.
+ *
+ * Funcionamiento:
+ * - Obtiene las averías en curso y los técnicos activos desde FastAPI.
+ * - Permite seleccionar la avería y el técnico que realiza el trabajo.
+ * - Establece la fecha actual por defecto.
+ * - Permite registrar las horas y la descripción de la intervención.
+ * - Valida los datos antes de enviar la imputación al backend.
+ * - Redirige al listado de imputaciones después del registro.
+ */
 import { useEffect, useState } from "react";
 import type { SubmitEvent } from "react";
 import { useNavigate } from "react-router";

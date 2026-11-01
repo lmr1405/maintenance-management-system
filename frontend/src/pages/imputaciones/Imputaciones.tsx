@@ -1,3 +1,16 @@
+/**
+ * Página Imputaciones.
+ * Muestra el historial de horas de trabajo registradas
+ * por los técnicos durante las intervenciones de mantenimiento.
+ *
+ * Funcionamiento:
+ * - Obtiene las imputaciones, averías y personas desde FastAPI.
+ * - Permite filtrar las imputaciones por técnico, avería y fecha.
+ * - Muestra las intervenciones en una tabla con sus horas registradas.
+ * - Permite consultar el total de horas por avería, máquina o técnico.
+ * - Muestra la cantidad total de imputaciones registradas.
+ * - Permite acceder al formulario para registrar nuevas imputaciones.
+ */
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 

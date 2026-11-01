@@ -1,3 +1,16 @@
+/**
+ * Página TotalHorasMaquinas.
+ * Muestra las horas de mantenimiento acumuladas
+ * por cada máquina registrada en el sistema.
+ *
+ * Funcionamiento:
+ * - Obtiene el listado de máquinas desde FastAPI.
+ * - cargarTotales: consulta las horas acumuladas de cada máquina.
+ * - Utiliza Promise.all para realizar las consultas en paralelo.
+ * - Muestra una tabla con el código, nombre y total de horas.
+ * - Controla los estados de carga y los posibles errores.
+ * - Permite regresar al historial de imputaciones.
+ */
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 

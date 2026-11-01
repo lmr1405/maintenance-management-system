@@ -1,3 +1,17 @@
+/**
+ * Página DetalleAveria.
+ * Muestra la información de una avería y permite gestionar
+ * las distintas etapas de su ciclo de vida.
+ *
+ * Funcionamiento:
+ * - Obtiene los datos de la avería y las personas desde FastAPI.
+ * - Permite asignar un técnico a una avería abierta.
+ * - Permite iniciar la reparación de una avería asignada.
+ * - Permite resolver la avería registrando la causa y solución.
+ * - Muestra los datos de reparación y el tiempo de parada.
+ * - Permite cerrar la avería mediante la validación de un responsable.
+ * - Muestra mensajes de confirmación después de cada operación.
+ */
 import "../../styles/DetalleAveria.css"
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";

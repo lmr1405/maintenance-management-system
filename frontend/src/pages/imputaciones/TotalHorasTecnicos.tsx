@@ -1,3 +1,17 @@
+/**
+ * Página TotalHorasTecnicos.
+ * Muestra las horas de trabajo acumuladas por cada técnico
+ * que ha participado en las intervenciones de mantenimiento.
+ *
+ * Funcionamiento:
+ * - Obtiene las personas registradas desde FastAPI.
+ * - Filtra los técnicos, incluyendo los activos e inactivos.
+ * - cargarTotales: consulta las horas acumuladas de cada técnico.
+ * - Utiliza Promise.all para realizar las consultas en paralelo.
+ * - Muestra una tabla con el nombre del técnico y sus horas trabajadas.
+ * - Controla los estados de carga y los posibles errores.
+ * - Permite regresar al historial de imputaciones.
+ */
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 
