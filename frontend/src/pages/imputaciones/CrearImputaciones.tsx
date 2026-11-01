@@ -61,12 +61,6 @@ function CrearImputacion() {
         (averia) => averia.id_averia === Number(idAveria)
     );
 
-    // Obtener el técnico asignado a esa avería
-    const tecnicoAsignado = tecnicos.find(
-        (tecnico) =>
-            tecnico.id_persona === averiaSeleccionada?.id_tecnico_asignado
-    );
-
     useEffect(() => {
 
         // Consultar averías y personas registradas
