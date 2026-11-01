@@ -109,6 +109,29 @@ function useDashboard() {
         averia => averia.estado === "En curso"
     ).length;
 
+    // Averías activas agrupadas por prioridad
+    const averiasPorPrioridad = {
+        Urgente: 0,
+        Alta: 0,
+        Media: 0,
+        Baja: 0
+    };
+
+    // Contar averías pendientes de resolver
+    averias.forEach(averia => {
+
+        // Excluir las averías resueltas y cerradas
+        if (
+            averia.estado === "Resuelta" ||
+            averia.estado === "Cerrada"
+        ) {
+            return;
+        }
+
+        // Incrementar el contador correspondiente
+        averiasPorPrioridad[averia.prioridad]++;
+    });
+
     // Averías pendientes de validación
     const averiasPorValidar = averias.filter(
         averia => averia.estado === "Resuelta"
@@ -155,6 +178,7 @@ function useDashboard() {
         averiasSinAsignar,
         averiasEnCurso,
         averiasPorValidar,
+        averiasPorPrioridad,
 
         cargando,
         error
