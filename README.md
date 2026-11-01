@@ -1,5 +1,11 @@
 # Maintenance Management System
 
+**Aplicación web:** [Acceder a Gestión de Mantenimiento](https://maintenance-management-web.vercel.app/)
+
+**Nota:** La aplicación requiere autenticación mediante correo electrónico y contraseña para acceder a sus funcionalidades.
+
+Las credenciales de demostración se facilitarán a las personas autorizadas para evaluar el proyecto.
+
 ## 1. Descripción del proyecto
 
 **Maintenance Management System** es una aplicación web para la gestión del mantenimiento correctivo de máquinas en entornos industriales.
