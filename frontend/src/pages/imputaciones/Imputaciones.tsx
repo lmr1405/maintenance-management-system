@@ -2,16 +2,16 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router";
 
 import {
-    obtenerImputaciones, obtenerTotalHorasPorAveria, obtenerTotalHorasPorMaquina, obtenerTotalHorasPorTecnico
+    obtenerImputaciones,
+    obtenerTotalHorasPorAveria
 } from "../../api/imputaciones";
+
 import { obtenerAverias } from "../../api/averias";
 import { obtenerPersonas } from "../../api/personas";
 
 import type { ImputacionHorasRespuesta } from "../../types/imputacion";
 import type { AveriaRespuesta } from "../../types/averia";
 import type { PersonaRespuesta } from "../../types/persona";
-import { obtenerMaquinas } from "../../api/maquinas";
-import type { MaquinaRespuesta } from "../../types/maquina";
 
 import "../../styles/Imputaciones.css";
 
@@ -24,13 +24,8 @@ function Imputaciones() {
     const [averias, setAverias] = useState<AveriaRespuesta[]>([]);
     const [personas, setPersonas] = useState<PersonaRespuesta[]>([]);
 
-    // Máquinas recibidas de FastAPI
-    const [maquinas, setMaquinas] = useState<MaquinaRespuesta[]>([]);
-
     // Totales de horas obtenidos de FastAPI
     const [totalesAverias, setTotalesAverias] = useState<Record<number, number>>({});
-    const [totalesMaquinas, setTotalesMaquinas] = useState<Record<number, number>>({});
-    const [totalesTecnicos, setTotalesTecnicos] = useState<Record<number, number>>({});
 
     // Control de carga y errores
     const [cargando, setCargando] = useState(true);
@@ -47,15 +42,13 @@ function Imputaciones() {
         Promise.all([
             obtenerImputaciones(),
             obtenerAverias(),
-            obtenerPersonas(),
-            obtenerMaquinas()
+            obtenerPersonas()
         ])
-            .then(async ([datosImputaciones, datosAverias, datosPersonas, datosMaquinas]) => {
+            .then(async ([datosImputaciones, datosAverias, datosPersonas]) => {
 
                 setImputaciones(datosImputaciones);
                 setAverias(datosAverias);
                 setPersonas(datosPersonas);
-                setMaquinas(datosMaquinas);
 
                 // Consultar las horas totales de cada avería
                 const resultadosAverias = await Promise.all(
@@ -67,30 +60,6 @@ function Imputaciones() {
                 );
 
                 setTotalesAverias(Object.fromEntries(resultadosAverias));
-
-                // Consultar las horas totales de cada máquina
-                const resultadosMaquinas = await Promise.all(
-                    datosMaquinas.map(async (maquina) => {
-                        const resultado = await obtenerTotalHorasPorMaquina(maquina.id_maquina);
-
-                        return [maquina.id_maquina, resultado.total_horas] as const;
-                    })
-                );
-
-                setTotalesMaquinas(Object.fromEntries(resultadosMaquinas));
-
-                // Consultar las horas totales de cada técnico
-                const resultadosTecnicos = await Promise.all(
-                    datosPersonas
-                        .filter((persona) => persona.rol === "Técnico de mantenimiento")
-                        .map(async (tecnico) => {
-                            const resultado = await obtenerTotalHorasPorTecnico(tecnico.id_persona);
-
-                            return [tecnico.id_persona, resultado.total_horas] as const;
-                        })
-                );
-
-                setTotalesTecnicos(Object.fromEntries(resultadosTecnicos));
 
             })
             .catch((error) => {
@@ -266,6 +235,7 @@ function Imputaciones() {
                                     <th>Técnico</th>
                                     <th>Fecha</th>
                                     <th>Horas</th>
+                                    <th>Total horas avería</th>
                                     <th>Descripción del trabajo</th>
                                 </tr>
                             </thead>
@@ -295,6 +265,13 @@ function Imputaciones() {
                                             {imputacion.horas}
                                         </td>
 
+                                        {/* Total de horas acumuladas en la avería */}
+                                        <td>
+                                            {(totalesAverias[imputacion.id_averia] ?? 0) > 0
+                                                ? `${totalesAverias[imputacion.id_averia]} h`
+                                                : "No existen horas imputadas"}
+                                        </td>
+
                                         <td>
                                             {imputacion.descripcion_trabajo}
                                         </td>
@@ -306,84 +283,6 @@ function Imputaciones() {
                                                 </table>
                     )}
 
-                    {/* Totales de horas por avería */}
-                    <section className="imputaciones-resumen">
-                        <h3>Total de horas por avería</h3>
-
-                        <table className="tabla-imputaciones">
-                            <thead>
-                                <tr>
-                                    <th>Avería</th>
-                                    <th>Total de horas</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                {averias.map((averia) => (
-                                    <tr key={averia.id_averia}>
-                                        <td>{averia.numero}</td>
-                                        <td>
-                                            {totalesAverias[averia.id_averia] ?? 0}
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </section>
-
-                    {/* Totales de horas por máquina */}
-                    <section className="imputaciones-resumen">
-                        <h3>Total de horas por máquina</h3>
-
-                        <table className="tabla-imputaciones">
-                            <thead>
-                                <tr>
-                                    <th>Código</th>
-                                    <th>Máquina</th>
-                                    <th>Total de horas</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                {maquinas.map((maquina) => (
-                                    <tr key={maquina.id_maquina}>
-                                        <td>{maquina.codigo}</td>
-                                        <td>{maquina.nombre}</td>
-                                        <td>
-                                            {totalesMaquinas[maquina.id_maquina] ?? 0}
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </section>
-
-                    {/* Totales de horas por técnico */}
-                    <section className="imputaciones-resumen">
-                        <h3>Total de horas por técnico</h3>
-
-                        <table className="tabla-imputaciones">
-                            <thead>
-                                <tr>
-                                    <th>Técnico</th>
-                                    <th>Total de horas</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                {tecnicos.map((tecnico) => (
-                                    <tr key={tecnico.id_persona}>
-                                        <td>
-                                            {tecnico.nombre} {tecnico.apellidos}
-                                        </td>
-                                        <td>
-                                            {totalesTecnicos[tecnico.id_persona] ?? 0}
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </section>
 
                 </>
             )}
