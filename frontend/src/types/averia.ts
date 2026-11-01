@@ -1,8 +1,8 @@
 import type { TipoFallo, Prioridad, EstadoAveria, TipoSolucion } from "./enums";
 
 // Datos necesarios para registrar una avería
+// El número se genera automáticamente en el backend
 export interface AveriaCrear {
-    numero: string;
     id_maquina: number;
     id_reportada_por: number;
 
@@ -19,7 +19,7 @@ export interface AveriaCrear {
 // Datos que devuelve FastAPI
 export interface AveriaRespuesta extends AveriaCrear {
     id_averia: number;
-
+    numero: string;
     estado: EstadoAveria;
 
     id_tecnico_asignado: number | null;

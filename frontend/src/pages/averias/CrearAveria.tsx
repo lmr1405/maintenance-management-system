@@ -51,7 +51,6 @@ function CrearAveria() {
     const [personas, setPersonas] = useState<PersonaRespuesta[]>([]);
 
     // Datos del formulario
-    const [numero, setNumero] = useState("");
     const [titulo, setTitulo] = useState("");
     const [idMaquina, setIdMaquina] = useState("");
     const [idReportadaPor, setIdReportadaPor] = useState("");
@@ -109,7 +108,6 @@ function CrearAveria() {
         e.preventDefault();
 
         if (
-            !numero.trim() ||
             !titulo.trim() ||
             !idMaquina ||
             !idReportadaPor ||
@@ -129,7 +127,6 @@ function CrearAveria() {
 
             // Construir los datos de detección de la avería
             const datos: AveriaCrear = {
-                numero: numero.trim(),
                 id_maquina: Number(idMaquina),
                 id_reportada_por: Number(idReportadaPor),
                 fecha_deteccion: fechaDeteccion,
@@ -188,20 +185,9 @@ function CrearAveria() {
                 >
 
                     {/* Número de avería */}
-                    <div className="formulario-campo">
-                        <label htmlFor="numero">
-                            Número de avería *
-                        </label>
-
-                        <input
-                            id="numero"
-                            type="text"
-                            value={numero}
-                            onChange={(e) => setNumero(e.target.value)}
-                            placeholder="Ej. AV-001"
-                            required
-                        />
-                    </div>
+                    <p>
+                        Asignando número de avería ...
+                    </p>
 
                     {/* Título */}
                     <div className="formulario-campo">
