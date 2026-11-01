@@ -1,4 +1,4 @@
-from sqlalchemy import select, text
+from sqlalchemy import select, text, func
 from sqlalchemy.orm import Session
 from datetime import datetime, timezone
 
@@ -17,10 +17,20 @@ class AveriaRepositorio(IAveriaRepositorio):
 
     def guardar(self, averia: Averia) -> Averia:
 
-        # Reservar un identificador único de PostgreSQL
-        id_averia = self.session.execute(
-            text("SELECT nextval(pg_get_serial_sequence('averias', 'id_averia'))")
-        ).scalar_one()
+        # Obtener un identificador según el motor de base de datos
+        motor = self.session.get_bind().dialect.name
+
+        if motor == "postgresql":
+            # PostgreSQL: reservar un ID de su secuencia
+            id_averia = self.session.execute(
+                text("SELECT nextval(pg_get_serial_sequence('averias', 'id_averia'))")
+            ).scalar_one()
+
+        else:
+            # SQLite: obtener el siguiente ID disponible para los tests
+            id_averia = self.session.execute(
+                select(func.coalesce(func.max(AveriaORM.id_averia), 0) + 1)
+            ).scalar_one()
 
         # Generar el número de avería automáticamente
         anio = datetime.now(timezone.utc).year

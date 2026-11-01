@@ -214,7 +214,7 @@ def test_obtener_averia_por_id(session):
     resultado = AveriaRepositorio(session).obtener_por_id(averia.id_averia)
 
     assert resultado is not None
-    assert resultado.numero == "AV-001"
+    assert resultado.numero == f"AV-{datetime.now(timezone.utc).year}-{averia.id_averia:04d}"
 
 
 def test_listar_averias_por_maquina(session):
