@@ -31,15 +31,17 @@ const PRIORIDADES: Prioridad[] = [
     "Baja"
 ];
 
-// Obtener la fecha local actual
+// Obtener la fecha y hora local actual
 function obtenerFechaActual(): string {
     const ahora = new Date();
 
     const anio = ahora.getFullYear();
     const mes = String(ahora.getMonth() + 1).padStart(2, "0");
     const dia = String(ahora.getDate()).padStart(2, "0");
+    const hora = String(ahora.getHours()).padStart(2, "0");
+    const minutos = String(ahora.getMinutes()).padStart(2, "0");
 
-    return `${anio}-${mes}-${dia}`;
+    return `${anio}-${mes}-${dia}T${hora}:${minutos}`;
 }
 
 function CrearAveria() {
@@ -129,7 +131,7 @@ function CrearAveria() {
             const datos: AveriaCrear = {
                 id_maquina: Number(idMaquina),
                 id_reportada_por: Number(idReportadaPor),
-                fecha_deteccion: fechaDeteccion,
+                fecha_deteccion: new Date(fechaDeteccion).toISOString(),
                 titulo: titulo.trim(),
                 sintoma: sintoma.trim(),
                 tipo_fallo: tipoFallo,
@@ -265,7 +267,7 @@ function CrearAveria() {
 
                         <input
                             id="fechaDeteccion"
-                            type="date"
+                            type="datetime-local"
                             value={fechaDeteccion}
                             onChange={(e) =>
                                 setFechaDeteccion(e.target.value)
