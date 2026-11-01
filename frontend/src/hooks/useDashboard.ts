@@ -86,6 +86,34 @@ function useDashboard() {
             averia.estado === "En curso"
     ).length;
 
+    // Máquinas paradas con averías activas
+    const maquinasParadas = new Set(
+        averias
+            .filter(averia =>
+                averia.maquina_parada &&
+                averia.estado !== "Resuelta" &&
+                averia.estado !== "Cerrada"
+            )
+            .map(averia => averia.id_maquina)
+    ).size;
+
+    // Averías sin técnico asignado
+    const averiasSinAsignar = averias.filter(
+        averia =>
+            averia.estado === "Abierta" &&
+            averia.id_tecnico_asignado === null
+    ).length;
+
+    // Averías en reparación
+    const averiasEnCurso = averias.filter(
+        averia => averia.estado === "En curso"
+    ).length;
+
+    // Averías pendientes de validación
+    const averiasPorValidar = averias.filter(
+        averia => averia.estado === "Resuelta"
+    ).length;
+
     // KPI: técnicos activos
     const tecnicos = personas.filter(
         persona =>
@@ -123,6 +151,10 @@ function useDashboard() {
         averiasPendientes,
         totalTecnicos,
         tecnicosDisponibles,
+        maquinasParadas,
+        averiasSinAsignar,
+        averiasEnCurso,
+        averiasPorValidar,
 
         cargando,
         error
