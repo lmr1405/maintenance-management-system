@@ -1,41 +1,38 @@
-import KpiResumen from "../../components/dashboard/KpiResumen";
 import useDashboard from "../../hooks/useDashboard";
-import GraficoAveriasPastel from "../../components/dashboard/GraficoAveriasPastel";
-import GraficoAveriasBarras from "../../components/dashboard/GraficoAveriasBarras";
-import GraficoEstadoMaquinas from "../../components/dashboard/GraficoEstadoMaquinas";
 
-import "../../styles/Dashboard.css";
+import KpiOperativos from "../../components/dashboard/KpiOperativos";
+import AveriasPrioritarias from "../../components/dashboard/AveriasPrioritarias";
+import AveriasPendientes from "../../components/dashboard/AveriasPendientes";
+
+import "../../styles/DashboardOperativo.css";
 
 function Dashboard() {
 
-    // Obtener indicadores y estado de carga desde el hook
+    // Obtener datos e indicadores desde el hook
     const {
         maquinas,
         averias,
-        totalMaquinas,
-        maquinasOperativas,
-        totalAverias,
-        averiasPendientes,
-        totalTecnicos,
-        tecnicosDisponibles,
+        personas,
+        maquinasParadas,
+        averiasSinAsignar,
+        averiasEnCurso,
+        averiasPorValidar,
         cargando,
         error
     } = useDashboard();
 
     return (
-        <div className="dashboard">
+        <div className="dashboard-operativo">
 
             {/* Encabezado principal */}
             <div className="dashboard-header">
-                <h2>Dashboard de mantenimiento</h2>
-                <p>
-                    Resumen general del estado del mantenimiento
-                </p>
+                <h2>Panel de mantenimiento</h2>
+                <p>Intervenciones y tareas que requieren atención</p>
             </div>
 
             {/* Estado de carga */}
             {cargando && (
-                <p>Cargando indicadores...</p>
+                <p>Cargando información de mantenimiento...</p>
             )}
 
             {/* Mensaje de error */}
@@ -43,34 +40,30 @@ function Dashboard() {
                 <p className="dashboard-error">{error}</p>
             )}
 
-            {/* Mostrar indicadores cuando los datos estén disponibles */}
             {!cargando && !error && (
                 <>
+                    {/* Indicadores operativos */}
                     <section className="dashboard-kpis">
-
-                        <KpiResumen
-                            totalMaquinas={totalMaquinas}
-                            maquinasOperativas={maquinasOperativas}
-                            totalAverias={totalAverias}
-                            averiasPendientes={averiasPendientes}
-                            totalTecnicos={totalTecnicos}
-                            tecnicosDisponibles={tecnicosDisponibles}
+                        <KpiOperativos
+                            maquinasParadas={maquinasParadas}
+                            averiasSinAsignar={averiasSinAsignar}
+                            averiasEnCurso={averiasEnCurso}
+                            averiasPorValidar={averiasPorValidar}
                         />
-
                     </section>
 
-                    <section className="dashboard-graficas">
+                    {/* Intervenciones activas ordenadas por prioridad */}
+                    <AveriasPrioritarias
+                        averias={averias}
+                        maquinas={maquinas}
+                        personas={personas}
+                    />
 
-                    {/* Distribución de averías */}
-                    <GraficoAveriasPastel averias={averias} />
-
-                    {/* Cantidad de averías por estado */}
-                    <GraficoAveriasBarras averias={averias} />
-
-                        {/* Estado actual de las máquinas */}
-                        <GraficoEstadoMaquinas maquinas={maquinas} />
-
-                </section>
+                    {/* Averías pendientes de asignación */}
+                    <AveriasPendientes
+                        averias={averias}
+                        maquinas={maquinas}
+                    />
                 </>
             )}
 

@@ -1,0 +1,96 @@
+/* Contenedor principal */
+.dashboard-operativo {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+}
+
+/* Indicadores operativos */
+.dashboard-operativo .dashboard-kpis {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+/* Paneles de intervenciones */
+.dashboard-panel {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    min-width: 0;
+}
+
+.dashboard-panel h3 {
+    margin: 0 0 20px;
+    font-size: 16px;
+    color: #334155;
+}
+
+/* Contenedor adaptable de tablas */
+.dashboard-tabla-contenedor {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Tablas */
+.dashboard-tabla {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    text-align: left;
+}
+
+.dashboard-tabla th {
+    padding: 12px;
+    background: #f8fafc;
+    color: #475569;
+    font-weight: 600;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.dashboard-tabla td {
+    padding: 14px 12px;
+    border-bottom: 1px solid #e2e8f0;
+    color: #334155;
+}
+
+.dashboard-tabla tbody tr:hover {
+    background: #f8fafc;
+}
+
+/* Botón de gestión */
+.dashboard-accion {
+    display: inline-block;
+    padding: 8px 14px;
+    background: #2563eb;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.dashboard-accion:hover {
+    background: #1d4ed8;
+}
+
+/* Tablets */
+@media (max-width: 1100px) {
+    .dashboard-operativo .dashboard-kpis {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Móviles */
+@media (max-width: 650px) {
+    .dashboard-operativo .dashboard-kpis {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-panel {
+        padding: 14px;
+    }
+}
