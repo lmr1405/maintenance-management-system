@@ -1,0 +1,85 @@
+/* Página de baja de máquina */
+.pagina-baja-maquina {
+    max-width: 850px;
+}
+
+/* Contenedor de información y confirmación */
+.baja-maquina-contenido {
+    background: #ffffff;
+    border: 1px solid #e2e8e4;
+    border-radius: 10px;
+    padding: 24px;
+    margin-top: 20px;
+}
+
+/* Título de la máquina */
+.baja-maquina-contenido h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+/* Información de la máquina */
+.baja-maquina-contenido > p {
+    margin: 10px 0;
+}
+
+/* Advertencia de baja */
+.baja-maquina-advertencia {
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 24px;
+    color: #9a3412;
+}
+
+/* Mensaje de máquina ya dada de baja */
+.baja-maquina-aviso {
+    margin-top: 24px;
+    color: #64748b;
+    font-weight: 500;
+}
+
+/* Mensaje de error */
+.baja-maquina-error {
+    color: #dc2626;
+    margin-top: 16px;
+}
+
+/* Botones */
+.baja-maquina-acciones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+/* Botón volver */
+.boton-cancelar-baja {
+    padding: 10px 18px;
+    background: #e5e7eb;
+    color: #374151;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* Botón confirmar baja */
+.boton-confirmar-baja {
+    padding: 10px 18px;
+    background: #dc2626;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.boton-confirmar-baja:hover {
+    background: #b91c1c;
+}
+
+/* Botones deshabilitados */
+.baja-maquina-acciones button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

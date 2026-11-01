@@ -16,6 +16,8 @@ import CrearImputacion from "./pages/imputaciones/CrearImputaciones";
 import CrearAveria from "./pages/averias/CrearAveria";
 import DetalleAveria from "./pages/averias/DetalleAveria";
 import DetalleMaquina from "./pages/maquinas/DetalleMaquina";
+import EditarMaquina from "./pages/maquinas/EditarMaquina";
+import BajaMaquina from "./pages/maquinas/BajaMaquina";
 
 function LayoutProtegido() {
     return (
@@ -39,6 +41,8 @@ function App() {
                         <Route path="/maquinas" element={<Maquinas />} />
                         <Route path="/maquinas/crear" element={<CrearMaquina />} />
                         <Route path="/maquinas/:id_maquina" element={<DetalleMaquina />} />
+                        <Route path="/maquinas/:id_maquina/editar" element={<EditarMaquina />} />
+                        <Route path="/maquinas/:id_maquina/baja" element={<BajaMaquina />} />
                         <Route path="/personas" element={<Personas />} />
                         <Route path="/personas/crear" element={<CrearPersona />} />
                         <Route path="/averias" element={<Averias />} />
