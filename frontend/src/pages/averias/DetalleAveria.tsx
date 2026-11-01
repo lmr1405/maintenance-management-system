@@ -227,14 +227,27 @@ function DetalleAveria() {
 
         try {
 
+            // Buscar el responsable que valida el cierre
+            const responsable = responsables.find(
+                (persona) => persona.id_persona === Number(idResponsable)
+            );
+
             // Solicitar a FastAPI el cierre de la avería
-            const averiaActualizada = await cerrarAveria(
+            await cerrarAveria(
                 averia.id_averia,
                 Number(idResponsable)
             );
 
-            // Actualizar los datos mostrados
-            setAveria(averiaActualizada);
+            // Mostrar confirmación del cierre
+            setTituloModal("Avería cerrada correctamente");
+
+            setMensajeModal(
+                responsable
+                    ? `La avería ha sido cerrada por ${responsable.nombre} ${responsable.apellidos}.`
+                    : "La avería ha sido cerrada por el responsable."
+            );
+
+            setMostrarModal(true);
 
         } catch (error) {
             setError(
