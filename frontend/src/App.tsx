@@ -8,6 +8,8 @@ import Personas from "./pages/personas/Personas";
 import Averias from "./pages/averias/Averias";
 import Informes from "./pages/informes/Informes";
 import Imputaciones from "./pages/imputaciones/Imputaciones";
+import TotalHorasMaquinas from "./pages/imputaciones/TotalHorasMaquinas";
+import TotalHorasTecnicos from "./pages/imputaciones/TotalHorasTecnicos";
 import Login from "./pages/login/Login";
 import RutaProtegida from "./components/RutaProtegida";
 import CrearMaquina from "./pages/maquinas/CrearMaquinas";
@@ -54,6 +56,8 @@ function App() {
                         <Route path="/averias/:id" element={<DetalleAveria />} />
                         <Route path="/imputaciones" element={<Imputaciones />} />
                         <Route path="/imputaciones/crear" element={<CrearImputacion />} />
+                        <Route path="/imputaciones/maquinas" element={<TotalHorasMaquinas />} />
+                        <Route path="/imputaciones/tecnicos" element={<TotalHorasTecnicos />} />
                         <Route path="/informes" element={<Informes />} />
                     </Route>
                 </Route>
