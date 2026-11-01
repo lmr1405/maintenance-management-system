@@ -5,6 +5,7 @@ import AveriasPrioritarias from "../../components/dashboard/AveriasPrioritarias"
 import AveriasPendientes from "../../components/dashboard/AveriasPendientes";
 import AveriasPorPrioridad from "../../components/dashboard/AveriasPorPrioridad";
 import GraficosHoras from "../../components/dashboard/GraficoHoras";
+import IndicadoresMantenimiento from "../../components/dashboard/IndicadoresMantenimiento";
 
 import "../../styles/DashboardOperativo.css";
 
@@ -23,6 +24,8 @@ function Dashboard() {
         cargando,
         horasPorMaquina,
         horasPorTecnico,
+        mttr,
+        intervaloMedioAverias,
         error
     } = useDashboard();
 
@@ -68,6 +71,12 @@ function Dashboard() {
                     <AveriasPendientes
                         averias={averias}
                         maquinas={maquinas}
+                    />
+
+                    {/* Indicadores de rendimiento del mantenimiento */}
+                    <IndicadoresMantenimiento 
+                    mttr={mttr} 
+                    intervaloMedioAverias={intervaloMedioAverias}
                     />
 
                     {/* Indicadores gráficos de mantenimiento */}

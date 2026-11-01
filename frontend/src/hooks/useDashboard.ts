@@ -222,6 +222,77 @@ function useDashboard() {
             };
         });
 
+
+    // Averías que ya han sido reparadas
+    const averiasReparadas = averias.filter(
+        averia =>
+            averia.estado === "Resuelta" ||
+            averia.estado === "Cerrada"
+    );
+
+    // Identificadores de las averías reparadas
+    const idsReparadas = new Set(
+        averiasReparadas.map(averia => averia.id_averia)
+    );
+
+    // Horas imputadas a las averías reparadas
+    const horasReparaciones = imputaciones
+        .filter(imputacion =>
+            idsReparadas.has(imputacion.id_averia)
+        )
+        .reduce(
+            (total, imputacion) =>
+                total + Number(imputacion.horas),
+            0
+        );
+
+    // Tiempo medio de trabajo por avería reparada
+    const mttr = averiasReparadas.length > 0
+        ? horasReparaciones / averiasReparadas.length
+        : null;
+    // Intervalos entre averías de cada máquina
+    const intervalosEntreAverias: number[] = [];
+
+    maquinas.forEach(maquina => {
+
+        // Obtener las averías de la máquina por fecha
+        const historial = averias
+            .filter(averia =>
+                averia.id_maquina === maquina.id_maquina
+            )
+            .sort((a, b) =>
+                new Date(a.fecha_deteccion).getTime() -
+                new Date(b.fecha_deteccion).getTime()
+            );
+
+        // Necesitamos al menos dos fallos
+        for (let i = 1; i < historial.length; i++) {
+
+            const fechaAnterior = new Date(
+                historial[i - 1].fecha_deteccion
+            ).getTime();
+
+            const fechaActual = new Date(
+                historial[i].fecha_deteccion
+            ).getTime();
+
+            const horas = (fechaActual - fechaAnterior) / 3600000;
+
+            // Excluir fechas inválidas e intervalos nulos
+            if (Number.isFinite(horas) && horas > 0) {
+                intervalosEntreAverias.push(horas);
+            }
+        }
+    });
+
+    // Intervalo medio entre detecciones de averías
+    const intervaloMedioAverias = intervalosEntreAverias.length > 0
+        ? intervalosEntreAverias.reduce(
+            (total, horas) => total + horas, 0
+        ) / intervalosEntreAverias.length
+        : null;
+
+
     // Devolver datos e indicadores
     return {
         maquinas,
@@ -230,18 +301,22 @@ function useDashboard() {
 
         totalMaquinas,
         maquinasOperativas,
+        maquinasParadas,
+
         totalAverias,
         averiasPendientes,
+
         totalTecnicos,
         tecnicosDisponibles,
-        maquinasParadas,
+
         averiasSinAsignar,
         averiasEnCurso,
         averiasPorValidar,
         averiasPorPrioridad,
         horasPorMaquina,
         horasPorTecnico,
-
+        mttr,
+        intervaloMedioAverias,
         cargando,
         error
     };
