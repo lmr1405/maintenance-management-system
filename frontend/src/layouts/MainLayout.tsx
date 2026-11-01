@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import '../styles/MainLayout.css'
 import Sidebar from "../components/Sidebar";
+import Footer from "../components/Footer";
 
 // Propiedades que recibe el componente
 interface MainLayoutProps 
@@ -29,6 +30,8 @@ function MainLayout( { children }: MainLayoutProps)
                 <main className="page-content">
                     {children}
                 </main>
+
+                <Footer />
 
             </div>
 
