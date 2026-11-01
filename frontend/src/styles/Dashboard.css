@@ -1,0 +1,140 @@
+/* Contenedor principal */
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+}
+
+/* Encabezado */
+.dashboard-header h2 {
+    margin: 0;
+}
+
+.dashboard-header p {
+    margin: 8px 0 0;
+    color: #64748b;
+}
+
+
+/* Tablets */
+@media (max-width: 1100px) {
+    .dashboard-kpis {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .dashboard-graficas {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Móviles */
+@media (max-width: 650px) {
+    .dashboard-kpis,
+    .dashboard-graficas {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* #########################  KPIs  ##################################*/
+/* Indicadores KPI */
+.dashboard-kpis {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+/* Tarjetas KPI */
+.kpi-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    min-width: 0;
+}
+
+/* Título del indicador */
+.kpi-titulo {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #64748b;
+}
+
+/* Valor principal */
+.kpi-valor {
+    margin: 12px 0 8px;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+/* Descripción */
+.kpi-descripcion {
+    margin: 0;
+    font-size: 13px;
+    color: #64748b;
+}
+
+/* ########################  GRAFICAS  ####################################*/
+
+/* Contenedor de las tres gráficas */
+.dashboard-graficas {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    align-items: stretch;
+}
+
+/* Tarjeta individual de cada gráfica */
+.dashboard-grafica {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+/* Títulos alineados */
+.dashboard-grafica h3 {
+    margin: 0 0 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #334155;
+    min-height: 24px;
+}
+
+/* Mensaje de error al consultar FastAPI */
+.dashboard-error {
+    color: #dc2626;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Leyenda del gráfico de pastel */
+.dashboard-leyenda {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+}
+
+.dashboard-leyenda-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: #64748b;
+}
+
+.dashboard-leyenda-color {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
