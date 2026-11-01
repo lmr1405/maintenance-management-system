@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 import {
     obtenerImputaciones,
@@ -35,6 +35,12 @@ function Imputaciones() {
     const [filtroTecnico, setFiltroTecnico] = useState("");
     const [filtroAveria, setFiltroAveria] = useState("");
     const [filtroFecha, setFiltroFecha] = useState("");
+
+   // Selector y navegación para consultar los totales de horas
+    const [tipoConsulta, setTipoConsulta] = useState("");
+    const [errorConsulta, setErrorConsulta] = useState(false);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -118,6 +124,17 @@ function Imputaciones() {
         setFiltroTecnico("");
         setFiltroAveria("");
         setFiltroFecha("");
+    }
+
+    // Consultar los totales según la opción seleccionada
+    function consultarTotalHoras() {
+        if (!tipoConsulta) {
+            setErrorConsulta(true);
+            return;
+        }
+
+        setErrorConsulta(false);
+        navigate(`/imputaciones/${tipoConsulta}`);
     }
 
     return (
@@ -297,14 +314,46 @@ function Imputaciones() {
                     </p>
                 )}
 
-                {/* Acceso al formulario de registro */}
+                {/* Acciones de imputaciones */}
                 <div className="imputaciones-acciones">
+
+                    {/* Selector de consulta */}
+                    <div className="imputaciones-consulta">
+                        <select
+                            value={tipoConsulta}
+                            aria-label="Tipo de consulta"
+                            onChange={(e) => {
+                                setTipoConsulta(e.target.value);
+                                setErrorConsulta(false);
+                            }}
+                        >
+                            <option value="">Seleccionar consulta</option>
+                            <option value="maquinas">Por máquina</option>
+                            <option value="tecnicos">Por técnico</option>
+                        </select>
+
+                        {errorConsulta && (
+                            <span className="imputaciones-error-consulta">
+                                Elija una opción
+                            </span>
+                        )}
+                    </div>
+
+                    <button
+                        type="button"
+                        className="boton-crear-imputacion"
+                        onClick={consultarTotalHoras}
+                    >
+                        Consultar total de horas
+                    </button>
+
                     <Link
                         to="/imputaciones/crear"
                         className="boton-crear-imputacion"
                     >
                         Registrar imputación
                     </Link>
+
                 </div>
 
             </div>

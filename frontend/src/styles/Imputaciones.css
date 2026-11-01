@@ -145,10 +145,36 @@
     color: #475569;
 }
 
-/* Contenedor del botón de registro */
+/* Contenedor del selector y botones */
 .imputaciones-acciones {
     display: flex;
     justify-content: flex-end;
+    align-items: flex-start;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* Selector de consulta de horas */
+.imputaciones-consulta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+}
+
+.imputaciones-consulta select {
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    font-size: 14px;
+    background-color: #ffffff;
+    color: #334155;
+}
+
+/* Mensaje cuando no se selecciona una opción */
+.imputaciones-error-consulta {
+    color: #c62828;
+    font-size: 12px;
 }
 
 /* Botón registrar imputación */
@@ -164,6 +190,9 @@
     text-decoration: none;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    min-height: 44px;
+    box-sizing: border-box;
+    font-family: inherit;
 }
 
 .boton-crear-imputacion:hover {
@@ -222,5 +251,24 @@
 
     .imputaciones-pie {
         flex-wrap: wrap;
+    }
+
+    .imputaciones-acciones {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    }
+
+    .imputaciones-consulta {
+        width: 100%;
+    }
+
+    .imputaciones-consulta select {
+        width: 100%;
+    }
+
+    .imputaciones-acciones .boton-crear-imputacion {
+        width: 100%;
+        text-align: center;
     }
 }
