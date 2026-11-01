@@ -1,3 +1,21 @@
+/**
+ * Componente GraficoEstadoMaquinas.
+ * Muestra en el dashboard un gráfico de barras con la cantidad
+ * de máquinas registradas agrupadas por su estado.
+ *
+ * Propiedades:
+ * - maquinas: listado de máquinas registradas.
+ *
+ * Funcionamiento:
+ * - ESTADOS: define los estados de las máquinas y sus colores.
+ * - BarraEstadoMaquina: dibuja cada barra con el color correspondiente.
+ * - datos: calcula la cantidad de máquinas que hay en cada estado.
+ * - BarChart: representa las máquinas mediante un gráfico de barras.
+ * - LabelList: muestra la cantidad de máquinas encima de cada barra.
+ * - Tooltip: muestra información al pasar el ratón sobre las barras.
+ * - XAxis: muestra los estados y abrevia "Fuera de servicio".
+ * - ResponsiveContainer: adapta el gráfico al tamaño disponible.
+ */
 import {
     BarChart,
     Bar,

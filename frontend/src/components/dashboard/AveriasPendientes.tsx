@@ -1,3 +1,18 @@
+/**
+ * Componente AveriasPendientes.
+ * Muestra en el dashboard las averías abiertas que todavía
+ * no tienen un técnico asignado.
+ *
+ * Propiedades:
+ * - averias: listado de averías registradas.
+ * - maquinas: listado de máquinas para identificar cada avería.
+ *
+ * Funcionamiento:
+ * - pendientes: filtra las averías sin técnico y las ordena por fecha.
+ * - obtenerMaquina: obtiene el nombre de la máquina por su ID.
+ * - Muestra una tabla con los datos de las averías pendientes.
+ * - Permite acceder al detalle de cada avería para asignar un técnico.
+ */
 import { Link } from "react-router";
 
 import type { AveriaRespuesta } from "../../types/averia";

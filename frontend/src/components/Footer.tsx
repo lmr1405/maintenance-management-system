@@ -1,3 +1,8 @@
+/**
+ * Componente Footer.
+ * Muestra el pie de página de la aplicación con el año actual
+ * y el nombre del desarrollador.
+ */
 import "../styles/Footer.css";
 
 function Footer() {

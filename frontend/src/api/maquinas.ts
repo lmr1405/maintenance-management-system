@@ -1,3 +1,18 @@
+/**
+ * Archivo de comunicación con la API de máquinas.
+ * Permite registrar, consultar, actualizar y dar de baja las máquinas
+ * utilizadas en el sistema de gestión de mantenimiento.
+ *
+ * Funciones:
+ * - obtenerMaquinas: obtiene las máquinas aplicando filtros opcionales.
+ * - obtenerMaquina: obtiene los datos de una máquina por su ID.
+ * - crearMaquina: registra una nueva máquina.
+ * - actualizarMaquina: modifica los datos de una máquina existente.
+ * - darBajaMaquina: cambia el estado de una máquina a "De baja".
+ *
+ * Interfaces:
+ * - FiltrosMaquinas: define los filtros por estado, ubicación y tipo.
+ */
 import { API_URL } from "./cliente";
 import type { MaquinaCrear, MaquinaRespuesta } from "../types/maquina";
 

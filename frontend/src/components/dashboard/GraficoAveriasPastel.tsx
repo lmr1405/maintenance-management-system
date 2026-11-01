@@ -1,3 +1,22 @@
+/**
+ * Componente GraficoAveriasPastel.
+ * Muestra en el dashboard un gráfico circular con la distribución
+ * de las averías registradas según su estado.
+ *
+ * Propiedades:
+ * - averias: listado de averías registradas.
+ *
+ * Funcionamiento:
+ * - ESTADOS: define los estados de las averías y sus colores.
+ * - SectorAveria: dibuja cada sector con el color correspondiente.
+ * - datos: calcula la cantidad de averías que hay en cada estado.
+ * - PieChart: representa las averías mediante un gráfico circular.
+ * - Pie: muestra los sectores formando un gráfico de tipo anillo.
+ * - Tooltip: muestra información al pasar el ratón sobre los sectores.
+ * - Legend: muestra una leyenda personalizada con los estados y colores.
+ * - ResponsiveContainer: adapta el gráfico al tamaño disponible.
+ * - Muestra en el centro el número total de averías registradas.
+ */
 import {
     PieChart,
     Pie,

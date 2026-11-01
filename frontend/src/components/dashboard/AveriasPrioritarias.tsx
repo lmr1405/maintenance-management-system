@@ -1,3 +1,23 @@
+/**
+ * Componente AveriasPrioritarias.
+ * Muestra en el dashboard las intervenciones de mantenimiento activas,
+ * ordenadas según su importancia para facilitar su gestión.
+ *
+ * Propiedades:
+ * - averias: listado de averías registradas.
+ * - maquinas: listado de máquinas asociadas a las averías.
+ * - personas: listado de personas para identificar a los técnicos.
+ *
+ * Funcionamiento:
+ * - ORDEN_PRIORIDAD: establece el orden Urgente, Alta, Media y Baja.
+ * - averiasActivas: filtra las averías abiertas, asignadas y en curso.
+ * - averiasOrdenadas: ordena primero las máquinas paradas,
+ *   después por prioridad y finalmente por antigüedad.
+ * - obtenerMaquina: obtiene el nombre de la máquina por su ID.
+ * - obtenerTecnico: obtiene el nombre del técnico asignado.
+ * - Muestra una tabla con las intervenciones prioritarias.
+ * - Permite acceder al detalle de cada avería para gestionarla.
+ */
 import { Link } from "react-router";
 
 import type { AveriaRespuesta } from "../../types/averia";

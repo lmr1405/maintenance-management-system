@@ -1,3 +1,19 @@
+/**
+ * Componente IndicadoresMantenimiento.
+ * Muestra en el dashboard los indicadores de rendimiento del mantenimiento
+ * calculados previamente en useDashboard.ts.
+ *
+ * Propiedades:
+ * - mttr: tiempo medio de trabajo dedicado a cada reparación.
+ * - intervaloMedioAverias: tiempo medio entre detecciones de averías.
+ *
+ * Funcionamiento:
+ * - KpiCard: muestra cada indicador en una tarjeta informativa.
+ * - mttr: representa las horas imputadas por avería reparada.
+ * - intervaloMedioAverias: representa las horas naturales entre fallos.
+ * - Redondea los indicadores a dos decimales.
+ * - Muestra un mensaje cuando no existen datos suficientes.
+ */
 import KpiCard from "./KpiCard";
 
 // Indicadores calculados en useDashboard

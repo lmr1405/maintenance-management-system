@@ -1,3 +1,16 @@
+/**
+ * Componente RutaProtegida.
+ * Controla el acceso a las páginas de la aplicación comprobando
+ * si el usuario tiene una sesión activa en Supabase.
+ *
+ * Funcionamiento:
+ * - useState: almacena el estado de autenticación del usuario.
+ * - useEffect: comprueba la sesión y detecta cambios de autenticación.
+ * - getSession: consulta si existe una sesión activa.
+ * - onAuthStateChange: detecta cuándo el usuario inicia o cierra sesión.
+ * - Navigate: redirige al login si el usuario no está autenticado.
+ * - Outlet: muestra la página solicitada si la sesión es válida.
+ */
 import { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router";
 import { supabase } from "../api/supabase";

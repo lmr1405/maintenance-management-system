@@ -1,3 +1,19 @@
+/**
+ * Componente AveriasPorPrioridad.
+ * Muestra en el dashboard un gráfico de barras con la cantidad
+ * de averías activas agrupadas por su nivel de prioridad.
+ *
+ * Propiedades:
+ * - averiasPorPrioridad: cantidad de averías urgentes, altas, medias y bajas.
+ *
+ * Funcionamiento:
+ * - COLORES: define un color para cada nivel de prioridad.
+ * - datos: transforma los indicadores al formato utilizado por Recharts.
+ * - total: calcula el número total de averías activas.
+ * - BarChart: representa las averías mediante un gráfico de barras.
+ * - LabelList: muestra la cantidad de averías encima de cada barra.
+ * - ResponsiveContainer: adapta el gráfico al tamaño disponible.
+ */
 import {
     BarChart,
     Bar,

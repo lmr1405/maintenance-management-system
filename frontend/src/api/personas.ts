@@ -1,3 +1,15 @@
+/**
+ * Archivo de comunicación con la API de personas.
+ * Permite registrar, consultar, actualizar y desactivar las personas
+ * que participan en la gestión del mantenimiento.
+ *
+ * Funciones:
+ * - obtenerPersonas: obtiene todas las personas registradas.
+ * - obtenerPersona: obtiene los datos de una persona por su ID.
+ * - crearPersona: registra una nueva persona.
+ * - actualizarPersona: modifica los datos de una persona existente.
+ * - desactivarPersona: desactiva una persona sin eliminar sus datos.
+ */
 import { API_URL } from "./cliente";
 import type { PersonaCrear, PersonaRespuesta } from "../types/persona";
 

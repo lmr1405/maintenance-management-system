@@ -1,3 +1,21 @@
+/**
+ * Componente GraficosHoras.
+ * Muestra en el dashboard dos gráficos de barras con las horas
+ * de mantenimiento acumuladas por máquina y por técnico.
+ *
+ * Interfaces:
+ * - HorasItem: define el identificador, nombre y horas acumuladas.
+ * - GraficosHorasProps: recibe los datos de máquinas y técnicos.
+ *
+ * Funcionamiento:
+ * - renderizarGrafico: genera un gráfico reutilizable para ambas categorías.
+ * - BarChart: representa las horas mediante un gráfico de barras.
+ * - LabelList: muestra las horas acumuladas encima de cada barra.
+ * - Tooltip: muestra las horas imputadas al pasar el ratón.
+ * - XAxis: muestra los nombres de las máquinas o técnicos.
+ * - YAxis: representa la cantidad de horas de mantenimiento.
+ * - ResponsiveContainer: adapta los gráficos al tamaño disponible.
+ */
 import {
     BarChart,
     Bar,

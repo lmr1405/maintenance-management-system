@@ -1,3 +1,16 @@
+/**
+ * Archivo de comunicación con la API de averías.
+ * Permite obtener, registrar y gestionar las averías mediante peticiones al backend.
+ *
+ * Funciones:
+ * - obtenerAverias: obtiene todas las averías registradas.
+ * - obtenerAveria: obtiene los datos de una avería por su ID.
+ * - crearAveria: registra una nueva avería.
+ * - asignarTecnico: asigna un técnico a una avería.
+ * - iniciarReparacion: cambia el estado de la avería a "En curso".
+ * - resolverAveria: registra la solución y marca la avería como resuelta.
+ * - cerrarAveria: cierra la avería mediante la validación de un responsable.
+ */
 import { API_URL } from "./cliente";
 import type { AveriaCrear, AveriaRespuesta } from "../types/averia";
 import type { TipoSolucion } from "../types/enums";

@@ -1,3 +1,20 @@
+/**
+ * Componente KpiOperativos.
+ * Muestra en el dashboard los indicadores operativos del mantenimiento
+ * utilizando tarjetas reutilizables KpiCard.
+ *
+ * Propiedades:
+ * - maquinasParadas: cantidad de máquinas detenidas por averías activas.
+ * - averiasSinAsignar: cantidad de averías pendientes de técnico.
+ * - averiasEnCurso: cantidad de reparaciones en curso.
+ * - averiasPorValidar: cantidad de averías resueltas pendientes de cierre.
+ *
+ * Funcionamiento:
+ * - KpiCard: muestra cada indicador en una tarjeta informativa.
+ * - Recibe los indicadores calculados previamente en useDashboard.ts.
+ * - Asigna un título, descripción y color a cada indicador.
+ * - Permite visualizar rápidamente el estado operativo del mantenimiento.
+ */
 import KpiCard from "./KpiCard";
 
 // Indicadores calculados en useDashboard

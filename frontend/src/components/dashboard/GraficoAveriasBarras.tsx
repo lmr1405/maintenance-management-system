@@ -1,3 +1,20 @@
+/**
+ * Componente GraficoAveriasBarras.
+ * Muestra en el dashboard un gráfico de barras con la cantidad
+ * de averías registradas agrupadas por su estado.
+ *
+ * Propiedades:
+ * - averias: listado de averías registradas.
+ *
+ * Funcionamiento:
+ * - ESTADOS: define los estados de las averías y sus colores.
+ * - BarraEstado: dibuja cada barra con el color correspondiente.
+ * - datos: calcula la cantidad de averías que hay en cada estado.
+ * - BarChart: representa las averías mediante un gráfico de barras.
+ * - LabelList: muestra la cantidad de averías encima de cada barra.
+ * - Tooltip: muestra información al pasar el ratón sobre las barras.
+ * - ResponsiveContainer: adapta el gráfico al tamaño disponible.
+ */
 import {
     BarChart,
     Bar,

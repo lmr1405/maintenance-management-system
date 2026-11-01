@@ -1,3 +1,17 @@
+/**
+ * Componente Sidebar.
+ * Muestra el menú lateral de navegación de la aplicación,
+ * permitiendo acceder a las distintas secciones y cerrar sesión.
+ *
+ * Funcionamiento:
+ * - NavLink: permite navegar entre las páginas y resalta la sección activa.
+ * - useNavigate: permite redirigir al usuario a otra página.
+ * - cerrarSesion: finaliza la sesión del usuario mediante Supabase.
+ * - signOut: cierra la sesión de autenticación.
+ *
+ * Secciones:
+ * - Dashboard, Máquinas, Personas, Averías, Imputaciones e Informes.
+ */
 import { NavLink, useNavigate } from "react-router";
 import { supabase } from "../api/supabase";
 import "../styles/Sidebar.css";

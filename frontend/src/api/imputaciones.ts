@@ -1,3 +1,19 @@
+/**
+ * Archivo de comunicación con la API de imputaciones de horas.
+ * Permite registrar, consultar y obtener las horas de trabajo
+ * dedicadas a las reparaciones de mantenimiento.
+ *
+ * Funciones:
+ * - obtenerImputaciones: obtiene todas las imputaciones registradas.
+ * - obtenerImputacion: obtiene una imputación por su ID.
+ * - crearImputacion: registra las horas trabajadas por un técnico.
+ * - obtenerTotalHorasPorAveria: consulta las horas dedicadas a una avería.
+ * - obtenerTotalHorasPorMaquina: consulta las horas acumuladas de una máquina.
+ * - obtenerTotalHorasPorTecnico: consulta las horas trabajadas por un técnico.
+ *
+ * Interfaces:
+ * - TotalHorasRespuesta: define la estructura de la respuesta con el total de horas.
+ */
 import { API_URL } from "./cliente";
 import type {
     ImputacionHorasCrear,
