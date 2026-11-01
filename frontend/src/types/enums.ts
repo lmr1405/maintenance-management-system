@@ -1,3 +1,24 @@
+/**
+ * Archivo de definición de tipos enumerados (enums).
+ * Establece los valores permitidos para los diferentes estados,
+ * categorías y clasificaciones utilizados en la aplicación.
+ *
+ * Tipos:
+ * - Criticidad: establece el nivel de importancia de una máquina.
+ * - EstadoMaquina: define los posibles estados de una máquina.
+ * - RolPersona: identifica la función de cada persona en el mantenimiento.
+ * - Especialidad: define las especialidades de los técnicos.
+ * - TipoFallo: clasifica las averías según su naturaleza.
+ * - Prioridad: establece la urgencia de atención de una avería.
+ * - EstadoAveria: define las etapas del ciclo de vida de una avería.
+ * - TipoSolucion: clasifica la solución aplicada durante una reparación.
+ *
+ * Funcionamiento:
+ * - Limita los valores permitidos para cada tipo de dato.
+ * - Evita utilizar estados o categorías no definidos.
+ * - Mantiene criterios uniformes entre los componentes de la aplicación.
+ * - Facilita la validación de tipos durante el desarrollo con TypeScript.
+ */
 // Criticidad de una máquina
 export type Criticidad =
     | "Alta"

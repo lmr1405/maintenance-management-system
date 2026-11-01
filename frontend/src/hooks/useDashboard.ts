@@ -1,3 +1,31 @@
+/**
+ * Hook personalizado useDashboard.
+ * Obtiene los datos del backend FastAPI y calcula los indicadores
+ * necesarios para mostrar el estado general del mantenimiento.
+ *
+ * Obtención de datos:
+ * - cargarDatos: consulta máquinas, averías, personas e imputaciones.
+ * - useEffect: ejecuta la carga de datos al iniciar el dashboard.
+ * - cargando y error: controlan la carga de información y los posibles errores.
+ *
+ * Indicadores generales:
+ * - Máquinas: calcula el total, las operativas y las paradas.
+ * - Averías: calcula el total, las pendientes, las activas y las resueltas.
+ * - Técnicos: calcula el total de técnicos activos y los disponibles.
+ * - averiasPorPrioridad: agrupa las averías activas según su prioridad.
+ *
+ * Indicadores de horas:
+ * - horasPorMaquina: suma las horas de mantenimiento de cada máquina.
+ * - horasPorTecnico: suma las horas trabajadas por cada técnico.
+ * - mttr: calcula las horas medias imputadas por avería reparada.
+ * - intervaloMedioAverias: calcula el tiempo medio entre detecciones
+ *   consecutivas de averías de una misma máquina.
+ *
+ * Funcionamiento:
+ * - Utiliza Promise.all para consultar los recursos en paralelo.
+ * - Procesa los datos recibidos y calcula los indicadores.
+ * - Devuelve los datos e indicadores para utilizarlos en el dashboard.
+ */
 import { useEffect, useState } from "react";
 
 import { obtenerMaquinas } from "../api/maquinas";

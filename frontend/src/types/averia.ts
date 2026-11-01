@@ -1,3 +1,23 @@
+/**
+ * Archivo de definición de tipos e interfaces de averías.
+ * Establece la estructura de los datos utilizados para registrar,
+ * consultar y gestionar las averías en la aplicación.
+ *
+ * Interfaces:
+ * - AveriaCrear: define los datos necesarios para registrar una avería.
+ * - AveriaRespuesta: define los datos completos devueltos por FastAPI.
+ * - AsignarTecnico: establece el identificador del técnico asignado.
+ * - ResolverAveria: define los datos necesarios para resolver una avería.
+ * - CerrarAveria: establece el identificador del responsable del cierre.
+ *
+ * Funcionamiento:
+ * - Utiliza los tipos y enumeraciones definidos en enums.ts.
+ * - El número de avería se genera automáticamente en el backend.
+ * - Permite representar datos opcionales o pendientes mediante null.
+ * - Incluye el tiempo de parada calculado por el backend.
+ * - Garantiza que los datos utilizados en TypeScript respeten
+ *   las estructuras definidas para las operaciones con averías.
+ */
 import type { TipoFallo, Prioridad, EstadoAveria, TipoSolucion } from "./enums";
 
 // Datos necesarios para registrar una avería
