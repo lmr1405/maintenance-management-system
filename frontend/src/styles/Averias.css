@@ -68,8 +68,9 @@
     color: #334155;
 }
 
-/* Listas desplegables */
-.averias-campo select {
+/* Campos de búsqueda y listas desplegables */
+.averias-campo select,
+.averias-campo input[type="search"] {
     width: 100%;
     padding: 12px;
     background-color: #ffffff;
@@ -80,8 +81,9 @@
     box-sizing: border-box;
 }
 
-/* Resaltar el filtro seleccionado */
-.averias-campo select:focus {
+/* Resaltar el campo seleccionado */
+.averias-campo select:focus,
+.averias-campo input[type="search"]:focus {
     outline: none;
     border-color: #367a50;
 }

@@ -37,6 +37,9 @@ function Averias() {
     const [filtroMaquina, setFiltroMaquina] = useState("");
     const [filtroTecnico, setFiltroTecnico] = useState("");
 
+    // Búsqueda por texto en el histórico de averías
+    const [busqueda, setBusqueda] = useState("");
+
     useEffect(() => {
 
         // Consultar averías, máquinas y personas
@@ -107,20 +110,38 @@ function Averias() {
             filtroTecnico === "" ||
             averia.id_tecnico_asignado === Number(filtroTecnico);
 
-        return coincideEstado && coincideMaquina && coincideTecnico;
+        // Buscar en título, síntoma, causa raíz y solución
+        const texto = busqueda.trim().toLocaleLowerCase("es");
+
+        const coincideBusqueda =
+            texto === "" ||
+            [
+                averia.numero,
+                averia.titulo,
+                averia.sintoma,
+                averia.causa_raiz,
+                averia.solucion_aplicada
+            ].some((campo) =>
+                (campo ?? "").toLocaleLowerCase("es").includes(texto)
+            );
+
+        return coincideEstado && coincideMaquina &&
+            coincideTecnico && coincideBusqueda;
     });
 
-    // Comprobar si existe algún filtro activo
+    // Comprobar si existe algún filtro o búsqueda activa
     const hayFiltrosActivos =
         filtroEstado !== "" ||
         filtroMaquina !== "" ||
-        filtroTecnico !== "";
+        filtroTecnico !== "" ||
+        busqueda !== "";
 
-    // Restablecer los filtros
+    // Restablecer todos los filtros y la búsqueda
     function limpiarFiltros() {
         setFiltroEstado("");
         setFiltroMaquina("");
         setFiltroTecnico("");
+        setBusqueda("");
     }
 
     return (
@@ -150,6 +171,19 @@ function Averias() {
                 <>
                     {/* Filtros de búsqueda */}
                     <div className="averias-filtros">
+
+                        {/* Búsqueda en el histórico */}
+                        <div className="averias-campo">
+                            <label htmlFor="busquedaAverias">Buscar avería</label>
+
+                            <input
+                                id="busquedaAverias"
+                                type="search"
+                                value={busqueda}
+                                onChange={(e) => setBusqueda(e.target.value)}
+                                placeholder="Número, título, síntoma, causa o solución..."
+                            />
+                        </div>
 
                         {/* Estado */}
                         <div className="averias-campo">

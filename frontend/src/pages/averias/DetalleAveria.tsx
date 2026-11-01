@@ -7,6 +7,7 @@ import { obtenerPersonas } from "../../api/personas";
 
 import type { AveriaRespuesta } from "../../types/averia";
 import type { PersonaRespuesta } from "../../types/persona";
+import type { TipoSolucion } from "../../types/enums";
 
 // Página para consultar y gestionar una avería
 function DetalleAveria() {
@@ -29,6 +30,11 @@ function DetalleAveria() {
     // Datos necesarios para resolver la avería
     const [causaRaiz, setCausaRaiz] = useState("");
     const [solucionAplicada, setSolucionAplicada] = useState("");
+
+    // Información adicional de la reparación
+    const [repuestosSustituidos, setRepuestosSustituidos] = useState("");
+    const [tipoSolucion, setTipoSolucion] = useState<TipoSolucion | "">("");
+    const [recomendacionPreventiva, setRecomendacionPreventiva] = useState("");
 
     // Responsable seleccionado para cerrar la avería
     const [idResponsable, setIdResponsable] = useState("");
@@ -53,11 +59,10 @@ function DetalleAveria() {
 
                 setAveria(datosAveria);
 
-                // Mostrar únicamente técnicos activos
+                // Conservar técnicos activos y dados de baja para el historial
                 const personasTecnicas = datosPersonas.filter(
                     (persona) =>
-                        persona.rol === "Técnico de mantenimiento" &&
-                        persona.activo
+                        persona.rol === "Técnico de mantenimiento"
                 );
 
                 setTecnicos(personasTecnicas);
@@ -172,7 +177,10 @@ function DetalleAveria() {
                 averia.id_averia,
                 averia.id_tecnico_asignado,
                 causaRaiz.trim(),
-                solucionAplicada.trim()
+                solucionAplicada.trim(),
+                repuestosSustituidos.trim() || null,
+                tipoSolucion || null,
+                recomendacionPreventiva.trim() || null
             );
 
             // Actualizar el estado mostrado
@@ -261,7 +269,7 @@ function DetalleAveria() {
                                     Seleccionar técnico
                                 </option>
 
-                                {tecnicos.map((tecnico) => (
+                                {tecnicos.filter((tecnico) => tecnico.activo).map((tecnico) => (
                                     <option
                                         key={tecnico.id_persona}
                                         value={tecnico.id_persona}
@@ -285,23 +293,24 @@ function DetalleAveria() {
                     ) : (
                         <p>
                             <strong>Técnico asignado:</strong>{" "}
-                            {tecnicos.find(
-                                (tecnico) =>
-                                    tecnico.id_persona ===
-                                    averia.id_tecnico_asignado
-                            )
-                                ? (() => {
-                                    const tecnico = tecnicos.find(
-                                        (tecnico) =>
-                                            tecnico.id_persona ===
-                                            averia.id_tecnico_asignado
-                                    );
+                            {(() => {
+                                // Buscar el técnico asignado a la avería
+                                const tecnico = tecnicos.find(
+                                    (tecnico) =>
+                                        tecnico.id_persona === averia.id_tecnico_asignado
+                                );
 
-                                    return `${tecnico?.nombre} ${tecnico?.apellidos}`;
-                                })()
-                                : averia.id_tecnico_asignado !== null
-                                    ? `Técnico #${averia.id_tecnico_asignado}`
-                                    : "Sin asignar"}
+                                if (!tecnico) {
+                                    return averia.id_tecnico_asignado === null
+                                        ? "Sin asignar"
+                                        : "Técnico no disponible";
+                                }
+
+                                // Mostrar el nombre y avisar si está dado de baja
+                                return `${tecnico.nombre} ${tecnico.apellidos}${
+                                    !tecnico.activo ? " (Técnico dado de baja)" : ""
+                                }`;
+                            })()}
                         </p>
                     )}
 
@@ -350,6 +359,57 @@ function DetalleAveria() {
                                 />
                             </div>
 
+                            {/* Repuestos sustituidos */}
+                            <div className="formulario-campo">
+                                <label htmlFor="repuestosSustituidos">
+                                    Repuestos sustituidos
+                                </label>
+
+                                <textarea
+                                    id="repuestosSustituidos"
+                                    value={repuestosSustituidos}
+                                    onChange={(e) => setRepuestosSustituidos(e.target.value)}
+                                    rows={3}
+                                    placeholder="Indica los repuestos utilizados..."
+                                />
+                            </div>
+
+                            {/* Tipo de solución */}
+                            <div className="formulario-campo">
+                                <label htmlFor="tipoSolucion">
+                                    Tipo de solución
+                                </label>
+
+                                <select
+                                    id="tipoSolucion"
+                                    value={tipoSolucion}
+                                    onChange={(e) =>
+                                        setTipoSolucion(e.target.value as TipoSolucion | "")
+                                    }
+                                >
+                                    <option value="">Seleccionar tipo de solución</option>
+                                    <option value="Reparación definitiva">Reparación definitiva</option>
+                                    <option value="Reparación provisional">Reparación provisional</option>
+                                    <option value="Sustitución">Sustitución</option>
+                                    <option value="Ajuste">Ajuste</option>
+                                </select>
+                            </div>
+
+                            {/* Recomendación preventiva */}
+                            <div className="formulario-campo">
+                                <label htmlFor="recomendacionPreventiva">
+                                    Recomendación preventiva
+                                </label>
+
+                                <textarea
+                                    id="recomendacionPreventiva"
+                                    value={recomendacionPreventiva}
+                                    onChange={(e) => setRecomendacionPreventiva(e.target.value)}
+                                    rows={3}
+                                    placeholder="Medidas para evitar futuras averías..."
+                                />
+                            </div>
+
                             <button
                                 type="button"
                                 onClick={finalizarReparacion}
@@ -359,6 +419,52 @@ function DetalleAveria() {
                                     ? "Resolviendo..."
                                     : "Resolver avería"}
                             </button>
+
+                        </div>
+                    )}
+
+                    {/* Mostrar información de la reparación */}
+                    {(averia.estado === "Resuelta" || averia.estado === "Cerrada") && (
+                        <div className="detalle-resolucion">
+
+                            <h3>Información de la reparación</h3>
+
+                            {averia.causa_raiz && (
+                                <p>
+                                    <strong>Causa raíz:</strong> {averia.causa_raiz}
+                                </p>
+                            )}
+
+                            {averia.solucion_aplicada && (
+                                <p>
+                                    <strong>Solución aplicada:</strong> {averia.solucion_aplicada}
+                                </p>
+                            )}
+
+                            {averia.repuestos_sustituidos && (
+                                <p>
+                                    <strong>Repuestos sustituidos:</strong> {averia.repuestos_sustituidos}
+                                </p>
+                            )}
+
+                            {averia.tipo_solucion && (
+                                <p>
+                                    <strong>Tipo de solución:</strong> {averia.tipo_solucion}
+                                </p>
+                            )}
+
+                            {averia.recomendacion_preventiva && (
+                                <p>
+                                    <strong>Recomendación preventiva:</strong> {averia.recomendacion_preventiva}
+                                </p>
+                            )}
+
+                            {averia.fecha_resolucion && (
+                                <p>
+                                    <strong>Fecha de resolución:</strong>{" "}
+                                    {new Date(averia.fecha_resolucion).toLocaleString("es-ES")}
+                                </p>
+                            )}
 
                         </div>
                     )}
