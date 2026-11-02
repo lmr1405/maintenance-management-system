@@ -14,6 +14,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY app/ ./app/
 COPY alembic/ ./alembic/
 COPY alembic.ini .
+# Copiar los scripts de demostración
+COPY scripts/ ./scripts/
 
 # Puerto utilizado por FastAPI
 EXPOSE 8000
