@@ -20,9 +20,18 @@ function Sidebar() {
 
     const navigate = useNavigate();
 
-    // Cerrar la sesión del usuario
-    async function cerrarSesion() {
-        const { error } = await supabase.auth.signOut();
+    // Comprobar si la aplicación está en modo demostración
+    const modoDemo = import.meta.env.VITE_DEMO_MODE === "true";
+
+// Cerrar la sesión del usuario
+async function cerrarSesion() {
+
+    // No cerrar sesión si Supabase no está inicializado
+    if (!supabase) {
+        return;
+    }
+
+    const { error } = await supabase.auth.signOut();
 
         if (error) {
             console.error("Error al cerrar sesión:", error.message);
@@ -71,11 +80,14 @@ function Sidebar() {
                         </NavLink>
                     </li>
 
-                    <li>
-                        <button type="button" onClick={cerrarSesion}>
-                            Cerrar sesión
-                        </button>
-                    </li>
+                    {/* Mostrar el cierre de sesión solo cuando hay autenticación */}
+                    {!modoDemo && (
+                        <li>
+                            <button type="button" onClick={cerrarSesion}>
+                                Cerrar sesión
+                            </button>
+                        </li>
+                    )}
 
 
                 </ul>

@@ -13,21 +13,35 @@
  */
 import { createClient } from "@supabase/supabase-js";
 
-// Variables de entorno del frontend
+// Identificar si se ejecuta en modo demostración
+const modoDemo = import.meta.env.VITE_DEMO_MODE === "true";
+
+// Variables de Supabase
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 
-// Cliente para gestionar la autenticación
-export const supabase = createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY,
-    {
-        // Guardar la sesión solo mientras la pestaña permanezca abierta.
-        // Al cerrarla, se solicitarán nuevamente las credenciales. 
-        auth: {
-            storage: window.sessionStorage,
-            persistSession: true,
-            autoRefreshToken: true
+// Comprobar la configuración cuando se requiere autenticación
+if (!modoDemo && (!SUPABASE_URL || !SUPABASE_KEY)) {
+    throw new Error("Faltan las variables de configuración de Supabase");
+}
+
+
+/**
+ * Crear el cliente Supabase solo cuando se requiere autenticación.
+ * En modo demostración no se inicializa el cliente.
+ */
+export const supabase = modoDemo
+    ? null
+    : createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY,
+        {
+            // Mantener la sesión mientras la pestaña esté abierta
+            auth: {
+                storage: window.sessionStorage,
+                persistSession: true,
+                autoRefreshToken: true
+            }
         }
-    }
-);
+    );
+

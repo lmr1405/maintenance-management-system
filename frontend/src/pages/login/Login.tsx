@@ -18,9 +18,16 @@ function Login() {
 
     // Iniciar sesión con Supabase Auth
     async function iniciarSesion(e: SubmitEvent<HTMLFormElement>) {
-    e.preventDefault();
+        e.preventDefault();
 
         setError("");
+
+        // Comprobar que el cliente Supabase está disponible
+        if (!supabase) {
+            setError("El inicio de sesión no está disponible en modo demostración.");
+            return;
+        }
+
         setCargando(true);
 
         const { error } = await supabase.auth.signInWithPassword({

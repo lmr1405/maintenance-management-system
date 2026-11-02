@@ -17,9 +17,18 @@ import { supabase } from "../api/supabase";
 
 function RutaProtegida() {
 
+    // Comprobar si está activado el modo demostración
+    const modoDemo = import.meta.env.VITE_DEMO_MODE === "true";
+
     const [autenticado, setAutenticado] = useState<boolean | null>(null);
 
     useEffect(() => {
+
+    // No comprobar la sesión en modo demostración
+    // ni cuando Supabase no está inicializado
+    if (modoDemo || !supabase) {
+        return;
+    }
 
         // Comprobar si existe una sesión
         supabase.auth.getSession().then(({ data }) => {
@@ -34,9 +43,14 @@ function RutaProtegida() {
 
         return () => subscription.unsubscribe();
 
-    }, []);
+    }, [modoDemo]);
 
-    // Esperar a comprobar la sesión
+    // Acceso directo en modo demostración
+    if (modoDemo) {
+        return <Outlet />;
+    }
+
+    // Esperar a comprobar la sesión de Supabase
     if (autenticado === null) {
         return <p>Comprobando sesión...</p>;
     }
