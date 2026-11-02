@@ -5,6 +5,12 @@ La aplicación puede utilizarse de las siguientes formas:
 - **En local:** siguiendo las instrucciones del apartado 2.  
 - **En la web:** [Acceder a Gestión de Mantenimiento](https://maintenance-management-web.vercel.app/).  
 _**Para acceder a la versión web es necesario disponer de un correo electrónico y una contraseña autorizados.**_
+
+### Demostración en video
+Breve demostración del funcionamiento de la aplicación web, mostrando sus principales funcionalidades y el proceso de gestión de una avería, desde su registro hasta su resolución y cierre.
+
+**Vídeo:** [Ver demostración en YouTube](https://youtu.be/03EvVyPLQqU)
+
 ### Vista previa
 
 ![Dashboard de la aplicación](./docs/dashboard.png)
