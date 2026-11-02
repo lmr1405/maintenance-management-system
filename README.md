@@ -1,12 +1,11 @@
 # Maintenance Management System
 
-**Aplicación web:** [Acceder a Gestión de Mantenimiento](https://maintenance-management-web.vercel.app/)
+La aplicación puede utilizarse de las siguientes formas:
 
-**Nota:** La aplicación requiere autenticación mediante correo electrónico y contraseña para acceder a sus funcionalidades.
-
-Las credenciales de demostración se facilitarán a las personas autorizadas para evaluar el proyecto.
-
-## Vista previa
+- **En local:** siguiendo las instrucciones del apartado 2.  
+- **En la web:** [Acceder a Gestión de Mantenimiento](https://maintenance-management-web.vercel.app/).  
+_**Para acceder a la versión web es necesario disponer de un correo electrónico y una contraseña autorizados.**_
+### Vista previa
 
 ![Dashboard de la aplicación](./docs/dashboard.png)
 
@@ -30,7 +29,78 @@ El sistema está orientado exclusivamente al **mantenimiento correctivo**, permi
 
 ---
 
-## 2. Tecnologías utilizadas
+## 2. Instalación y ejecución local con Docker (modo demo)
+
+Para facilitar la ejecución de la aplicación en un entorno local, se ha utilizado **Docker Compose**, evitando la necesidad de instalar y configurar manualmente los servicios y dependencias del proyecto. Únicamente es necesario disponer de Docker.
+
+### 2.1. Requisitos previos
+
+- **[Docker](https://www.docker.com/)** instalado y en funcionamiento.
+- **[Git](https://git-scm.com/) (opcional):** para clonar el repositorio. También puede descargarse en formato ZIP.
+
+No se requiere instalar ni configurar ningún otro software.
+
+### 2.2. Descargar el proyecto
+
+Descargar el proyecto desde [GitHub](https://github.com/lmr1405/maintenance-management-system) mediante una de estas opciones:
+
+- **Descarga directa:** seleccionar **Code → Download ZIP** y descomprimir el archivo.
+- **Mediante Git:** ejecutar el siguiente comando:
+
+```bash
+git clone https://github.com/lmr1405/maintenance-management-system.git
+```
+
+Una vez descargado, abrir una terminal en la carpeta del proyecto, donde se encuentra el archivo `docker-compose.yml`.
+
+### 2.3. Iniciar la aplicación con Docker
+
+1. Iniciar **Docker** y dejarlo en funcionamiento.
+2. Abrir la carpeta del proyecto descargado en el explorador de archivos.
+3. Abrir una terminal en esa carpeta y ejecutar:
+
+```bash
+docker compose up -d --build
+```
+### 2.4. Acceder a la aplicación
+
+Una vez finalizada la ejecución del comando y cuando todos los servicios aparezcan en verde en la terminal, abrir el navegador y acceder a:
+
+**[http://localhost:5173](http://localhost:5173)**
+
+### 2.5. Detener o eliminar la aplicación
+
+Una vez finalizadas las pruebas, abrir una terminal en la carpeta del proyecto y ejecutar:
+
+**Para detener la aplicación conservando los datos:**
+
+```bash
+docker compose down
+```
+
+**Para eliminar los servicios y los datos almacenados:**
+
+```bash
+docker compose down -v
+```
+_Puedes ya borrar la carpeta descargada o clonada en tu equipo._
+
+### 2.6. Funcionamiento del entorno Docker
+
+Docker Compose automatiza la configuración y ejecución de los servicios necesarios para la aplicación:
+
+1. **PostgreSQL 17:** inicia la base de datos local.
+2. **FastAPI (Python 3.12):** inicia el backend y aplica las migraciones mediante Alembic.
+3. **React + Vite (Node.js 22):** inicia el frontend en modo demostración, sin autenticación de Supabase.
+4. **Datos de ejemplo:** ejecuta automáticamente un script que incorpora 5 máquinas, 5 personas, 10 averías y 12 imputaciones de horas, evitando duplicados.
+
+La configuración se encuentra en `docker-compose.yml`, por lo que no es necesario crear archivos `.env` ni configurar manualmente los servicios.
+
+Con el servicio levantado  
+La documentación interactiva de la API está disponible en **[http://localhost:8000/docs](http://localhost:8000/docs)**.
+
+
+## 3. Tecnologías utilizadas
 
 El proyecto está desarrollado mediante una arquitectura que separa el frontend, el backend y la persistencia de datos.
 
@@ -51,7 +121,7 @@ Para conocer con mayor detalle las tecnologías, dependencias, organización y f
 
 ---
 
-## 3. Arquitectura del proyecto
+## 4. Arquitectura del proyecto
 
 El sistema sigue una **arquitectura por capas**, separando las responsabilidades de la interfaz de usuario, la lógica de negocio y el acceso a los datos.
 
@@ -129,82 +199,6 @@ La persistencia se realiza mediante SQLAlchemy, mientras que Alembic permite man
 
 La autenticación de usuarios se gestiona mediante Supabase Auth.
 
-## 4. Instalación y ejecución local con Docker (modo demo)
-
-Para facilitar la evaluación de la aplicación, se ha preparado un entorno local con **Docker Compose** que ejecuta tres servicios independientes: PostgreSQL, FastAPI y React (Vite). Esta modalidad está configurada para utilizar **modo demostración**, sin necesidad de crear un proyecto Supabase ni configurar manualmente la base de datos.
-
-La aplicación publicada en Vercel utiliza un entorno diferente, con autenticación mediante Supabase Auth.
-
-### 4.1. Requisitos previos
-
-- **Docker Desktop** instalado y en funcionamiento (en Windows, con WSL 2 habilitado según los requisitos de Docker).
-- **Git**, únicamente si se descarga el código mediante `git clone`. También puede descargarse el repositorio como archivo ZIP.
-
-No es necesario instalar Python, Node.js, PostgreSQL ni Alembic directamente en el ordenador.
-
-### 4.2. Descargar el proyecto
-
-Clonar el repositorio:
-
-```bash
-git clone https://github.com/lmr1405/maintenance-management-system.git
-cd maintenance-management-system
-```
-
-Alternativamente, descargar el ZIP desde GitHub, descomprimirlo y abrir una terminal en la carpeta que contiene `docker-compose.yml`.
-
-### 4.3. Iniciar la aplicación con Docker
-
-Con Docker Desktop iniciado, ejecutar desde la raíz del repositorio:
-
-```bash
-docker compose up -d --build
-```
-
-Docker Compose realiza automáticamente las siguientes tareas:
-
-1. Inicia **PostgreSQL 17** en un contenedor local.
-2. Construye e inicia el backend de **FastAPI** con Python 3.12.
-3. Espera a que PostgreSQL responda y ejecuta **`alembic upgrade head`** para aplicar las migraciones de la base de datos.
-4. Construye e inicia el frontend de **React + Vite** con Node.js 22.
-5. Proporciona al frontend `VITE_DEMO_MODE=true` y `VITE_API_URL=http://localhost:8000` mediante Docker Compose.
-
-Además, durante el arranque se ejecuta automáticamente el script `backend/scripts/cargar_datos_ejemplo.py`, que carga **5 máquinas, 5 personas, 10 averías en diferentes estados y 12 imputaciones de horas** en PostgreSQL local.
-
-El script comprueba previamente si la base de datos contiene registros para evitar duplicados y no sobrescribir información existente. De esta manera, se dispone de datos de demostración desde el primer inicio, sin necesidad de introducirlos manualmente.
-
-Las variables de PostgreSQL y la conexión del backend están definidas en `docker-compose.yml`; para esos servicios **no es necesario crear un archivo `.env`**. El modo demostración debe estar implementado en el frontend de forma que no requiera credenciales de Supabase.
-
-### 4.4. Acceder a la aplicación
-
-En el **mismo ordenador** en el que se ejecuta Docker, abrir:
-
-- **Aplicación web:** http://localhost:5173
-- **API REST (Swagger):** http://localhost:8000/docs
-
-El entorno Docker utiliza una base de datos PostgreSQL local, independiente de la base de datos alojada en Supabase. Las tablas se crean con las migraciones, pero los registros de demostración solo estarán disponibles si se ha incluido una carga inicial de datos.
-
-### 4.5. Comprobar los servicios
-
-Para consultar el estado de los contenedores:
-
-```bash
-docker compose ps
-```
-
-Deben aparecer los servicios `db`, `backend` y `frontend` en ejecución. Si alguno no arranca, consultar sus registros, por ejemplo:
-
-```bash
-docker compose logs backend
-```
-
-### 4.6. Detener la aplicación
-
-```bash
-docker compose down
-```
-
-La información de PostgreSQL se conserva en el volumen `postgres_data` de Docker. **No utilizar `docker compose down -v` si se quieren conservar los datos**, ya que elimina también los volúmenes administrados por Compose.
 
 ---
 ## 5. Instalación y configuración manual (Supabase)
