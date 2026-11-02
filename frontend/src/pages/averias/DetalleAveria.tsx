@@ -601,13 +601,6 @@ function DetalleAveria() {
                 </>
             )}
 
-            <button
-                type="button"
-                onClick={() => navigate("/averias")}
-            >
-                Volver a averías
-            </button>
-
             {/* Confirmación de asignación del técnico */}
             {mostrarModal && (
             <ModalConfirmacion

@@ -122,18 +122,6 @@
     cursor: not-allowed;
 }
 
-/* Botón para volver al listado */
-.pagina-detalle-averia > button:last-child {
-    display: block;
-    margin: 30px 0 0 auto;
-    background-color: #dce1e5;
-    color: #334155;
-}
-
-/* Efecto del botón volver */
-.pagina-detalle-averia > button:last-child:hover {
-    background-color: #cbd5db;
-}
 
 /* Mensajes de error */
 .pagina-detalle-averia p[role="alert"] {
@@ -177,9 +165,4 @@
         width: 100%;
     }
 
-    /* Botón volver */
-    .pagina-detalle-averia > button:last-child {
-        width: 100%;
-        margin-top: 25px;
-    }
 }
