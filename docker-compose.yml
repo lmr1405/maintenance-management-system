@@ -1,0 +1,52 @@
+services:
+
+  # Base de datos PostgreSQL
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: mantenimiento
+      POSTGRES_USER: mantenimiento
+      POSTGRES_PASSWORD: mantenimiento_local
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mantenimiento -d mantenimiento"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # Backend FastAPI
+  backend:
+    build: ./backend
+    ports:
+      # Permitir acceso a FastAPI solo desde este ordenador
+      - "127.0.0.1:8000:8000"
+    environment:
+      DATABASE_URL: postgresql+psycopg://mantenimiento:mantenimiento_local@db:5432/mantenimiento
+    depends_on:
+      db:
+        condition: service_healthy
+
+    # Crear las tablas, cargar los datos de ejemplo e iniciar FastAPI
+    command: >
+      sh -c "alembic upgrade head &&
+             python -m scripts.cargar_datos_ejemplo &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000"
+
+  # Frontend React
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    environment:
+      # Backend local de Docker
+      VITE_API_URL: http://localhost:8000
+
+      # Modo demostración sin inicio de sesión
+      VITE_DEMO_MODE: "true"
+    depends_on:
+      - backend
+
+# Almacenamiento persistente de PostgreSQL
+volumes:
+  postgres_data:
