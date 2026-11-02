@@ -34,47 +34,77 @@
     overflow-x: auto;
 }
 
-/* Tablas */
+/* Tablas del dashboard */
 .dashboard-tabla {
     width: 100%;
     border-collapse: collapse;
+    background-color: #ffffff;
+    border: 1px solid #dce8df;
     font-size: 14px;
     text-align: left;
 }
 
-.dashboard-tabla th {
-    padding: 12px;
-    background: #f8fafc;
-    color: #475569;
-    font-weight: 600;
-    border-bottom: 1px solid #e2e8f0;
+/* Encabezados */
+.dashboard-tabla thead {
+    background-color: #334155;
+    color: #ffffff;
 }
 
+.dashboard-tabla th {
+    padding: 14px 16px;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* Celdas */
 .dashboard-tabla td {
-    padding: 14px 12px;
-    border-bottom: 1px solid #e2e8f0;
+    padding: 13px 16px;
+    border-bottom: 1px solid #e5e7eb;
     color: #334155;
 }
 
+/* Filas alternadas */
+.dashboard-tabla tbody tr:nth-child(even) {
+    background-color: #f5f9f6;
+}
+
+/* Efecto al pasar el ratón */
 .dashboard-tabla tbody tr:hover {
-    background: #f8fafc;
+    background-color: #e8f3eb;
+}
+
+/* Eliminar borde inferior de la última fila */
+.dashboard-tabla tbody tr:last-child td {
+    border-bottom: none;
 }
 
 /* Botón de gestión */
 .dashboard-accion {
     display: inline-block;
-    padding: 8px 14px;
-    background: #2563eb;
+    padding: 8px 16px;
+    background-color: #367a50;
     color: #ffffff;
-    text-decoration: none;
-    border-radius: 6px;
+    border: none;
+    border-radius: 7px;
     font-size: 13px;
     font-weight: 500;
+    text-align: center;
+    text-decoration: none;
     white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
+/* Efecto al pasar el ratón */
 .dashboard-accion:hover {
-    background: #1d4ed8;
+    background-color: #285e3d;
+    color: #ffffff;
+}
+
+/* Navegación con teclado */
+.dashboard-accion:focus-visible {
+    outline: 2px solid #245b3b;
+    outline-offset: 3px;
 }
 
 /* Tres gráficos en una misma fila */
@@ -112,6 +142,48 @@
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 16px;
+}
+
+/* Etiquetas de prioridad */
+.dashboard-prioridad,
+.dashboard-parada {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Prioridad urgente - rojo */
+.dashboard-prioridad.urgente {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+/* Prioridad alta - naranja */
+.dashboard-prioridad.alta {
+    background-color: #ffedd5;
+    color: #c2410c;
+}
+
+/* Prioridad media - amarillo */
+.dashboard-prioridad.media {
+    background-color: #fef9c3;
+    color: #854d0e;
+}
+
+/* Prioridad baja - verde */
+.dashboard-prioridad.baja {
+    background-color: #dcfce7;
+    color: #15803d;
+}
+
+/* Indicador de máquina parada */
+.dashboard-parada {
+    margin-left: 8px;
+    background-color: #b91c1c;
+    color: #ffffff;
 }
 
 @media (max-width: 1100px) {

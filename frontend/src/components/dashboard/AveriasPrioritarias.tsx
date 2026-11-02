@@ -23,6 +23,7 @@ import { Link } from "react-router";
 import type { AveriaRespuesta } from "../../types/averia";
 import type { MaquinaRespuesta } from "../../types/maquina";
 import type { PersonaRespuesta } from "../../types/persona";
+import "../../styles/Averias.css";
 
 interface AveriasPrioritariasProps {
     averias: AveriaRespuesta[];
@@ -122,9 +123,14 @@ function AveriasPrioritarias({
                                 <tr key={averia.id_averia}>
 
                                     <td>
-                                        {averia.prioridad}
+                                        <span className={`dashboard-prioridad ${averia.prioridad.toLowerCase()}`}>
+                                            {averia.prioridad}
+                                        </span>
+
                                         {averia.maquina_parada && (
-                                            <strong> · PARADA</strong>
+                                            <span className="dashboard-parada">
+                                                PARADA
+                                            </span>
                                         )}
                                     </td>
 
@@ -137,7 +143,15 @@ function AveriasPrioritarias({
                                         <div>{averia.titulo}</div>
                                     </td>
 
-                                    <td>{averia.estado}</td>
+                                    <td>
+                                        <span
+                                            className={`averia-estado ${averia.estado
+                                                .toLowerCase()
+                                                .replace(/\s+/g, "-")}`}
+                                        >
+                                            {averia.estado}
+                                        </span>
+                                    </td>
 
                                     <td>
                                         {obtenerTecnico(

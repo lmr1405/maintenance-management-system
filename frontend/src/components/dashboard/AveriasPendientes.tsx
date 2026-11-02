@@ -83,7 +83,17 @@ function AveriasPendientes({
                                         {obtenerMaquina(averia.id_maquina)}
                                     </td>
 
-                                    <td>{averia.prioridad}</td>
+                                    <td>
+                                        <span className={`dashboard-prioridad ${averia.prioridad.toLowerCase()}`}>
+                                            {averia.prioridad}
+                                        </span>
+
+                                        {averia.maquina_parada && (
+                                            <span className="dashboard-parada">
+                                                PARADA
+                                            </span>
+                                        )}
+                                    </td>
 
                                     <td>
                                         {averia.fecha_deteccion.slice(0, 10)}
